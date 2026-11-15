@@ -199,7 +199,7 @@ function BaseForm({ detail, t, posApi, onSaved }: { detail: DeviceDetailDto; t: 
     <Card>
       <CardHeader title={t.baseTitle} />
       <CardBody>
-        <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
+        <form method="post" onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
           {readOnly ? <Alert tone="info">{t.retiredReadOnly}</Alert> : null}
           {form.error && Object.keys(form.fields).length === 0 ? <Alert tone="danger">{form.error}</Alert> : null}
           <Field label={t.name} error={nameError ?? form.fields.name}>
@@ -539,7 +539,7 @@ export default function DeviceDetailPage() {
           </>
         }
       >
-        <form
+        <form method="post"
           id="lost-form"
           noValidate
           onSubmit={(e) => {

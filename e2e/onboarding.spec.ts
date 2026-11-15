@@ -22,7 +22,7 @@ test('Händler richtet sich ein und vergibt den ersten Stempel', async ({ page, 
   await test.step('Betrieb', async () => {
     await expect(page.getByRole('heading', { name: 'Erzähl uns von deinem Betrieb' })).toBeVisible();
     await page.getByRole('radio', { name: 'Bäckerei' }).click();
-    await page.getByLabel('Ort').fill('Graz');
+    await page.getByLabel('Ort', { exact: true }).fill('Graz');
     await page.getByRole('button', { name: 'Weiter' }).click();
   });
 

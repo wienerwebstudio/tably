@@ -93,7 +93,7 @@ function FormBody({ customer, formId, onSaved, onLoading, onReady }: { customer?
   }
 
   return (
-    <form
+    <form method="post"
       id={formId}
       noValidate
       className="flex flex-col gap-4"

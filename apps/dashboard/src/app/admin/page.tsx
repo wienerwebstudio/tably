@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, formatMoney, formatNumber, PageHeader, Skeleton, Stat, Table, Td, Th, useCopy } from '@tably/ui';
+import { Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, formatMoney, formatNumber, PageHeader, Skeleton, Table, Td, Th, useCopy } from '@tably/ui';
 import { deviceSecurity, deviceStatus, subscriptionStatus } from '@/lib/labels';
 import { LoadError, providerLabel } from '@/components/admin/shared';
 import type { AdminOverview, AdminSystem } from '@/components/admin/types';
@@ -60,12 +60,15 @@ const copy = defineCopy({
   },
 });
 
-function LinkStat({ href, linkLabel, ...props }: React.ComponentProps<typeof Stat> & { href: string; linkLabel: string }) {
+/** Kennzahl im Stil von `Stat`, gleich hoch im Raster und optional mit Link zur Detailseite. */
+function Tile({ label, value, hint, href, linkLabel }: { label: string; value: number; hint?: string; href?: string; linkLabel?: string }) {
   return (
-    <div className="relative">
-      <Stat {...props} />
-      <Link href={href} className="absolute right-4 top-4 text-xs font-medium text-brand hover:underline" aria-label={`${props.label}: ${linkLabel}`}>{linkLabel}</Link>
-    </div>
+    <Card className="flex h-full flex-col p-5">
+      <p className="text-sm text-muted">{label}</p>
+      <p className="mt-2 text-3xl font-semibold tracking-tight text-ink tabular">{formatNumber(value)}</p>
+      {hint ? <p className="mt-1.5 text-xs text-muted">{hint}</p> : null}
+      {href ? <Link href={href} className="mt-auto self-start pt-3 text-xs font-medium text-brand hover:underline" aria-label={`${label}: ${linkLabel}`}>{linkLabel} →</Link> : null}
+    </Card>
   );
 }
 
@@ -87,14 +90,14 @@ export default function AdminOverviewPage() {
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <LinkStat href="/admin/betriebe" linkLabel={t.details} label={t.orgs} value={(o.organizations.ACTIVE ?? 0) + (o.organizations.SUSPENDED ?? 0)} hint={t.orgsHint(o.organizations.ACTIVE ?? 0, o.organizations.SUSPENDED ?? 0)} />
-            <LinkStat href="/admin/benutzer" linkLabel={t.details} label={t.users} value={o.users} />
-            <Stat label={t.customers} value={o.customers} />
-            <Stat label={t.activeCards} value={o.activeCards} />
-            <Stat label={t.stamps} value={o.stamps30d.amount} hint={t.stampsHint(formatNumber(o.stamps30d.bookings))} />
-            <LinkStat href="/admin/missbrauch" linkLabel={t.details} label={t.flagged} value={o.flagged30d} />
-            <LinkStat href="/admin/fehler" linkLabel={t.details} label={t.errors} value={o.errors24h} />
-            <LinkStat href="/admin/anfragen" linkLabel={t.details} label={t.requests} value={o.openContactRequests} />
+            <Tile href="/admin/betriebe" linkLabel={t.details} label={t.orgs} value={(o.organizations.ACTIVE ?? 0) + (o.organizations.SUSPENDED ?? 0)} hint={t.orgsHint(o.organizations.ACTIVE ?? 0, o.organizations.SUSPENDED ?? 0)} />
+            <Tile href="/admin/benutzer" linkLabel={t.details} label={t.users} value={o.users} />
+            <Tile label={t.customers} value={o.customers} />
+            <Tile label={t.activeCards} value={o.activeCards} />
+            <Tile label={t.stamps} value={o.stamps30d.amount} hint={t.stampsHint(formatNumber(o.stamps30d.bookings))} />
+            <Tile href="/admin/missbrauch" linkLabel={t.details} label={t.flagged} value={o.flagged30d} />
+            <Tile href="/admin/fehler" linkLabel={t.details} label={t.errors} value={o.errors24h} />
+            <Tile href="/admin/anfragen" linkLabel={t.details} label={t.requests} value={o.openContactRequests} />
           </div>
 
           <Card className="mt-4 p-5">

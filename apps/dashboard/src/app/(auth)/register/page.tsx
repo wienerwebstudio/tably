@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { mutate } from 'swr';
 import { TRIAL_DAYS } from '@tably/config';
 import { Alert, api, Button, Checkbox, Field, Input } from '@tably/ui';
 import { useSubmit } from '@/lib/use-submit';
@@ -15,6 +16,7 @@ export default function RegisterPage() {
     await api('/auth/register', {
       body: { name: data.get('name'), email: data.get('email'), password: data.get('password'), organizationName: data.get('organizationName'), acceptTerms: accept },
     });
+    await mutate('/auth/me', api('/auth/me'), { revalidate: false });
     router.replace('/onboarding');
   });
   return (

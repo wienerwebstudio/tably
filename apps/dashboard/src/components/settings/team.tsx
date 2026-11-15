@@ -105,7 +105,7 @@ function InviteDialog({ open, onOpenChange, roles, onDone }: { open: boolean; on
         </>
       }
     >
-      <form id={formId} className="flex flex-col gap-5" onSubmit={(e) => (e.preventDefault(), void invite.submit())} noValidate>
+      <form method="post" id={formId} className="flex flex-col gap-5" onSubmit={(e) => (e.preventDefault(), void invite.submit())} noValidate>
         {invite.error ? (
           invite.code === 'limit_reached' ? (
             <Alert tone="warn" title={t.limitTitle} action={<Link href="/einstellungen?tab=abo" className="whitespace-nowrap text-sm font-semibold underline">{t.limitLink}</Link>}>{invite.error}</Alert>

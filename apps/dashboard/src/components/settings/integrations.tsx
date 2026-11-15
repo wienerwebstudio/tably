@@ -168,7 +168,7 @@ function ApiKeys() {
           </>
         }
       >
-        <form id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void create.submit())} noValidate>
+        <form method="post" id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void create.submit())} noValidate>
           {create.error ? <Alert tone="danger">{create.error}</Alert> : null}
           <Field label={t.keyName} hint={t.keyNameHint} error={create.fields.name}>
             <Input name="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} required autoFocus />

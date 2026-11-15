@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import type { Role } from '@tably/types';
 import { Alert, api, ApiError, Button, buttonClass, Field, Input, Skeleton } from '@tably/ui';
 import { roleLabel } from '@/lib/labels';
@@ -23,7 +23,10 @@ function Invite() {
   const form = useSubmit(async (formData: FormData | null) => {
     const res = await api<{ needsLogin: boolean }>('/auth/invitations/accept', { body: { token, name: formData?.get('name') ?? undefined, password: formData?.get('password') ?? undefined } });
     if (res.needsLogin) setJoined(true);
-    else router.replace('/');
+    else {
+      await mutate('/auth/me', api('/auth/me'), { revalidate: false });
+      router.replace('/');
+    }
   });
 
   if (!token || error) return <Alert tone="danger" title="Einladung ungültig">Diese Einladung ist abgelaufen oder wurde zurückgezogen. Bitte lass dir eine neue schicken.</Alert>;

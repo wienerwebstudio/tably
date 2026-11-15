@@ -14,8 +14,10 @@ const SessionContext = React.createContext<SessionValue | null>(null);
 
 /** Lädt die Sitzung. `status` unterscheidet sauber zwischen „lädt“, „nicht angemeldet“ und Fehler. */
 export function useMe() {
-  const { data, error, isLoading, mutate } = useSWR<MeDto, ApiError>('/auth/me', { revalidateOnFocus: true });
-  const status: 'loading' | 'authenticated' | 'unauthenticated' | 'error' = data ? 'authenticated' : isLoading ? 'loading' : error?.status === 401 ? 'unauthenticated' : 'error';
+  const { data, error, isLoading, isValidating, mutate } = useSWR<MeDto, ApiError>('/auth/me', { revalidateOnFocus: true, revalidateOnMount: true, dedupingInterval: 0 });
+  // Solange eine Abfrage läuft, gilt ein älterer Fehler nicht als Ergebnis – sonst würde eine
+  // veraltete „nicht angemeldet“-Antwort direkt nach dem Login zurück zur Anmeldung führen.
+  const status: 'loading' | 'authenticated' | 'unauthenticated' | 'error' = data ? 'authenticated' : isLoading || isValidating ? 'loading' : error?.status === 401 ? 'unauthenticated' : 'error';
   return { me: data, status, refresh: mutate };
 }
 

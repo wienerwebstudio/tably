@@ -6,6 +6,13 @@ import { CONTACT_TOPICS } from './site';
 
 
 type Fields = 'name' | 'email' | 'company' | 'topic' | 'message';
+const FIELD_HINTS = {
+  name: 'Bitte gib deinen Namen an (mindestens zwei Zeichen).',
+  email: 'Bitte gib eine gültige E-Mail-Adresse an.',
+  company: 'Bitte kürze den Namen des Betriebs (höchstens 80 Zeichen).',
+  topic: 'Bitte wähle ein Thema aus der Liste.',
+  message: 'Bitte schreib uns mindestens zehn Zeichen (höchstens 3000).',
+} as const;
 const EMPTY: Record<Fields, string> = { name: '', email: '', company: '', topic: '', message: '' };
 
 export function ContactForm({ initialTopic = '' }: { initialTopic?: string }) {
@@ -48,7 +55,11 @@ export function ContactForm({ initialTopic = '' }: { initialTopic?: string }) {
       setValues(EMPTY);
     } catch (err) {
       if (err instanceof ApiError) {
-        const fields = err.fields ?? {};
+        // Die API liefert teils englische Standardtexte – für die bekannten Felder zeigen wir klare deutsche Hinweise.
+        const fields: Record<string, string> = { ...(err.fields ?? {}) };
+        for (const key of Object.keys(FIELD_HINTS) as Array<keyof typeof FIELD_HINTS>) {
+          if (fields[key] && /too (small|big)|invalid|expected|required/i.test(fields[key])) fields[key] = FIELD_HINTS[key];
+        }
         setErrors(fields);
         const known = (Object.keys(EMPTY) as Fields[]).filter((k) => fields[k]);
         if (known.length > 0) {
@@ -82,7 +93,7 @@ export function ContactForm({ initialTopic = '' }: { initialTopic?: string }) {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="rounded-3xl border border-line bg-surface p-6 shadow-card sm:p-9" aria-labelledby="kontakt-formular-titel">
+    <form method="post" ref={formRef} onSubmit={onSubmit} noValidate className="rounded-3xl border border-line bg-surface p-6 shadow-card sm:p-9" aria-labelledby="kontakt-formular-titel">
       <h2 id="kontakt-formular-titel" className="font-display text-2xl text-ink">
         Nachricht schreiben
       </h2>

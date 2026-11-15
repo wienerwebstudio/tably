@@ -81,7 +81,7 @@ export function CardLookup({ locationId }: { locationId: string | null }) {
     <Card className="@container">
       <CardHeader title={t.title} description={t.description} />
       <CardBody>
-        <form onSubmit={(e) => void submit(e)} className="flex flex-col gap-3 @md:flex-row @md:items-start" noValidate>
+        <form method="post" onSubmit={(e) => void submit(e)} className="flex flex-col gap-3 @md:flex-row @md:items-start" noValidate>
           <Field label={t.label} error={error} hint={t.hint} className="flex-1">
             <Input
               ref={inputRef}

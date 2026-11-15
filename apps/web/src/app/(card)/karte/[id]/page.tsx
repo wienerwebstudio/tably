@@ -244,13 +244,14 @@ function CardView() {
       setRedeemedNotice(false);
       try {
         const res = await api<ActiveCode>(`/public/cards/${id}/redemptions`, { body: { rewardId } });
-        setActive(res);
         try {
           sessionStorage.setItem(storageKey, JSON.stringify(res));
         } catch {
           /* ignorieren */
         }
-        void mutate();
+        // Erst die Karte neu laden: sonst hielte der Abgleich unten den frischen Code für erledigt.
+        await mutate();
+        setActive(res);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (err) {
         toast.error(err instanceof ApiError ? err.message : t.walletError);

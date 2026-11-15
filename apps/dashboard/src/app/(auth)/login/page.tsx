@@ -2,6 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { mutate } from 'swr';
 import { Alert, api, Button, Field, Input } from '@tably/ui';
 import { useSubmit } from '@/lib/use-submit';
 
@@ -15,10 +16,15 @@ function LoginForm() {
   const login = useSubmit(async (form: FormData) => {
     const res = await api<{ mfaRequired: boolean }>('/auth/login', { body: { email: form.get('email'), password: form.get('password') } });
     if (res.mfaRequired) setStep('mfa');
-    else router.replace(target);
+    else {
+      // Zwischengespeicherte „nicht angemeldet“-Antwort verwerfen, bevor der geschützte Bereich lädt
+      await mutate('/auth/me', api('/auth/me'), { revalidate: false });
+      router.replace(target);
+    }
   });
   const mfa = useSubmit(async (form: FormData) => {
     await api('/auth/mfa', { body: { code: String(form.get('code')).replace(/\s/g, '') } });
+    await mutate('/auth/me', api('/auth/me'), { revalidate: false });
     router.replace(target);
   });
 

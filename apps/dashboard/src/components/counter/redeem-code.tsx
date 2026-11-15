@@ -88,7 +88,7 @@ export function RedeemCode({ locationId }: { locationId: string | null }) {
           ) : null}
         </div>
         {result ? null : (
-          <form onSubmit={(e) => void submit(e)} className="flex flex-col gap-3" noValidate>
+          <form method="post" onSubmit={(e) => void submit(e)} className="flex flex-col gap-3" noValidate>
             <Field label={t.label} error={error}>
               <Input
                 ref={inputRef}

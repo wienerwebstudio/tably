@@ -25,7 +25,7 @@ const FEATURES: Array<{ key: keyof PublicPlan['features']; label: string }> = [
 ];
 
 function limitText(value: number, one: string, many: string): React.ReactNode {
-  if (value === -1) return <>Unbegrenzt {many}</>;
+  if (value === -1) return <>Unbegrenzt viele {many}</>;
   return (
     <>
       <span className="tabular font-semibold">{formatNumber(value)}</span> {value === 1 ? one : many}
@@ -64,7 +64,7 @@ export function PricingTable({ plans, trialDays, trialPlanId }: { plans: PublicP
                 <h2 className="font-display text-2xl text-ink">{plan.name}</h2>
                 {isFeatured ? <Badge tone="brand">Tarif der Testphase</Badge> : null}
               </div>
-              <p className="mt-2 min-h-12 text-[15px] leading-relaxed text-muted">{plan.description}</p>
+              <p className="mt-2 min-h-[4.5rem] text-[15px] leading-relaxed text-muted">{plan.description}</p>
 
               <p className="mt-6 flex items-baseline gap-2">
                 <span className="tabular font-display text-5xl tracking-tight text-ink">{formatMoney(interval === 'monthly' ? plan.priceMonthlyCents : plan.priceYearlyCents, plan.currency)}</span>

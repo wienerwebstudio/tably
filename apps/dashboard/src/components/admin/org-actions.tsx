@@ -105,7 +105,7 @@ export function SuspendButton({ detail, patch }: { detail: AdminOrgDetail; patch
           </>
         }
       >
-        <form
+        <form method="post"
           id={formId}
           onSubmit={(e) => {
             e.preventDefault();
@@ -174,7 +174,7 @@ export function SubscriptionForm({ detail, plans, patch }: { detail: AdminOrgDet
     <Card>
       <CardHeader title={t.subTitle} description={t.subDescription} />
       <CardBody>
-        <form className="grid gap-5 sm:grid-cols-2" onSubmit={submit} noValidate>
+        <form method="post" className="grid gap-5 sm:grid-cols-2" onSubmit={submit} noValidate>
           {error ? <Alert tone="danger" className="sm:col-span-2">{error}</Alert> : null}
           <Field label={t.plan}>
             <Select value={planId} onChange={(e) => setPlanId(e.target.value)}>
@@ -250,7 +250,7 @@ export function LimitOverridesForm({ detail, patch }: { detail: AdminOrgDetail; 
     <Card>
       <CardHeader title={t.limitsTitle} description={t.limitsDescription} />
       <CardBody>
-        <form className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" onSubmit={submit} noValidate>
+        <form method="post" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" onSubmit={submit} noValidate>
           {error ? <Alert tone="danger" className="sm:col-span-2 lg:col-span-3">{error}</Alert> : null}
           {overrides && Object.keys(overrides).length ? <Alert tone="info" className="sm:col-span-2 lg:col-span-3">{t.overridesActive}</Alert> : null}
           {LIMIT_KEYS.map((key) => (

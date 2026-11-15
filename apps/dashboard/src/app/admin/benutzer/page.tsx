@@ -126,7 +126,7 @@ export default function AdminUsersPage() {
                     <Td className="hidden whitespace-nowrap text-muted lg:table-cell">{u.lastLoginAt ? formatRelative(u.lastLoginAt) : t.never}</Td>
                     <Td className="w-px text-right">
                       {u.id !== me?.user.id ? (
-                        <Button variant={u.disabledAt ? 'outline' : 'ghost'} size="sm" className={u.disabledAt ? undefined : 'text-danger'} onClick={() => setTarget(u)}>
+                        <Button variant="outline" size="sm" onClick={() => setTarget(u)}>
                           {u.disabledAt ? t.enable : t.disable}
                         </Button>
                       ) : null}

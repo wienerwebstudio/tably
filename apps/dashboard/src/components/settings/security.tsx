@@ -141,7 +141,7 @@ function SetupDialog({ onOpenChange, onDone }: { onOpenChange: (o: boolean) => v
       ) : !setup ? (
         <div className="flex flex-col items-center gap-4"><Skeleton className="size-[220px] rounded-xl" /><Skeleton className="h-10 w-full rounded-lg" /></div>
       ) : (
-        <form id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void enable.submit(new FormData(e.currentTarget)))} noValidate>
+        <form method="post" id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void enable.submit(new FormData(e.currentTarget)))} noValidate>
           <p className="text-sm text-ink">{t.setupStep1}</p>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={setup.qr} alt={t.qrAlt} width={220} height={220} className="mx-auto rounded-xl border border-line bg-white" />
@@ -185,7 +185,7 @@ function DisableDialog({ onOpenChange, onDone }: { onOpenChange: (o: boolean) =>
         </>
       }
     >
-      <form id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void disable.submit(new FormData(e.currentTarget)))} noValidate>
+      <form method="post" id={formId} className="flex flex-col gap-4" onSubmit={(e) => (e.preventDefault(), void disable.submit(new FormData(e.currentTarget)))} noValidate>
         {disable.error ? <Alert tone="danger">{disable.error}</Alert> : null}
         <CodeField label={t.code} error={disable.fields.code} />
       </form>
@@ -239,7 +239,7 @@ export function SecuritySettings() {
       <Card>
         <CardHeader title={t.profileTitle} description={t.profileDescription} />
         <CardBody>
-          <form className="grid gap-5 sm:grid-cols-2" onSubmit={(e) => (e.preventDefault(), void saveName.submit())} noValidate>
+          <form method="post" className="grid gap-5 sm:grid-cols-2" onSubmit={(e) => (e.preventDefault(), void saveName.submit())} noValidate>
             {saveName.error ? <Alert tone="danger" className="sm:col-span-2">{saveName.error}</Alert> : null}
             <Field label={t.name} error={saveName.fields.name}>
               <Input name="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required autoComplete="name" />
@@ -257,7 +257,7 @@ export function SecuritySettings() {
       <Card>
         <CardHeader title={t.passwordTitle} description={t.passwordDescription} />
         <CardBody>
-          <form
+          <form method="post"
             ref={passwordForm}
             className="flex max-w-md flex-col gap-5"
             onSubmit={(e) => {

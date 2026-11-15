@@ -48,7 +48,7 @@ function ReverseBody({ transaction, formId, onDone, onLoading }: { transaction: 
   });
   React.useEffect(() => onLoading(loading), [loading, onLoading]);
   return (
-    <form
+    <form method="post"
       id={formId}
       className="flex flex-col gap-4"
       onSubmit={(e) => {
@@ -123,7 +123,7 @@ function AdjustBody({ card, formId, onDone, onLoading }: { card: AdjustCard; for
   React.useEffect(() => onLoading(loading), [loading, onLoading]);
 
   return (
-    <form
+    <form method="post"
       id={formId}
       noValidate
       className="flex flex-col gap-4"

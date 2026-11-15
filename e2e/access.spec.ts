@@ -12,7 +12,7 @@ test.describe('Zugriffsschutz', () => {
     await expect(page.getByText('E-Mail-Adresse oder Passwort ist falsch.')).toBeVisible();
   });
 
-  test('Anmelden, Abmelden und Passwort zurücksetzen', async ({ page, context }) => {
+  test('Abmelden, erneut anmelden und zurück zum Ziel', async ({ page, context }) => {
     const { email } = await registerMerchant(page, `Laden ${unique('Login')}`);
     await page.goto(`${DASHBOARD}/`);
     await page.getByRole('button', { name: /Olivia Owner/ }).click();

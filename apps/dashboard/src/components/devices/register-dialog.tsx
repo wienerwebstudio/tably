@@ -96,7 +96,7 @@ export function RegisterDeviceDialog({ open, onOpenChange, allowSimulated, onCre
         </>
       }
     >
-      <form id="register-device-form" onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
+      <form method="post" id="register-device-form" onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
         {form.code === 'limit_reached' ? (
           <Alert tone="warn" title={t.limitTitle}>
             <p>{form.error}</p>

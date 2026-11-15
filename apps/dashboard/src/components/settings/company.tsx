@@ -297,7 +297,7 @@ export function CompanySettings() {
   };
 
   return (
-    <form onSubmit={onSubmit} noValidate>
+    <form method="post" onSubmit={onSubmit} noValidate>
       <Stack>
         {!editable ? <Alert tone="info">{t.readOnly}</Alert> : null}
         {save.error ? <Alert tone="danger">{save.error}</Alert> : null}

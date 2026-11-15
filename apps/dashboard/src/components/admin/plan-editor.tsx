@@ -102,7 +102,7 @@ export function PlanEditor({ plan, onOpenChange, onSaved }: { plan: AdminPlan; o
         </>
       }
     >
-      <form id={formId} className="flex flex-col gap-6" onSubmit={submit} noValidate>
+      <form method="post" id={formId} className="flex flex-col gap-6" onSubmit={submit} noValidate>
         {error ? <Alert tone="danger">{error}</Alert> : null}
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t.name} error={errors.name} className="sm:col-span-2">

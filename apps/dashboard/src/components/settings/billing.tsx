@@ -322,7 +322,7 @@ export function BillingSettings() {
                   sub.cancelAtPeriodEnd ? (
                     <Button variant="outline" size="sm" onClick={() => setConfirm('resume')}>{t.resume}</Button>
                   ) : (
-                    <Button variant="ghost" size="sm" className="text-danger" onClick={() => setConfirm('cancel')}>{t.cancel}</Button>
+                    <Button variant="outline" size="sm" onClick={() => setConfirm('cancel')}>{t.cancel}</Button>
                   )
                 ) : null}
               </div>

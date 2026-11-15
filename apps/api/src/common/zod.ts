@@ -3,6 +3,9 @@ import { ApiBody } from '@nestjs/swagger';
 import { z, type ZodType } from 'zod';
 import { AppError } from './errors';
 
+// Validierungsmeldungen auf Deutsch – sie werden direkt an den Formularfeldern angezeigt.
+z.config(z.locales.de());
+
 @Injectable()
 export class ZodPipe<T> implements PipeTransform<unknown, T> {
   constructor(private readonly schema: ZodType<T>) {}

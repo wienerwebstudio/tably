@@ -82,7 +82,7 @@ function LocationDialog({ location, open, onOpenChange, onSaved }: { location: L
         </>
       }
     >
-      <form id={formId} className="grid gap-4 sm:grid-cols-3" onSubmit={(e) => (e.preventDefault(), void save.submit(new FormData(e.currentTarget)))} noValidate>
+      <form method="post" id={formId} className="grid gap-4 sm:grid-cols-3" onSubmit={(e) => (e.preventDefault(), void save.submit(new FormData(e.currentTarget)))} noValidate>
         {save.error ? <div className="sm:col-span-3">{save.code === 'limit_reached' ? <LimitAlert message={save.error} /> : <Alert tone="danger">{save.error}</Alert>}</div> : null}
         <Field label={t.name} error={save.fields.name} className="sm:col-span-3">
           <Input name="name" defaultValue={location?.name ?? ''} maxLength={80} required autoFocus placeholder={t.namePlaceholder} />

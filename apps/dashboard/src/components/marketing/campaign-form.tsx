@@ -329,7 +329,7 @@ export function CampaignForm({ initial, onSaved, onCancel }: { initial?: Campaig
   const planError = form.code === 'limit_reached' || form.code === 'feature_not_in_plan';
 
   return (
-    <form onSubmit={onSubmit} onChange={() => (Object.keys(errors).length > 0 ? setErrors({}) : undefined)} noValidate className="flex flex-col gap-6">
+    <form method="post" onSubmit={onSubmit} onChange={() => (Object.keys(errors).length > 0 ? setErrors({}) : undefined)} noValidate className="flex flex-col gap-6">
       {/* Typ */}
       <Card>
         <CardHeader title={t.typeTitle} description={editing ? t.typeLocked : undefined} />
