@@ -101,3 +101,15 @@ Für die Produktion:
 ## CI
 
 `.github/workflows/ci.yml`: Installation, Paket-Build, Typprüfung, Tests, App-Builds, End-to-End-Tests mit PostgreSQL und Redis als Service-Container.
+
+## Staging/Produktion auf Hetzner (Einzelserver)
+
+Dateien: `deploy/docker-compose.prod.yml`, `deploy/Caddyfile`, `deploy/cloud-init.yml`, `.github/workflows/deploy.yml`.
+
+1. Server (Ubuntu 24.04) mit `deploy/cloud-init.yml` als User-Data anlegen; `__DEPLOY_PUBLIC_KEY__` durch den öffentlichen Deploy-Schlüssel ersetzen. Cloud-init installiert Docker, Firewall (22/80/443), fail2ban und automatische Sicherheitsupdates und erzeugt `/opt/tapperl/.env` mit Datenbankpasswort und `APP_ENCRYPTION_KEY` – diese Werte verlassen den Server nicht.
+2. DNS: A-Einträge für Website, Dashboard und API auf die Server-IP.
+3. GitHub → Settings → Secrets and variables → Actions:
+   - Secrets: `DEPLOY_HOST` (Server-IP), `DEPLOY_SSH_KEY` (privater Deploy-Schlüssel)
+   - Variablen: `WEB_HOST`, `DASHBOARD_HOST`, `API_HOST`, `ACME_EMAIL`
+4. Jeder Push auf `main` (oder „Run workflow“) überträgt den Code, baut die Images auf dem Server und startet neu. Caddy holt die TLS-Zertifikate automatisch.
+5. Weitere Konfiguration (SMTP, Stripe, Wallet, Super-Admin) als Zeilen in `/opt/tapperl/.env` auf dem Server ergänzen.
