@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@10.28.0",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build:packages": "pnpm -r --filter './packages/*' run build",
     "build": "pnpm run build:packages && pnpm -r --filter './apps/*' run build",
@@ -14,7 +16,8 @@
     "db:generate": "pnpm --filter @tably/database run generate",
     "db:migrate": "pnpm --filter @tably/database run migrate:deploy",
     "db:migrate:dev": "pnpm --filter @tably/database run migrate:dev",
-    "db:seed": "pnpm --filter @tably/database run seed"
+    "db:seed": "pnpm --filter @tably/api run seed",
+    "db:seed:demo": "pnpm --filter @tably/api run seed:demo"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
@@ -22,6 +25,17 @@
     "typescript": "~5.9.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@prisma/client", "@prisma/engines", "prisma", "@swc/core", "@nestjs/core", "esbuild", "sharp", "@node-rs/argon2", "msgpackr-extract", "unrs-resolver"]
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "@swc/core",
+      "@nestjs/core",
+      "esbuild",
+      "sharp",
+      "@node-rs/argon2",
+      "msgpackr-extract",
+      "unrs-resolver"
+    ]
   }
 }

@@ -37,8 +37,8 @@ export class AnalyticsService {
       ${query.locationId ? Prisma.sql`AND t."locationId" = ${query.locationId}` : Prisma.empty}
       ${query.programId ? Prisma.sql`AND t."programId" = ${query.programId}` : Prisma.empty}`;
     // Zeitraum: die letzten `days` Kalendertage in der Zeitzone des Betriebs, inklusive heute
-    const startSql = Prisma.sql`((date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days - 1})) AT TIME ZONE ${tz})`;
-    const prevStartSql = Prisma.sql`((date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days * 2 - 1})) AT TIME ZONE ${tz})`;
+    const startSql = Prisma.sql`((date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days - 1}::int)) AT TIME ZONE ${tz})`;
+    const prevStartSql = Prisma.sql`((date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days * 2 - 1}::int)) AT TIME ZONE ${tz})`;
 
     const [kpiRows, customerRows, retentionRows, returningRows, series, newSeries, weekdayRows] = await Promise.all([
       this.prisma.$queryRaw<Array<{ period: string; stamps: bigint; bookings: bigint; redemptions: bigint; active: bigint }>>`
@@ -72,7 +72,7 @@ export class AnalyticsService {
                COALESCE(SUM(t.amount) FILTER (WHERE t.type = 'EARN'), 0)::bigint AS stamps,
                COUNT(t.id) FILTER (WHERE t.type = 'REDEEM')::bigint AS redemptions,
                COUNT(DISTINCT t."customerId") FILTER (WHERE t.type IN ('EARN','REDEEM'))::bigint AS active
-        FROM generate_series(date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days - 1}), date_trunc('day', now() AT TIME ZONE ${tz}), interval '1 day') AS d(day)
+        FROM generate_series(date_trunc('day', now() AT TIME ZONE ${tz}) - make_interval(days => ${days - 1}::int), date_trunc('day', now() AT TIME ZONE ${tz}), interval '1 day') AS d(day)
         LEFT JOIN "StampTransaction" t ON ${txFilter} AND (t."createdAt" AT TIME ZONE ${tz})::date = d.day::date
         GROUP BY d.day ORDER BY d.day`,
       this.prisma.$queryRaw<Array<{ day: string; count: bigint }>>`

@@ -263,7 +263,7 @@ export class TapsService {
       WHERE id = (
         SELECT id FROM "PosEvent"
         WHERE "organizationId" = ${organizationId} AND "consumedAt" IS NULL
-          AND "occurredAt" >= now() - make_interval(mins => ${POS_MATCH_WINDOW_MIN})
+          AND "occurredAt" >= now() - make_interval(mins => ${POS_MATCH_WINDOW_MIN}::int)
           AND ("locationId" IS NULL OR ${locationId}::text IS NULL OR "locationId" = ${locationId})
         ORDER BY "occurredAt" ASC LIMIT 1 FOR UPDATE SKIP LOCKED
       ) RETURNING *`;
