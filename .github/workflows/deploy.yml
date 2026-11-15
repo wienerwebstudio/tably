@@ -56,9 +56,10 @@ jobs:
           ACME_EMAIL: ${{ vars.ACME_EMAIL }}
         run: |
           ssh "deploy@${{ secrets.DEPLOY_HOST }}" \
-            "set -e; cd /opt/tapperl/app/deploy; set -a; . /opt/tapperl/.env; set +a; \
+            "set -e; cd /opt/tapperl/app/deploy; \
              export WEB_HOST='$WEB_HOST' DASHBOARD_HOST='$DASHBOARD_HOST' API_HOST='$API_HOST' ACME_EMAIL='$ACME_EMAIL'; \
-             docker compose -f docker-compose.prod.yml up -d --build --remove-orphans; \
+             touch /opt/tapperl/runtime.env; \
+             docker compose --env-file /opt/tapperl/.env -f docker-compose.prod.yml up -d --build --remove-orphans; \
              docker image prune -f >/dev/null"
       - name: Gesundheit prüfen
         run: |
