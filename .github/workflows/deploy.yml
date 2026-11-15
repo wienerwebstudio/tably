@@ -3,6 +3,8 @@ name: Deploy
 # Bringt den Stand von main auf den Server und startet ihn neu.
 # Benötigte Repository-Secrets: DEPLOY_HOST (IP oder Name), DEPLOY_SSH_KEY (privater Schlüssel des Nutzers "deploy").
 # Benötigte Repository-Variablen: WEB_HOST, DASHBOARD_HOST, API_HOST, ACME_EMAIL.
+# Optionale Secrets (landen in /opt/tapperl/runtime.env): SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS,
+# MAIL_FROM, SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD.
 on:
   push:
     branches: [main]
@@ -31,6 +33,21 @@ jobs:
             --exclude .git --exclude node_modules --exclude '.next' --exclude dist --exclude generated \
             --exclude 'hardware/stl' --exclude test-results --exclude playwright-report \
             ./ "deploy@${{ secrets.DEPLOY_HOST }}:/opt/tapperl/app/"
+      - name: Laufzeit-Geheimnisse übertragen
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          SUPERADMIN_EMAIL: ${{ secrets.SUPERADMIN_EMAIL }}
+          SUPERADMIN_PASSWORD: ${{ secrets.SUPERADMIN_PASSWORD }}
+        run: |
+          # Nur gesetzte Werte schreiben; Übertragung über stdin, damit nichts in Prozesslisten auftaucht
+          for k in SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS MAIL_FROM SUPERADMIN_EMAIL SUPERADMIN_PASSWORD; do
+            v="${!k}"
+            if [ -n "$v" ]; then printf '%s=%s\n' "$k" "$v"; fi
+          done | ssh "deploy@${{ secrets.DEPLOY_HOST }}" 'umask 077; cat > /opt/tapperl/runtime.env'
       - name: Bauen und starten
         env:
           WEB_HOST: ${{ vars.WEB_HOST }}

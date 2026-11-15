@@ -32,7 +32,10 @@ services:
   api:
     build: { context: .., target: api }
     restart: unless-stopped
-    env_file: /opt/tapperl/.env
+    env_file:
+      - /opt/tapperl/.env
+      # Von GitHub-Secrets befüllt (SMTP, Super-Admin) – siehe .github/workflows/deploy.yml
+      - /opt/tapperl/runtime.env
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://tapperl:${POSTGRES_PASSWORD}@postgres:5432/tapperl

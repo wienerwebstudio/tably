@@ -113,3 +113,14 @@ Dateien: `deploy/docker-compose.prod.yml`, `deploy/Caddyfile`, `deploy/cloud-ini
    - Variablen: `WEB_HOST`, `DASHBOARD_HOST`, `API_HOST`, `ACME_EMAIL`
 4. Jeder Push auf `main` (oder „Run workflow“) überträgt den Code, baut die Images auf dem Server und startet neu. Caddy holt die TLS-Zertifikate automatisch.
 5. Weitere Konfiguration (SMTP, Stripe, Wallet, Super-Admin) als Zeilen in `/opt/tapperl/.env` auf dem Server ergänzen.
+
+### Laufzeit-Geheimnisse über GitHub
+
+Optionale Repository-Secrets, die der Deploy-Workflow bei jedem Ausrollen nach `/opt/tapperl/runtime.env` schreibt:
+
+| Secret | Beispiel |
+|---|---|
+| `SMTP_HOST`, `SMTP_PORT` | Mailserver des Anbieters, `465` (TLS) oder `587` (STARTTLS) |
+| `SMTP_USER`, `SMTP_PASS` | Zugangsdaten des Postfachs |
+| `MAIL_FROM` | `Tapperl <no-reply@tapperl.at>` |
+| `SUPERADMIN_EMAIL`, `SUPERADMIN_PASSWORD` | Zugang zum Super-Admin-Panel; wird beim Start angelegt bzw. bestehendem Konto die Rolle gegeben |

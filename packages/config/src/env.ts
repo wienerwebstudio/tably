@@ -37,6 +37,11 @@ export const envSchema = z.object({
 
   // E-Mail (optional – ohne SMTP wird der lokale Testmodus verwendet)
   SMTP_URL: optional,
+  /** Alternative zu SMTP_URL: Einzelwerte (praktisch, wenn das Passwort Sonderzeichen enthält) */
+  SMTP_HOST: optional,
+  SMTP_PORT: z.coerce.number().int().optional(),
+  SMTP_USER: optional,
+  SMTP_PASS: optional,
   MAIL_FROM: z.string().default('Tapperl <no-reply@tapperl.local>'),
 
   // Stripe (optional – ohne Schlüssel läuft die Abrechnung im lokalen Testmodus)
@@ -96,7 +101,7 @@ export interface IntegrationStatus {
 export function integrationStatus(env: Env): IntegrationStatus {
   return {
     stripe: Boolean(env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET),
-    smtp: Boolean(env.SMTP_URL),
+    smtp: Boolean(env.SMTP_URL || env.SMTP_HOST),
     appleWallet: Boolean(
       env.APPLE_PASS_TYPE_ID && env.APPLE_TEAM_ID && env.APPLE_PASS_CERT_PEM && env.APPLE_PASS_KEY_PEM && env.APPLE_WWDR_CERT_PEM,
     ),

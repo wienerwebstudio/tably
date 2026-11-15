@@ -42,7 +42,7 @@ ENV NODE_ENV=production
 USER node
 EXPOSE 4000
 # Migrationen anwenden, Tarife/Super-Admin sicherstellen, dann starten
-CMD ["sh", "-c", "pnpm --filter @tapperl/database migrate:deploy && node apps/api/dist/seed.js && node apps/api/dist/main.js"]
+CMD ["sh", "-c", "node packages/database/node_modules/prisma/build/index.js migrate deploy --schema packages/database/prisma/schema.prisma && node apps/api/dist/seed.js && node apps/api/dist/main.js"]
 
 # ── Website (Marketing + Kundenkarte) ────────────────────────────────────
 FROM build AS web-build
