@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import type { Request, Response } from 'express';
-import type { ApiErrorBody, ErrorCode } from '@tably/types';
+import type { ApiErrorBody, ErrorCode } from '@tapperl/types';
 import { ThrottlerException } from '@nestjs/throttler';
 import { PrismaService } from './prisma.service';
 

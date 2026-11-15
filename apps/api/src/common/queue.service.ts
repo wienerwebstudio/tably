@@ -59,8 +59,8 @@ export class QueueService implements OnApplicationBootstrap, OnModuleDestroy {
     }
     this.connection = new IORedis(this.env.REDIS_URL!, { maxRetriesPerRequest: null });
     const connection = this.connection as unknown as ConnectionOptions;
-    this.queue = new Queue('tably', { connection, defaultJobOptions: { attempts: 5, backoff: { type: 'exponential', delay: 5000 }, removeOnComplete: 500, removeOnFail: 2000 } });
-    this.worker = new Worker('tably', async (job) => this.execute(job.name, job.data), { connection, concurrency: 8 });
+    this.queue = new Queue('tapperl', { connection, defaultJobOptions: { attempts: 5, backoff: { type: 'exponential', delay: 5000 }, removeOnComplete: 500, removeOnFail: 2000 } });
+    this.worker = new Worker('tapperl', async (job) => this.execute(job.name, job.data), { connection, concurrency: 8 });
     this.worker.on('failed', (job, err) => {
       if (job && job.attemptsMade >= (job.opts.attempts ?? 1)) void this.recordFailure(job.name, err);
     });

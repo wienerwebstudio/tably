@@ -2,9 +2,9 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { ImageIcon, Trash2, Upload } from 'lucide-react';
-import { INDUSTRIES } from '@tably/config';
-import type { OrganizationDto } from '@tably/types';
-import { Alert, api, ApiError, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, ErrorState, errorMessage, Field, Input, Select, Skeleton, useCopy, useToast } from '@tably/ui';
+import { INDUSTRIES } from '@tapperl/config';
+import type { OrganizationDto } from '@tapperl/types';
+import { Alert, api, ApiError, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, ErrorState, errorMessage, Field, Input, Select, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { industryLabel } from '@/lib/labels';

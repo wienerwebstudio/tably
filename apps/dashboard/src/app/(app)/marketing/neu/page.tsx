@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSWRConfig } from 'swr';
 import { ArrowLeft } from 'lucide-react';
-import { defineCopy, PageHeader, useCopy, useToast } from '@tably/ui';
+import { defineCopy, PageHeader, useCopy, useToast } from '@tapperl/ui';
 import { CampaignForm } from '@/components/marketing/campaign-form';
 
 const copy = defineCopy({

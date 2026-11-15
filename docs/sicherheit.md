@@ -29,7 +29,7 @@
 
 ## Schutz der Web-Schnittstelle
 
-- **CSRF:** `SameSite=Lax`-Cookies + Pflicht-Header `X-Tably-Request` für schreibende Anfragen + Prüfung des `Origin`-Headers gegen die eigenen Oberflächen (`apps/api/src/common/csrf.ts`). Ausgenommen sind nur Endpunkte ohne Cookie-Authentifizierung (Webhooks, Wallet-Webservice, Kassen- und Geräte-API).
+- **CSRF:** `SameSite=Lax`-Cookies + Pflicht-Header `X-Tapperl-Request` für schreibende Anfragen + Prüfung des `Origin`-Headers gegen die eigenen Oberflächen (`apps/api/src/common/csrf.ts`). Ausgenommen sind nur Endpunkte ohne Cookie-Authentifizierung (Webhooks, Wallet-Webservice, Kassen- und Geräte-API).
 - **Eingaben:** jede Eingabe wird serverseitig mit Zod validiert; Antworten enthalten Feldfehler.
 - **Rate Limiting:** global 300 Anfragen/Minute je IP und Route; streng für Login, Registrierung, Reset, Taps, Einlöse-Codes, Kontaktformular.
 - **Header:** Helmet in der API; `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` in beiden Next-Apps.
@@ -82,7 +82,7 @@ Bewusste Entscheidung: Zählerstände dürfen bis zu 5 Schritte hinter dem Höch
 | Cookies | ausschließlich technisch notwendige (Sitzung, Karten-Wiedererkennung); kein Tracking |
 | Hosting | EU-Region empfohlen; Auftragsverarbeitung mit Hosting-, Mail- und Zahlungsanbieter ist vertraglich zu regeln |
 
-Offen (organisatorisch, nicht technisch): Auftragsverarbeitungsvertrag zwischen Tably und Händlern, Verzeichnis der Verarbeitungstätigkeiten, Löschfristen für Audit- und Geräteprotokolle, rechtlich geprüfte Datenschutzhinweise.
+Offen (organisatorisch, nicht technisch): Auftragsverarbeitungsvertrag zwischen Tapperl und Händlern, Verzeichnis der Verarbeitungstätigkeiten, Löschfristen für Audit- und Geräteprotokolle, rechtlich geprüfte Datenschutzhinweise.
 
 ## Geplante Härtung
 

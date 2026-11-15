@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { ChevronRight, Nfc, Plus } from 'lucide-react';
-import type { DeviceDetailDto, DeviceDto } from '@tably/types';
-import { Badge, Button, Card, defineCopy, EmptyState, ErrorState, formatRelative, PageHeader, Skeleton, Table, Td, Th, useCopy, useToast } from '@tably/ui';
+import type { DeviceDetailDto, DeviceDto } from '@tapperl/types';
+import { Badge, Button, Card, defineCopy, EmptyState, ErrorState, formatRelative, PageHeader, Skeleton, Table, Td, Th, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { deviceSecurity, deviceStatus } from '@/lib/labels';
 import { kindShort } from '@/components/devices/labels';
@@ -17,7 +17,7 @@ const copy = defineCopy({
     description: 'Deine Stempel an der Theke: Kunden halten ihr Smartphone daran und sammeln so ihre Stempel.',
     register: 'Stempel registrieren',
     emptyTitle: 'Noch kein Stempel registriert',
-    emptyText: 'Registriere deinen Stempel hier und richte den Chip einmalig mit den Werten ein, die Tably dir anzeigt. Danach hältst du ihn einmal an ein Smartphone – der erste gültige Tap nimmt ihn in Betrieb.',
+    emptyText: 'Registriere deinen Stempel hier und richte den Chip einmalig mit den Werten ein, die Tapperl dir anzeigt. Danach hältst du ihn einmal an ein Smartphone – der erste gültige Tap nimmt ihn in Betrieb.',
     errorText: 'Die Stempel konnten nicht geladen werden.',
     colName: 'Name',
     colKind: 'Art',

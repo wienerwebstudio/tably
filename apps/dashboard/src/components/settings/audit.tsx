@@ -2,8 +2,8 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { ScrollText } from 'lucide-react';
-import type { AuditEntryDto, Page } from '@tably/types';
-import { Card, CardHeader, defineCopy, EmptyState, ErrorState, formatDateTime, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tably/ui';
+import type { AuditEntryDto, Page } from '@tapperl/types';
+import { Card, CardHeader, defineCopy, EmptyState, ErrorState, formatDateTime, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { auditAction } from '@/lib/labels';
 
 const copy = defineCopy({

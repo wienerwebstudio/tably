@@ -4,7 +4,7 @@ import { LegalAddress, LegalPage, LegalSection, Todo } from '@/components/market
 
 export const metadata: Metadata = {
   title: 'Impressum',
-  description: 'Anbieterkennzeichnung der Tably-Website (Entwurf, Betreiberdaten noch zu ergänzen).',
+  description: 'Anbieterkennzeichnung der Tapperl-Website (Entwurf, Betreiberdaten noch zu ergänzen).',
   robots: { index: false },
 };
 
@@ -73,7 +73,7 @@ export default function ImprintPage() {
         <p>
           <Todo>Erklärung, ob eine Bereitschaft oder Verpflichtung zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle besteht (§ 36 VSBG)</Todo>
         </p>
-        <p>Das Angebot von Tably richtet sich an Unternehmen.</p>
+        <p>Das Angebot von Tapperl richtet sich an Unternehmen.</p>
       </LegalSection>
 
       <LegalSection title="Haftung für Inhalte und Links">

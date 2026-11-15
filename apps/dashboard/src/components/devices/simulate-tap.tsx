@@ -2,8 +2,8 @@
 import * as React from 'react';
 import QRCode from 'qrcode';
 import { ExternalLink, FlaskConical } from 'lucide-react';
-import type { SimulatedTapDto } from '@tably/types';
-import { Alert, api, Badge, Button, buttonClass, Card, CardBody, CardHeader, CopyButton, defineCopy, Skeleton, useCopy, useToast } from '@tably/ui';
+import type { SimulatedTapDto } from '@tapperl/types';
+import { Alert, api, Badge, Button, buttonClass, Card, CardBody, CardHeader, CopyButton, defineCopy, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 
 const copy = defineCopy({

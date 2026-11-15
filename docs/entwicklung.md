@@ -28,7 +28,7 @@ pnpm db:migrate
 ```
 
 ```bash
-pnpm --filter @tably/api build && pnpm db:seed:demo
+pnpm --filter @tapperl/api build && pnpm db:seed:demo
 ```
 
 ```bash
@@ -42,7 +42,7 @@ pnpm dev
 | API, OpenAPI-Dokumentation | http://localhost:4000, http://localhost:4000/docs |
 | Lokales Testpostfach | http://localhost:4000/dev/mailbox |
 
-Demo-Zugang nach `db:seed:demo`: `demo@tably.local` / `Demo-Passwort-123`. Der Super-Admin entsteht aus `SUPERADMIN_EMAIL` und `SUPERADMIN_PASSWORD`.
+Demo-Zugang nach `db:seed:demo`: `demo@tapperl.local` / `Demo-Passwort-123`. Der Super-Admin entsteht aus `SUPERADMIN_EMAIL` und `SUPERADMIN_PASSWORD`.
 
 ## Tests
 
@@ -50,7 +50,7 @@ Demo-Zugang nach `db:seed:demo`: `demo@tably.local` / `Demo-Passwort-123`. Der S
 pnpm test
 ```
 
-Führt die Pakettests (NFC, Wallet) und die API-Integrationstests aus. Die Integrationstests brauchen eine eigene Datenbank `tably_test` (`TEST_DATABASE_URL`, Standard `postgresql://tably:tably@localhost:5432/tably_test`) und leeren sie zwischen den Suiten.
+Führt die Pakettests (NFC, Wallet) und die API-Integrationstests aus. Die Integrationstests brauchen eine eigene Datenbank `tapperl_test` (`TEST_DATABASE_URL`, Standard `postgresql://tapperl:tapperl@localhost:5432/tapperl_test`) und leeren sie zwischen den Suiten.
 
 ```bash
 pnpm build
@@ -72,7 +72,7 @@ pnpm typecheck
 - **Mandantenkontext** kommt ausschließlich über `@Tenant()`; jede Abfrage filtert auf `organizationId`. Neue Endpunkte brauchen einen Test für fremde IDs (→ 404).
 - **Kartenstände** ändert nur der `LedgerService`.
 - **Fehler** sind `AppError` mit Code aus `packages/types/src/errors.ts`.
-- **Oberflächen** verwenden nur Komponenten aus `@tably/ui`; Texte stehen in `copy`-Objekten, Enum-Bezeichnungen in `apps/dashboard/src/lib/labels.ts`.
+- **Oberflächen** verwenden nur Komponenten aus `@tapperl/ui`; Texte stehen in `copy`-Objekten, Enum-Bezeichnungen in `apps/dashboard/src/lib/labels.ts`.
 - **Schemaänderungen:** `packages/database/prisma/schema.prisma` anpassen, dann `pnpm db:migrate:dev`.
 
 ## Konfiguration
@@ -92,7 +92,7 @@ Baut und startet PostgreSQL, Redis, API, Website und Dashboard. Die API wendet b
 Für die Produktion:
 
 - **EU-Hosting** (bevorzugt): Dienste und Datenbank in einer EU-Region, Backups verschlüsselt.
-- Drei Hostnamen mit TLS, z. B. `tably.example` (Website), `app.tably.example` (Dashboard), `api.tably.example` (API). `WEB_URL`, `DASHBOARD_URL`, `API_PUBLIC_URL` entsprechend setzen; `COOKIE_SECURE=true`, `TRUST_PROXY=true`, `NFC_SIMULATOR_ENABLED=false`.
+- Drei Hostnamen mit TLS, z. B. `tapperl.example` (Website), `app.tapperl.example` (Dashboard), `api.tapperl.example` (API). `WEB_URL`, `DASHBOARD_URL`, `API_PUBLIC_URL` entsprechend setzen; `COOKIE_SECURE=true`, `TRUST_PROXY=true`, `NFC_SIMULATOR_ENABLED=false`.
 - `NEXT_PUBLIC_*`-Werte sind Build-Argumente der Next-Images.
 - `QUEUE_DRIVER=bullmq`; mehrere API-Instanzen sind möglich (Sitzungen und Sperren liegen in PostgreSQL, Jobs in Redis). Das Rate Limiting zählt derzeit je Instanz – für mehrere Instanzen den Redis-Speicher des Throttlers ergänzen.
 - `APP_ENCRYPTION_KEY` sicher verwahren: ohne ihn sind NFC-Schlüssel und 2FA-Secrets verloren.

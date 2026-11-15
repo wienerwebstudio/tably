@@ -1,4 +1,4 @@
-import type { DeviceDto, DeviceKind, DeviceSecurity } from '@tably/types';
+import type { DeviceDto, DeviceKind, DeviceSecurity } from '@tapperl/types';
 
 type Tone = 'neutral' | 'brand' | 'success' | 'warn' | 'danger' | 'info' | 'honey';
 
@@ -11,7 +11,7 @@ export const kindShort: Record<DeviceKind, string> = {
 
 /** Verständliche Bezeichnungen für die Einträge im Geräteprotokoll. */
 export const deviceEvent: Record<string, { label: string; hint: string; tone: Tone }> = {
-  REGISTERED: { label: 'Registriert', hint: 'Der Stempel wurde in Tably angelegt.', tone: 'info' },
+  REGISTERED: { label: 'Registriert', hint: 'Der Stempel wurde in Tapperl angelegt.', tone: 'info' },
   ACTIVATED: { label: 'Aktiviert', hint: 'Der erste gültige Tap hat den Stempel in Betrieb genommen.', tone: 'success' },
   TAP_OK: { label: 'Gültiger Tap', hint: 'Ein Smartphone hat den Stempel gelesen, die Prüfung war erfolgreich.', tone: 'success' },
   MAC_INVALID: { label: 'Ungültige Signatur', hint: 'Die Prüfsumme des Taps war falsch – z. B. eine veränderte oder erfundene Adresse.', tone: 'danger' },
@@ -60,7 +60,7 @@ export const securityHelp: Record<DeviceSecurity, { title: string; text: string;
   },
   COMPROMISED: {
     title: 'Dieser Stempel ist gesperrt',
-    text: 'Der Stempel wurde als verloren gemeldet oder gilt als unsicher. Mit den bisherigen Schlüsseln nimmt Tably keine Taps mehr an – niemand kann damit Stempel sammeln.',
+    text: 'Der Stempel wurde als verloren gemeldet oder gilt als unsicher. Mit den bisherigen Schlüsseln nimmt Tapperl keine Taps mehr an – niemand kann damit Stempel sammeln.',
     todo: 'Wenn du den Chip noch hast und weiter nutzen möchtest: Erneuere die Schlüssel und personalisiere ihn neu. Andernfalls nimm ihn außer Betrieb und registriere einen neuen Stempel.',
   },
 };

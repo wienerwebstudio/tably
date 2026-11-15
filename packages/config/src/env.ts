@@ -37,7 +37,7 @@ export const envSchema = z.object({
 
   // E-Mail (optional – ohne SMTP wird der lokale Testmodus verwendet)
   SMTP_URL: optional,
-  MAIL_FROM: z.string().default('Tably <no-reply@tably.local>'),
+  MAIL_FROM: z.string().default('Tapperl <no-reply@tapperl.local>'),
 
   // Stripe (optional – ohne Schlüssel läuft die Abrechnung im lokalen Testmodus)
   STRIPE_SECRET_KEY: optional,

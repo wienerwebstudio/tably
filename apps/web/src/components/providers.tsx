@@ -1,6 +1,6 @@
 'use client';
 import { SWRConfig } from 'swr';
-import { api, LocaleProvider, ToastProvider } from '@tably/ui';
+import { api, LocaleProvider, ToastProvider } from '@tapperl/ui';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

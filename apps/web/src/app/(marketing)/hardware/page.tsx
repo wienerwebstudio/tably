@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, X } from 'lucide-react';
-import { Badge } from '@tably/ui';
+import { Badge } from '@tapperl/ui';
 import { Reveal } from '@/components/marketing/reveal';
 import { StampDimensions, StampExploded, StampSide } from '@/components/marketing/stamp';
 import { ClosingCta, Container, Eyebrow, Section, SectionHeading, TextLink } from '@/components/marketing/ui';
 
 export const metadata: Metadata = {
   title: 'Der NFC-Stempel',
-  description: 'Der Tably-Stempel: Ø 44 × 80 mm, vier Teile, austauschbarer NFC-Chip NXP NTAG 424 DNA, individuelle Logo-Scheibe. Ohne Batterie, jede URL nur einmal gültig. Vorbestellbar über Kontakt, Preis auf Anfrage.',
+  description: 'Der Tapperl-Stempel: Ø 44 × 80 mm, vier Teile, austauschbarer NFC-Chip NXP NTAG 424 DNA, individuelle Logo-Scheibe. Ohne Batterie, jede URL nur einmal gültig. Vorbestellbar über Kontakt, Preis auf Anfrage.',
 };
 
 const PARTS = [
@@ -30,7 +30,7 @@ const SPECS: Array<[string, string]> = [
   ['Reinigung', 'Feucht abwischen; nicht für die Spülmaschine'],
 ];
 
-const PROVES = ['Der Link stammt von einem echten Tably-Chip, der den geheimen Schlüssel kennt.', 'Kennung und Zählerstand wurden nicht verändert.', 'Jede Kombination aus Chip und Zählerstand kommt nur einmal vor – Wiederholungen fallen auf.'];
+const PROVES = ['Der Link stammt von einem echten Tapperl-Chip, der den geheimen Schlüssel kennt.', 'Kennung und Zählerstand wurden nicht verändert.', 'Jede Kombination aus Chip und Zählerstand kommt nur einmal vor – Wiederholungen fallen auf.'];
 const NOT_PROVES = ['Einen Kauf. Der Chip weiß nichts von Kasse oder Bon.', 'Wer den Link einlöst. Ein Link lässt sich weitergeben – aber nur einmal einlösen.', 'Dass niemand den Stempel zweckentfremdet. Dagegen helfen Limits, Freigabe und Sperrung.'];
 
 export default function HardwarePage() {
@@ -42,7 +42,7 @@ export default function HardwarePage() {
             <Eyebrow>Hardware</Eyebrow>
             <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl">Ein Stempel, wie man ihn kennt. Nur ohne Stempelkissen.</h1>
             <p className="mt-6 text-lg leading-relaxed text-muted text-pretty sm:text-xl">
-              Vier Teile, ein Chip, keine Batterie. Der Tably-Stempel liegt in der Hand wie ein klassischer Holzstempel – und übergibt beim Antippen einen kryptografisch signierten Link an das Smartphone deines Gastes.
+              Vier Teile, ein Chip, keine Batterie. Der Tapperl-Stempel liegt in der Hand wie ein klassischer Holzstempel – und übergibt beim Antippen einen kryptografisch signierten Link an das Smartphone deines Gastes.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
               <Link href="/kontakt?thema=hardware" className="inline-flex h-12 items-center justify-center rounded-xl bg-brand px-6 font-medium text-on-brand transition-colors hover:bg-brand-hover">
@@ -57,7 +57,7 @@ export default function HardwarePage() {
           <div className="relative mx-auto flex w-full max-w-sm items-end justify-center pb-6 pt-4">
             <div className="absolute bottom-0 left-1/2 size-80 max-w-full -translate-x-1/2 rounded-full bg-brand-soft/70" aria-hidden />
             <div className="absolute bottom-4 left-1/2 h-5 w-44 -translate-x-1/2 rounded-[50%] bg-ink/15 blur-md" aria-hidden />
-            <StampSide className="relative w-44 sm:w-52" title="Der Tably-Stempel: heller Griff mit honigfarbener Logo-Scheibe, dunkelgrüner Fuß mit geriffelter Kappe" />
+            <StampSide className="relative w-44 sm:w-52" title="Der Tapperl-Stempel: heller Griff mit honigfarbener Logo-Scheibe, dunkelgrüner Fuß mit geriffelter Kappe" />
           </div>
         </Container>
       </div>

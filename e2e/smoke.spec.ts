@@ -13,7 +13,7 @@ test('Website: alle öffentlichen Seiten laden fehlerfrei, Kontaktformular funkt
   const problems = watch(page);
   // Pfad → erwarteter Seitentitel (aus den Metadaten)
   const pages: Array<[string, RegExp]> = [
-    ['/', /Tably/],
+    ['/', /Tapperl/],
     ['/funktionen', /Funktionen/],
     ['/branchen', /Branchen/],
     ['/hardware', /NFC-Stempel/],

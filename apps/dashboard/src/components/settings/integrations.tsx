@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { ExternalLink, KeyRound, Plus } from 'lucide-react';
-import type { WalletStatusDto } from '@tably/types';
-import { Alert, api, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, CopyButton, defineCopy, Dialog, EmptyState, ErrorState, errorMessage, Field, formatDate, formatNumber, formatRelative, Input, Skeleton, useCopy, useToast } from '@tably/ui';
+import type { WalletStatusDto } from '@tapperl/types';
+import { Alert, api, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, CopyButton, defineCopy, Dialog, EmptyState, ErrorState, errorMessage, Field, formatDate, formatNumber, formatRelative, Input, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { Stack } from './shared';
@@ -25,7 +25,7 @@ const copy = defineCopy({
     passErrors: (n: number) => (n === 1 ? 'Bei 1 Wallet-Karte ist die letzte Aktualisierung fehlgeschlagen.' : `Bei ${n} Wallet-Karten ist die letzte Aktualisierung fehlgeschlagen.`),
     planMissing: 'Wallet-Karten sind in deinem aktuellen Tarif nicht enthalten.',
     posTitle: 'Kassen-Schnittstelle',
-    posDescription: 'Deine Kasse meldet Käufe an Tably. Bei Treuekarten mit der Buchungsart „Kassen-Ereignis“ wird ein Stempel erst vergeben, wenn ein passender Kauf gemeldet wurde.',
+    posDescription: 'Deine Kasse meldet Käufe an Tapperl. Bei Treuekarten mit der Buchungsart „Kassen-Ereignis“ wird ein Stempel erst vergeben, wenn ein passender Kauf gemeldet wurde.',
     posFeatureTitle: 'Im Premium-Tarif enthalten',
     posFeatureText: 'Die Kassen-Schnittstelle ist in deinem aktuellen Tarif nicht enthalten. Mit dem Premium-Tarif kannst du API-Schlüssel erstellen und deine Kasse anbinden.',
     posFeatureLink: 'Tarife ansehen',
@@ -73,7 +73,7 @@ interface ApiKeyRow {
 const DOCS_URL = process.env.NEXT_PUBLIC_API_DOCS_URL ?? 'http://localhost:4000/docs';
 const API_BASE = DOCS_URL.replace(/\/docs\/?$/, '');
 const CURL_EXAMPLE = `curl -X POST ${API_BASE}/integrations/pos/events \\
-  -H "Authorization: Bearer tably_DEIN_SCHLUESSEL" \\
+  -H "Authorization: Bearer tapperl_DEIN_SCHLUESSEL" \\
   -H "Content-Type: application/json" \\
   -d '{"externalId": "beleg-2026-000123", "amountCents": 450, "currency": "EUR"}'`;
 

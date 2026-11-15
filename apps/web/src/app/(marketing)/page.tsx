@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Fingerprint, KeyRound, Server, UserCheck } from 'lucide-react';
-import { formatMoney, LoyaltyCard, StampIcon } from '@tably/ui';
+import { formatMoney, LoyaltyCard, StampIcon } from '@tapperl/ui';
 import { CardConfigurator } from '@/components/marketing/card-configurator';
 import { FaqList, pickFaq } from '@/components/marketing/faq';
 import { HeroDemo } from '@/components/marketing/hero-demo';
@@ -12,8 +12,8 @@ import { INDUSTRIES } from '@/components/marketing/site';
 import { ClosingCta, Container, Eyebrow, PrimaryCta, SecondaryCta, Section, SectionHeading, TextLink } from '@/components/marketing/ui';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Tably – Digitale Treuekarten mit NFC-Stempel' },
-  description: 'Tap. Stamp. Reward. Tably ersetzt die Papier-Stempelkarte: Dein Team hält einen echten Stempel ans Smartphone, die digitale Karte zählt mit. Ohne App für deine Gäste, ohne Scanner an der Theke.',
+  title: { absolute: 'Tapperl – Digitale Treuekarten mit NFC-Stempel' },
+  description: 'Tap. Stamp. Reward. Tapperl ersetzt die Papier-Stempelkarte: Dein Team hält einen echten Stempel ans Smartphone, die digitale Karte zählt mit. Ohne App für deine Gäste, ohne Scanner an der Theke.',
 };
 
 const STEPS = [
@@ -36,10 +36,10 @@ const STEPS = [
 ];
 
 const COMPARE = [
-  { topic: 'An der Theke', qr: 'Ein Tablet oder Handy mit Kamera, das eingeloggt, geladen und griffbereit sein muss.', tably: 'Ein Stempel. Kein Akku, kein Login, kein Bildschirm.' },
-  { topic: 'Handgriffe', qr: 'Scanner öffnen, Code des Gastes erfassen, Anzahl wählen, bestätigen.', tably: 'Stempel ans Handy halten.' },
-  { topic: 'Wer löst aus', qr: 'Je nach System das Team – oder der Gast selbst an einem Aufsteller.', tably: 'Immer dein Team. Der Stempel bleibt in eurer Hand.' },
-  { topic: 'Schutz vor Kopien', qr: 'Hängt vom Anbieter ab. Ein statischer Code lässt sich abfotografieren.', tably: 'Jeder Tap erzeugt einen neuen, signierten Link, der einmal gilt.' },
+  { topic: 'An der Theke', qr: 'Ein Tablet oder Handy mit Kamera, das eingeloggt, geladen und griffbereit sein muss.', tapperl: 'Ein Stempel. Kein Akku, kein Login, kein Bildschirm.' },
+  { topic: 'Handgriffe', qr: 'Scanner öffnen, Code des Gastes erfassen, Anzahl wählen, bestätigen.', tapperl: 'Stempel ans Handy halten.' },
+  { topic: 'Wer löst aus', qr: 'Je nach System das Team – oder der Gast selbst an einem Aufsteller.', tapperl: 'Immer dein Team. Der Stempel bleibt in eurer Hand.' },
+  { topic: 'Schutz vor Kopien', qr: 'Hängt vom Anbieter ab. Ein statischer Code lässt sich abfotografieren.', tapperl: 'Jeder Tap erzeugt einen neuen, signierten Link, der einmal gilt.' },
 ];
 
 const SECURITY = [
@@ -66,7 +66,7 @@ export default async function HomePage() {
               <span className="block text-brand">Das Papier geht.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted text-pretty sm:text-xl">
-              Tably macht aus deiner Stempelkarte eine digitale Karte auf dem Smartphone deiner Gäste. Gestempelt wird wie immer: mit einem echten Stempel, den dein Team kurz ans Handy hält.
+              Tapperl macht aus deiner Stempelkarte eine digitale Karte auf dem Smartphone deiner Gäste. Gestempelt wird wie immer: mit einem echten Stempel, den dein Team kurz ans Handy hält.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <PrimaryCta />
@@ -131,9 +131,9 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
             <div>
               <SectionHeading eyebrow="Warum ein Stempel" title="Eine Geste, die jede Theke schon kennt." />
-              <p className="mt-5 text-lg leading-relaxed text-muted">Die meisten digitalen Stempelkarten verlangen ein Gerät mit Kamera, an dem dein Team scannt. Das funktioniert – kostet im Stoßgeschäft aber Aufmerksamkeit. Tably nimmt die Technik aus dem Blickfeld.</p>
+              <p className="mt-5 text-lg leading-relaxed text-muted">Die meisten digitalen Stempelkarten verlangen ein Gerät mit Kamera, an dem dein Team scannt. Das funktioniert – kostet im Stoßgeschäft aber Aufmerksamkeit. Tapperl nimmt die Technik aus dem Blickfeld.</p>
               <p className="mt-5 text-[15px] leading-relaxed text-muted">
-                <strong className="font-semibold text-ink">Fairerweise:</strong> Ein QR-Code funktioniert mit jedem Kamerahandy. Deshalb bleibt bei Tably der Weg über QR-Code und manuelle Buchung als Rückfallebene erhalten.
+                <strong className="font-semibold text-ink">Fairerweise:</strong> Ein QR-Code funktioniert mit jedem Kamerahandy. Deshalb bleibt bei Tapperl der Weg über QR-Code und manuelle Buchung als Rückfallebene erhalten.
               </p>
               <TextLink href="/hardware" className="mt-7">
                 Den Stempel ansehen
@@ -144,7 +144,7 @@ export default async function HomePage() {
                 <div className="hidden grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)] border-b border-line text-[13px] font-semibold uppercase tracking-[0.1em] md:grid" aria-hidden>
                   <span className="px-6 py-4" />
                   <span className="px-6 py-4 text-muted">QR-Scan durch das Team</span>
-                  <span className="bg-brand-soft/60 px-6 py-4 text-brand">Tably-Stempel</span>
+                  <span className="bg-brand-soft/60 px-6 py-4 text-brand">Tapperl-Stempel</span>
                 </div>
                 {COMPARE.map((row) => (
                   <div key={row.topic} className="grid grid-cols-1 border-b border-line last:border-b-0 md:grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)]">
@@ -154,8 +154,8 @@ export default async function HomePage() {
                       {row.qr}
                     </p>
                     <p className="mt-4 bg-brand-soft/60 px-5 py-4 text-[15px] leading-relaxed text-ink md:mt-0 md:px-6 md:py-5">
-                      <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.1em] text-brand md:sr-only">Tably-Stempel</span>
-                      {row.tably}
+                      <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.1em] text-brand md:sr-only">Tapperl-Stempel</span>
+                      {row.tapperl}
                     </p>
                   </div>
                 ))}

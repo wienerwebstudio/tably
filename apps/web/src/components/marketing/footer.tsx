@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Logo } from '@tably/ui';
+import { Logo } from '@tapperl/ui';
 import { LOGIN_URL } from './site';
 
 const groups = [
@@ -37,7 +37,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1.3fr)_minmax(0,2fr)]">
           <div>
-            <Link href="/" aria-label="Tably – zur Startseite" className="inline-block rounded-lg">
+            <Link href="/" aria-label="Tapperl – zur Startseite" className="inline-block rounded-lg">
               <Logo className="text-[17px]" />
             </Link>
             <p className="mt-5 font-display text-2xl leading-snug text-ink">Tap. Stamp. Reward.</p>
@@ -67,7 +67,7 @@ export function SiteFooter() {
           </nav>
         </div>
         <div className="mt-14 flex flex-col gap-2 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Tably</p>
+          <p>© {new Date().getFullYear()} Tapperl</p>
           <p>Diese Website setzt keine Tracking-Cookies und bindet keine Analysedienste Dritter ein.</p>
         </div>
       </div>

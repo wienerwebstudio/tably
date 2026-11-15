@@ -1,7 +1,7 @@
 import { Controller, Get, Headers, HttpCode, Post, Req } from '@nestjs/common';
 import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { z } from 'zod';
-import { changePlanSchema } from '@tably/types';
+import { changePlanSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { Can, Member, Tenant } from '../../common/guards';
 import type { AppRequest, TenantContext } from '../../common/auth.types';

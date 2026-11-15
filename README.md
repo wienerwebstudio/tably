@@ -1,4 +1,4 @@
-# Tably
+# Tapperl
 
 **Tap. Stamp. Reward.** – Digitale Treuekarten für lokale Betriebe, gestempelt mit einem physischen NFC-Stempel statt mit einem QR-Scanner.
 
@@ -42,7 +42,7 @@ pnpm build:packages && pnpm db:migrate
 ```
 
 ```bash
-pnpm --filter @tably/api build && pnpm db:seed:demo
+pnpm --filter @tapperl/api build && pnpm db:seed:demo
 ```
 
 ```bash
@@ -50,7 +50,7 @@ pnpm dev
 ```
 
 - Website und Kundenkarte: http://localhost:3000
-- Dashboard: http://localhost:3001 (Demo: `demo@tably.local` / `Demo-Passwort-123`)
+- Dashboard: http://localhost:3001 (Demo: `demo@tapperl.local` / `Demo-Passwort-123`)
 - API-Dokumentation: http://localhost:4000/docs
 
 Den ersten Stempel ohne Hardware vergeben: im Dashboard unter **Theke** einen Tap simulieren und den QR-Code mit dem Handy scannen oder den Link öffnen.
@@ -72,6 +72,7 @@ pnpm build && pnpm test:e2e
 - [`docs/nfc.md`](docs/nfc.md) – Stempel-Ablauf, Inbetriebnahme, Testabläufe, Messwerte
 - [`docs/integrationen.md`](docs/integrationen.md) – Apple, Google, Stripe, E-Mail, Kasse: Stand und fehlende Voraussetzungen
 - [`docs/entwicklung.md`](docs/entwicklung.md) – Entwicklung, Konventionen, Deployment
+- [`docs/launch.md`](docs/launch.md) – Checkliste bis zum Start
 - [`docs/research/`](docs/research) – Wettbewerbsanalyse und technische Recherche mit Quellen
 - [`hardware/README.md`](hardware/README.md) – Konstruktion des Stempels
 - [`PROGRESS.md`](PROGRESS.md) – Arbeitsstand, offene Punkte, nächste Schritte

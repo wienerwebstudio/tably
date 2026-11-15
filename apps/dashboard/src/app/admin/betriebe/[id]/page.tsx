@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 import { ArrowLeft } from 'lucide-react';
-import { Alert, ApiError, Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, ErrorState, formatDate, formatDateTime, formatMoney, formatRelative, PageHeader, Skeleton, Stat, Table, Td, Th, useCopy } from '@tably/ui';
+import { Alert, ApiError, Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, ErrorState, formatDate, formatDateTime, formatMoney, formatRelative, PageHeader, Skeleton, Stat, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { deviceKind, deviceSecurity, deviceStatus, industryLabel, limitLabel, policyLabel, programStatus, roleLabel, subscriptionStatus } from '@/lib/labels';
 import { UsageBar } from '@/components/settings/shared';
 import { actorLabel, auditLabel, LoadError, orgStatus, providerLabel } from '@/components/admin/shared';

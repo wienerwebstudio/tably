@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
-import { UNLIMITED } from '@tably/config';
-import type { PlanFeatures, PlanLimits } from '@tably/config';
-import { Alert, api, ApiError, Button, defineCopy, Dialog, Field, Input, Switch, Textarea, useCopy, useToast } from '@tably/ui';
+import { UNLIMITED } from '@tapperl/config';
+import type { PlanFeatures, PlanLimits } from '@tapperl/config';
+import { Alert, api, ApiError, Button, defineCopy, Dialog, Field, Input, Switch, Textarea, useCopy, useToast } from '@tapperl/ui';
 import { featureLabel, limitLabel } from '@/lib/labels';
 import { centsToEuroInput, parseEuro } from './shared';
 import { FEATURE_KEYS, LIMIT_KEYS, type AdminPlan } from './types';

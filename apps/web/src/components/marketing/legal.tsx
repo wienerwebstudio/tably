@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, cn } from '@tably/ui';
+import { Alert, cn } from '@tapperl/ui';
 import { Container } from './ui';
 
 /** Deutlich markierter Platzhalter für Angaben, die der Betreiber ergänzen muss. */

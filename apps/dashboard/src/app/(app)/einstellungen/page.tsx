@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { defineCopy, PageHeader, Skeleton, TabPanel, Tabs, useCopy } from '@tably/ui';
+import { defineCopy, PageHeader, Skeleton, TabPanel, Tabs, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { CompanySettings } from '@/components/settings/company';
 import { LocationsSettings } from '@/components/settings/locations';

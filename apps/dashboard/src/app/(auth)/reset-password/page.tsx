@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Alert, api, Button, Field, Input } from '@tably/ui';
+import { Alert, api, Button, Field, Input } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 
 function ResetForm() {

@@ -20,20 +20,20 @@ export function configureApp(app: NestExpressApplication): void {
   app.enableCors({
     origin: [new URL(env.WEB_URL).origin, new URL(env.DASHBOARD_URL).origin],
     credentials: true,
-    allowedHeaders: ['Content-Type', 'X-Tably-Request', 'Idempotency-Key'],
+    allowedHeaders: ['Content-Type', 'X-Tapperl-Request', 'Idempotency-Key'],
   });
   app.use(csrfMiddleware(env));
   app.useGlobalFilters(new AllExceptionsFilter(app.get(PrismaService)));
   app.enableShutdownHooks();
 
   const config = new DocumentBuilder()
-    .setTitle('Tably API')
+    .setTitle('Tapperl API')
     .setDescription(
-      'REST-API der Tably-Plattform. Dashboard-Routen verwenden Cookie-Sitzungen (schreibende Anfragen brauchen den Header `X-Tably-Request: 1`). ' +
-        'Die Kassen-Schnittstelle unter /integrations verwendet API-Schlüssel (`Authorization: Bearer tably_…`).',
+      'REST-API der Tapperl-Plattform. Dashboard-Routen verwenden Cookie-Sitzungen (schreibende Anfragen brauchen den Header `X-Tapperl-Request: 1`). ' +
+        'Die Kassen-Schnittstelle unter /integrations verwendet API-Schlüssel (`Authorization: Bearer tapperl_…`).',
     )
     .setVersion('0.1.0')
-    .addCookieAuth('tably_session')
+    .addCookieAuth('tapperl_session')
     .addBearerAuth({ type: 'http', scheme: 'bearer', description: 'API-Schlüssel der Organisation' }, 'apiKey')
     .build();
   SwaggerModule.setup('docs', app, SwaggerModule.createDocument(app, config), { jsonDocumentUrl: 'docs/openapi.json' });

@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { z } from 'zod';
-import { createDeviceSchema, deviceStatusSchema, posEventSchema, tapDecisionSchema, updateDeviceSchema } from '@tably/types';
+import { createDeviceSchema, deviceStatusSchema, posEventSchema, tapDecisionSchema, updateDeviceSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { ApiKeyAuth, ApiKeyCtx, Can, Tenant } from '../../common/guards';
 import type { ApiKeyContext, TenantContext } from '../../common/auth.types';

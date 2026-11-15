@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { MapPin } from 'lucide-react';
-import { defineCopy, ErrorState, PageHeader, Select, Skeleton, useCopy } from '@tably/ui';
+import { defineCopy, ErrorState, PageHeader, Select, Skeleton, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { CardLookup } from '@/components/counter/card-lookup';
 import { useCounterLocation } from '@/components/counter/hooks';

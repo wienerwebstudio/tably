@@ -41,16 +41,16 @@ export class Client {
     return this.agent.get(path);
   }
   post(path: string, body?: unknown) {
-    return this.agent.post(path).set('X-Tably-Request', '1').send(body as object);
+    return this.agent.post(path).set('X-Tapperl-Request', '1').send(body as object);
   }
   patch(path: string, body?: unknown) {
-    return this.agent.patch(path).set('X-Tably-Request', '1').send(body as object);
+    return this.agent.patch(path).set('X-Tapperl-Request', '1').send(body as object);
   }
   put(path: string, body?: unknown) {
-    return this.agent.put(path).set('X-Tably-Request', '1').send(body as object);
+    return this.agent.put(path).set('X-Tapperl-Request', '1').send(body as object);
   }
   delete(path: string) {
-    return this.agent.delete(path).set('X-Tably-Request', '1');
+    return this.agent.delete(path).set('X-Tapperl-Request', '1');
   }
 }
 

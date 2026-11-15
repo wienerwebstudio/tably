@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { buttonClass, Logo } from '@tably/ui';
+import { buttonClass, Logo } from '@tapperl/ui';
 
 export default function NotFound() {
   return (

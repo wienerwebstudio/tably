@@ -3,7 +3,7 @@ import * as React from 'react';
 import useSWR from 'swr';
 import QRCode from 'qrcode';
 import { Monitor, ShieldCheck, ShieldOff, Smartphone } from 'lucide-react';
-import { Alert, api, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, CopyButton, defineCopy, Dialog, ErrorState, errorMessage, Field, formatDateTime, formatRelative, Input, Skeleton, useCopy, useToast } from '@tably/ui';
+import { Alert, api, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, CopyButton, defineCopy, Dialog, ErrorState, errorMessage, Field, formatDateTime, formatRelative, Input, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { Stack } from './shared';

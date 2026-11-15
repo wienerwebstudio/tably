@@ -14,7 +14,7 @@ const config: NextConfig = {
   output: 'standalone',
   // Monorepo: Abhängigkeiten aus dem Workspace-Wurzelverzeichnis mit einsammeln
   outputFileTracingRoot: path.join(__dirname, '../../'),
-  transpilePackages: ['@tably/ui'],
+  transpilePackages: ['@tapperl/ui'],
   poweredByHeader: false,
   // Die API wird same-origin unter /api erreichbar gemacht: Cookies bleiben
   // First-Party und es ist kein CORS nötig.

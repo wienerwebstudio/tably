@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { LoyaltyProgram, Organization, Reward } from '@tably/database';
-import { cardDesignSchema, type CardDesign } from '@tably/types';
-import type { WalletCardModel } from '@tably/wallet';
+import type { LoyaltyProgram, Organization, Reward } from '@tapperl/database';
+import { cardDesignSchema, type CardDesign } from '@tapperl/types';
+import type { WalletCardModel } from '@tapperl/wallet';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService, isUniqueViolation, type Tx } from '../../common/prisma.service';
 import { hashToken, keyedHash, randomId, randomShortCode } from '../../common/crypto';

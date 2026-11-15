@@ -133,7 +133,7 @@ export function PhoneFrame({ children, className, label }: { children: React.Rea
   );
 }
 
-/** Tably-Wortmarke mit Stempel-Signet. */
+/** Tapperl-Wortmarke mit Stempel-Signet. */
 export function Logo({ className, mark = false }: { className?: string; mark?: boolean }) {
   return (
     <span className={cn('inline-flex items-center gap-2 font-semibold tracking-tight text-ink', className)}>
@@ -142,7 +142,7 @@ export function Logo({ className, mark = false }: { className?: string; mark?: b
         <circle cx="16" cy="16" r="7.5" fill="none" stroke="var(--on-brand)" strokeWidth="2" strokeDasharray="3.2 2.4" />
         <circle cx="16" cy="16" r="3.2" fill="var(--honey)" />
       </svg>
-      {mark ? null : <span className="text-[1.15em]">Tably</span>}
+      {mark ? null : <span className="text-[1.15em]">Tapperl</span>}
     </span>
   );
 }

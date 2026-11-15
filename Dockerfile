@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Ein Dockerfile für alle drei Dienste. Ziel wählen mit --target api | web | dashboard.
 #
-#   docker build --target api -t tably-api .
+#   docker build --target api -t tapperl-api .
 #
 # Hinweis: NEXT_PUBLIC_*-Variablen werden beim Build in die Next.js-Apps
 # eingebettet und müssen deshalb als Build-Argument gesetzt werden.
@@ -34,7 +34,7 @@ COPY . .
 RUN pnpm build:packages
 
 FROM build AS api-build
-RUN pnpm --filter @tably/api build
+RUN pnpm --filter @tapperl/api build
 
 # ── API ──────────────────────────────────────────────────────────────────
 FROM api-build AS api
@@ -42,11 +42,11 @@ ENV NODE_ENV=production
 USER node
 EXPOSE 4000
 # Migrationen anwenden, Tarife/Super-Admin sicherstellen, dann starten
-CMD ["sh", "-c", "pnpm --filter @tably/database migrate:deploy && node apps/api/dist/seed.js && node apps/api/dist/main.js"]
+CMD ["sh", "-c", "pnpm --filter @tapperl/database migrate:deploy && node apps/api/dist/seed.js && node apps/api/dist/main.js"]
 
 # ── Website (Marketing + Kundenkarte) ────────────────────────────────────
 FROM build AS web-build
-RUN pnpm --filter @tably/web build
+RUN pnpm --filter @tapperl/web build
 
 FROM base AS web
 ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
@@ -59,7 +59,7 @@ CMD ["node", "apps/web/server.js"]
 
 # ── Dashboard ────────────────────────────────────────────────────────────
 FROM build AS dashboard-build
-RUN pnpm --filter @tably/dashboard build
+RUN pnpm --filter @tapperl/dashboard build
 
 FROM base AS dashboard
 ENV NODE_ENV=production PORT=3001 HOSTNAME=0.0.0.0

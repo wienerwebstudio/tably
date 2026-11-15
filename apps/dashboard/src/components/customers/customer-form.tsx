@@ -2,8 +2,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
-import type { CustomerDetailDto, CustomerDto, ProgramDto } from '@tably/types';
-import { Alert, api, Button, defineCopy, Dialog, ErrorState, Field, Input, Select, Skeleton, Textarea, useCopy } from '@tably/ui';
+import type { CustomerDetailDto, CustomerDto, ProgramDto } from '@tapperl/types';
+import { Alert, api, Button, defineCopy, Dialog, ErrorState, Field, Input, Select, Skeleton, Textarea, useCopy } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 import { programStatus } from '@/lib/labels';
 

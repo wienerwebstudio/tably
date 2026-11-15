@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import { Check, ChevronRight, Gift, Megaphone, Settings2, Smartphone } from 'lucide-react';
-import type { CardViewDto } from '@tably/types';
-import { Alert, api, ApiError, Badge, Button, cn, ConfirmDialog, defineCopy, Dialog, EmptyState, ErrorState, Field, formatDate, formatRelative, Input, Skeleton, Switch, useCopy, useToast } from '@tably/ui';
+import type { CardViewDto } from '@tapperl/types';
+import { Alert, api, ApiError, Badge, Button, cn, ConfirmDialog, defineCopy, Dialog, EmptyState, ErrorState, Field, formatDate, formatRelative, Input, Skeleton, Switch, useCopy, useToast } from '@tapperl/ui';
 import { ProgramCard } from '@/components/card/program-card';
 
 const copy = defineCopy({
@@ -200,7 +200,7 @@ function CardView() {
   const [redeeming, setRedeeming] = React.useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [walletLoading, setWalletLoading] = React.useState(false);
-  const storageKey = `tably-code-${id}`;
+  const storageKey = `tapperl-code-${id}`;
 
   // Solange ein Code angezeigt wird, schneller aktualisieren – so erscheint die Bestätigung sofort.
   const { data: card, error, isLoading, mutate } = useSWR<CardViewDto, ApiError>(`/public/cards/${id}`, { refreshInterval: active ? 2500 : 15_000, revalidateOnFocus: true });

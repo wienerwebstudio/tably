@@ -25,7 +25,7 @@ export async function mailLink(page: Page, to: string, kind: string): Promise<st
 
 /** Dashboard-API im Kontext der angemeldeten Seite aufrufen (für Testvorbereitung). */
 export async function dashboardApi<T>(page: Page, method: 'GET' | 'POST' | 'PATCH' | 'PUT', path: string, data?: unknown, headers: Record<string, string> = {}): Promise<T> {
-  const res = await page.request.fetch(`${DASHBOARD}/api${path}`, { method, data, headers: { 'X-Tably-Request': '1', ...headers } });
+  const res = await page.request.fetch(`${DASHBOARD}/api${path}`, { method, data, headers: { 'X-Tapperl-Request': '1', ...headers } });
   if (!res.ok()) throw new Error(`${method} ${path} → ${res.status()} ${await res.text()}`);
   return (await res.json()) as T;
 }

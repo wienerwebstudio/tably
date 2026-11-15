@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Check } from 'lucide-react';
-import { cn, Input, LoyaltyCard, StampIcon } from '@tably/ui';
+import { cn, Input, LoyaltyCard, StampIcon } from '@tapperl/ui';
 import { INDUSTRIES } from './site';
 
 const PALETTES = [

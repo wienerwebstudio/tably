@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Logo, LoyaltyCard } from '@tably/ui';
+import { Logo, LoyaltyCard } from '@tapperl/ui';
 
 const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL ?? 'http://localhost:3000';
 
@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div className="flex flex-col px-6 py-8 sm:px-12">
-        <Link href={WEB_URL} aria-label="Zur Tably-Website">
+        <Link href={WEB_URL} aria-label="Zur Tapperl-Website">
           <Logo />
         </Link>
         <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-10">{children}</main>

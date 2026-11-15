@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import useSWR from 'swr';
-import type { MeDto, Permission } from '@tably/types';
-import { ApiError } from '@tably/ui';
+import type { MeDto, Permission } from '@tapperl/types';
+import { ApiError } from '@tapperl/ui';
 
 interface SessionValue {
   me: MeDto;

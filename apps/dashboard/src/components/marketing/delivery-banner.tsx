@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
-import type { WalletStatusDto } from '@tably/types';
-import { Alert, defineCopy, useCopy } from '@tably/ui';
+import type { WalletStatusDto } from '@tapperl/types';
+import { Alert, defineCopy, useCopy } from '@tapperl/ui';
 import { walletConfigured } from './labels';
 
 const copy = defineCopy({

@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { api, ErrorState, Spinner } from '@tably/ui';
+import { api, ErrorState, Spinner } from '@tapperl/ui';
 
 /** Link aus dem Wallet-Pass: öffnet die Karte auf diesem Gerät. */
 export default function AccessPage() {

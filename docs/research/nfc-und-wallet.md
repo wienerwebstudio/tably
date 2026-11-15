@@ -1,4 +1,4 @@
-# NFC und Wallet: technische Grundlagen für Tably
+# NFC und Wallet: technische Grundlagen für Tapperl
 
 Stand der Recherche: 15.11.2026. Belegt wird mit offizieller Dokumentation von NXP, Apple, Google, Android, W3C/Chrome. Herstellerseiten der Reader-Anbieter sind als solche gekennzeichnet (Eigenangaben, nicht von Apple/Google gegengeprüft).
 
@@ -64,9 +64,9 @@ Quellen: https://www.nxp.com/docs/en/data-sheet/NT4H2421Gx.pdf, https://www.nxp.
 - **Wichtige Einschränkung.** Bei verschlüsselten PICCData kennt die Prüfseite die UID vor dem Entschlüsseln nicht. NXP schreibt: Der SDMMetaReadKey darf dann nicht UID-diversifiziert sein und muss auf Systemebene besonders sicher gespeichert werden. [belegt] AN12196 Kap. 3.4.2
 - Schlüssel bzw. Masterschlüssel sollen im Backend in einem HSM liegen. [belegt] AN12196 Kap. 8.1
 
-Folgen für Tably [abgeleitet]:
+Folgen für Tapperl [abgeleitet]:
 - SDMFileReadKey (MAC) je Tag aus der UID diversifizieren.
-- SDMMetaReadKey ist zwangsläufig ein Gruppenschlüssel. Um den Schaden zu begrenzen, kann eine nicht geheime Tag- oder Mandanten-ID im statischen URL-Teil stehen (z. B. `https://t.tably.app/s/<tagId>?e=...&c=...`), über die das Backend den passenden MetaRead-Schlüssel wählt. Diese Variante ist eine eigene Architekturidee und in den NXP-Dokumenten nicht beschrieben.
+- SDMMetaReadKey ist zwangsläufig ein Gruppenschlüssel. Um den Schaden zu begrenzen, kann eine nicht geheime Tag- oder Mandanten-ID im statischen URL-Teil stehen (z. B. `https://t.tapperl.app/s/<tagId>?e=...&c=...`), über die das Backend den passenden MetaRead-Schlüssel wählt. Diese Variante ist eine eigene Architekturidee und in den NXP-Dokumenten nicht beschrieben.
 - AppMasterKey und die ungenutzten Schlüssel ebenfalls vom Werkswert (lauter Nullen in den NXP-Beispielen) auf diversifizierte Werte ändern, sonst kann jeder den Tag umkonfigurieren.
 
 ### Was SUN beweist und was nicht
@@ -86,7 +86,7 @@ Folgen für Tably [abgeleitet]:
 - SDMReadCtr je Tag auf der Prüfseite nachführen; bereits gesehene oder ausser der Reihe gespielte Werte ablehnen. NXP: "This is a minimum requirement any verifier should implement."
 - Zeitfenster des Angreifers begrenzen, indem Tags regelmässig (z. B. täglich) präsentiert werden müssen.
 
-Zusätzliche Massnahmen für Tably [abgeleitet]: kurze Gültigkeit ab erstem Abruf, Verwerfen aller älteren Zählerstände sobald ein höherer eingelöst wurde (macht Vorrats-URLs wertlos, sobald der Stempel normal weiterbenutzt wird), ein Stempel je Kunde und Zeitraum, Auffälligkeitserkennung (Zählersprünge, Einlösungen ausserhalb der Öffnungszeiten), Sperren verlorener Stempel.
+Zusätzliche Massnahmen für Tapperl [abgeleitet]: kurze Gültigkeit ab erstem Abruf, Verwerfen aller älteren Zählerstände sobald ein höherer eingelöst wurde (macht Vorrats-URLs wertlos, sobald der Stempel normal weiterbenutzt wird), ein Stempel je Kunde und Zeitraum, Auffälligkeitserkennung (Zählersprünge, Einlösungen ausserhalb der Öffnungszeiten), Sperren verlorener Stempel.
 
 Hinweis zum SDMReadCtrLimit: Damit lässt sich die Zahl der Lesevorgänge begrenzen; NXP weist auf das DoS-Risiko hin. Für einen dauerhaft genutzten Stempel eher ungeeignet. [belegt] AN12196 Kap. 6.6. Der 24-Bit-Zähler reicht für rund 16,7 Mio. Taps. [abgeleitet]
 
@@ -95,7 +95,7 @@ Hinweis zum SDMReadCtrLimit: Damit lässt sich die Zahl der Lesevorgänge begren
 - Variante mit vier Pads: zwei für die Antenne, zwei für eine Detektionsschleife. Beim Start prüft der IC die Schleife; ist sie offen, wird das dauerhaft im Speicher vermerkt (TTPermStatus). Der Status kann in die NDEF-Nachricht gespiegelt werden; mit `GetTTStatus` erhält man dauerhaften und aktuellen Status. [belegt] AN12196 Kap. 6.5
 - NXP nennt als Zweck "once-opened and current-status detection" für Siegel. [belegt] https://www.nxp.com/products/NTAG424DNA
 - Der Tag ist passiv und misst nur im Feld; NXP empfiehlt konstruktive Gegenmassnahmen gegen Öffnen und Wiederverschliessen zwischen zwei Messungen. [belegt] AN12196 Kap. 6.5
-- Relevanz für Tably [abgeleitet]: Mit einer Schleife durch das Stempelgehäuse liesse sich erkennen, ob der Tag aus dem Stempel herausgelöst wurde. Für das MVP nicht nötig; Aufwand für Schleifendesign siehe NXP AN11941 (nicht ausgewertet).
+- Relevanz für Tapperl [abgeleitet]: Mit einer Schleife durch das Stempelgehäuse liesse sich erkennen, ob der Tag aus dem Stempel herausgelöst wurde. Für das MVP nicht nötig; Aufwand für Schleifendesign siehe NXP AN11941 (nicht ausgewertet).
 
 ### Personalisierungswerkzeuge
 
@@ -242,7 +242,7 @@ Realistischer Weg für die Ausbaustufe [abgeleitet]: ein zertifiziertes OEM-Modu
 ### Loyalty Class und Loyalty Object
 
 - Ein Pass entsteht aus einer **Passes Class** (gemeinsame Vorlage, Eigenschaften für alle Pässe) und einem **Passes Object** (individueller Pass eines Nutzers), verknüpft über `classId`. IDs folgen dem Muster `ISSUER_ID.eigene_kennung`. Änderungen an der Class wirken sofort auf alle Objects; Nutzer sehen sie bei der nächsten Synchronisierung. [belegt] https://developers.google.com/wallet/retail/loyalty-cards/overview/how-classes-objects-work
-- Für Tably [abgeleitet]: eine LoyaltyClass je Mandant bzw. Kartenprogramm, ein LoyaltyObject je Endkunde mit Stempelstand.
+- Für Tapperl [abgeleitet]: eine LoyaltyClass je Mandant bzw. Kartenprogramm, ein LoyaltyObject je Endkunde mit Stempelstand.
 
 ### Issuer-Konto und Freischaltung
 
@@ -280,7 +280,7 @@ Quellen: https://developers.google.com/wallet/smart-tap/introduction/overview, h
 - **Terminals**: müssen das Smart-Tap-Protokoll unterstützen. Google listet kompatible Anbieter, darunter Advanced Card Systems, Dot Origin, Elatec, Famoco, HID, Ingenico, Pax, Socket Mobile, SpringCard, Sunmi, Verifone, Zebra. Terminalanbieter, die sich zertifizieren wollen, müssen den Support kontaktieren, um die Dokumentation zu erhalten. [belegt]
 - Eine gesonderte Zugangsfreigabe für Händler/Issuer (über Publishing Access hinaus) nennen die ausgewerteten Seiten nicht; die verlinkte "Prerequisites"-Seite wurde nicht abgerufen. **[NICHT VERIFIZIERT]**
 
-Folge für die Mandantenarchitektur [abgeleitet]: Für Smart Tap braucht jeder Tably-Mandant ein eigenes Redemption-Issuer-Konto mit eigener Collector ID. Das ist ein manueller oder zumindest API-gestützter Onboarding-Schritt je Mandant und sollte im Datenmodell früh vorgesehen werden.
+Folge für die Mandantenarchitektur [abgeleitet]: Für Smart Tap braucht jeder Tapperl-Mandant ein eigenes Redemption-Issuer-Konto mit eigener Collector ID. Das ist ein manueller oder zumindest API-gestützter Onboarding-Schritt je Mandant und sollte im Datenmodell früh vorgesehen werden.
 
 ---
 
@@ -293,7 +293,7 @@ Folge für die Mandantenarchitektur [abgeleitet]: Für Smart Tap braucht jeder T
 - Nur HTTPS, nur Top-Level-Frame, Berechtigungsabfrage, Aufruf nur nach Nutzergeste, Seite muss sichtbar und Gerät entsperrt sein. [belegt] Chrome-Doku
 - Safari/iOS: Die Chrome-Seite beschreibt nur Android; eine ausdrückliche WebKit-Aussage wurde nicht gefunden. Dass Safari Web NFC nicht unterstützt: **[NICHT VERIFIZIERT]** anhand einer WebKit-Quelle (MDN-Einstufung "nicht in einigen der meistgenutzten Browser" stützt es indirekt).
 
-**Relevanz für Tably:**
+**Relevanz für Tapperl:**
 - **Für den Stempelvorgang irrelevant.** Der Tap funktioniert über das Betriebssystem (URL öffnen), nicht über eine Web-API. Web NFC würde eine bereits geöffnete Seite, eine Berechtigungsabfrage und Chrome auf Android voraussetzen und schliesst iPhones aus. [abgeleitet]
 - **Für die Personalisierung ungeeignet.** SDM-Konfiguration und Schlüsselwechsel brauchen ISO-DEP/APDU-Zugriff (AuthenticateEV2First, ChangeFileSettings, ChangeKey), den Web NFC nicht bietet. Dafür ist eine native Android-App (z. B. mit TapLinX) oder ein PC/SC-Leser nötig. [abgeleitet aus AN12196 Kap. 5 und den Web-NFC-Grenzen]
 - **Möglicher Nebennutzen:** einfache Diagnose im Händler-Dashboard auf Android ("Stempel testen": NDEF lesen und URL-Struktur prüfen). Kein MVP-Bedarf. [abgeleitet]

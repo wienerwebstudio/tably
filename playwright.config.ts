@@ -23,8 +23,8 @@ export default defineConfig({
   webServer: process.env.E2E_NO_SERVER
     ? undefined
     : [
-        { command: 'pnpm --filter @tably/api start', url: `${API}/health`, reuseExistingServer: true, timeout: 60_000 },
-        { command: 'pnpm --filter @tably/web start', url: WEB, reuseExistingServer: true, timeout: 60_000 },
-        { command: 'pnpm --filter @tably/dashboard start', url: `${DASHBOARD}/login`, reuseExistingServer: true, timeout: 60_000 },
+        { command: 'pnpm --filter @tapperl/api start', url: `${API}/health`, reuseExistingServer: true, timeout: 60_000 },
+        { command: 'pnpm --filter @tapperl/web start', url: WEB, reuseExistingServer: true, timeout: 60_000 },
+        { command: 'pnpm --filter @tapperl/dashboard start', url: `${DASHBOARD}/login`, reuseExistingServer: true, timeout: 60_000 },
       ],
 });

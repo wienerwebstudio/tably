@@ -3,7 +3,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import type { Response } from 'express';
 import { z } from 'zod';
-import { SESSION_COOKIE } from '@tably/config';
+import { SESSION_COOKIE } from '@tapperl/config';
 import {
   acceptInvitationSchema,
   changePasswordSchema,
@@ -14,7 +14,7 @@ import {
   tokenSchema,
   totpCodeSchema,
   updateProfileSchema,
-} from '@tably/types';
+} from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { Authenticated, CurrentAuth } from '../../common/guards';
 import { clientIp, userAgent, type AppRequest, type AuthContext } from '../../common/auth.types';

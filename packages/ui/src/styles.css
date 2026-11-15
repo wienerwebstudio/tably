@@ -1,5 +1,5 @@
 /*
- * Tably Design-Tokens. Wird von beiden Apps nach `@import "tailwindcss"` eingebunden.
+ * Tapperl Design-Tokens. Wird von beiden Apps nach `@import "tailwindcss"` eingebunden.
  * Farben sind semantisch benannt und über CSS-Variablen umschaltbar (Dark Mode).
  */
 @theme {

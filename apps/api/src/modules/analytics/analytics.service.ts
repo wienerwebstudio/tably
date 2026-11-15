@@ -15,7 +15,7 @@ const n = (v: bigint | number | null | undefined) => Number(v ?? 0);
 /**
  * Alle Kennzahlen werden direkt aus Buchungen und Kundendaten berechnet.
  * Es gibt keine geschätzten oder hochgerechneten Werte – insbesondere keinen
- * Umsatz, weil Tably keine Umsätze kennt.
+ * Umsatz, weil Tapperl keine Umsätze kennt.
  */
 @Injectable()
 export class AnalyticsService {

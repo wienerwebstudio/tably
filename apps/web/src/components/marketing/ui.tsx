@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
-import { buttonClass, cn } from '@tably/ui';
+import { buttonClass, cn } from '@tapperl/ui';
 import { REGISTER_URL } from './site';
 
 export function Container({ className, children, wide }: { className?: string; children: React.ReactNode; wide?: boolean }) {

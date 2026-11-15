@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
 import { Check, Gift, Nfc } from 'lucide-react';
-import { cn, LoyaltyCard, PhoneFrame } from '@tably/ui';
+import { cn, LoyaltyCard, PhoneFrame } from '@tapperl/ui';
 import { HERO_CARD } from './site';
 import { StampSide } from './stamp';
 

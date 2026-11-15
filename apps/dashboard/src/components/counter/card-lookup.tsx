@@ -2,8 +2,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Search, X } from 'lucide-react';
-import type { CardLookupDto } from '@tably/types';
-import { Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, defineCopy, errorMessage, Field, formatRelative, fullName, Input, useCopy } from '@tably/ui';
+import type { CardLookupDto } from '@tapperl/types';
+import { Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, defineCopy, errorMessage, Field, formatRelative, fullName, Input, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { CardActions } from './card-actions';
 import { formatCardCode } from './hooks';

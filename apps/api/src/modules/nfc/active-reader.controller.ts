@@ -1,7 +1,7 @@
 import { Controller, Headers, HttpCode, Post, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { z } from 'zod';
-import { verifyDeviceRequest } from '@tably/nfc';
+import { verifyDeviceRequest } from '@tapperl/nfc';
 import type { AppRequest } from '../../common/auth.types';
 import { PrismaService } from '../../common/prisma.service';
 import { AppError } from '../../common/errors';
@@ -18,7 +18,7 @@ const reportSchema = z.object({
 
 /**
  * Schnittstelle für aktive Stempel (Ausbaustufe B). Authentifizierung über
- * Ed25519-signierte Anfragen statt Cookies – siehe @tably/nfc `active.ts`.
+ * Ed25519-signierte Anfragen statt Cookies – siehe @tapperl/nfc `active.ts`.
  *
  * Stand: Das Backend ist vorbereitet und getestet. Es existiert noch keine
  * Hardware, und das Auslesen von Wallet-Pässen per Apple VAS / Google Smart Tap
@@ -38,10 +38,10 @@ export class ActiveReaderController {
   @ApiOperation({ summary: 'Signierte Meldung eines aktiven Stempels: Karte gelesen' })
   async tap(
     @Req() req: AppRequest,
-    @Headers('x-tably-device') publicId: string | undefined,
-    @Headers('x-tably-timestamp') timestamp: string | undefined,
-    @Headers('x-tably-nonce') nonce: string | undefined,
-    @Headers('x-tably-signature') signature: string | undefined,
+    @Headers('x-tapperl-device') publicId: string | undefined,
+    @Headers('x-tapperl-timestamp') timestamp: string | undefined,
+    @Headers('x-tapperl-nonce') nonce: string | undefined,
+    @Headers('x-tapperl-signature') signature: string | undefined,
   ) {
     const denied = new AppError('unauthenticated', 'Geräteauthentifizierung fehlgeschlagen.');
     if (!publicId || !timestamp || !nonce || !signature || !req.rawBody) throw denied;

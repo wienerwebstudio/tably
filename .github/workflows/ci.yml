@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DATABASE_URL: postgresql://tably:tably@localhost:5432/tably
-  TEST_DATABASE_URL: postgresql://tably:tably@localhost:5432/tably_test
+  DATABASE_URL: postgresql://tapperl:tapperl@localhost:5432/tapperl
+  TEST_DATABASE_URL: postgresql://tapperl:tapperl@localhost:5432/tapperl_test
   REDIS_URL: redis://localhost:6379
   APP_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
   NFC_SIMULATOR_ENABLED: "true"
@@ -24,10 +24,10 @@ jobs:
     services:
       postgres:
         image: postgres:16-alpine
-        env: { POSTGRES_USER: tably, POSTGRES_PASSWORD: tably, POSTGRES_DB: tably }
+        env: { POSTGRES_USER: tapperl, POSTGRES_PASSWORD: tapperl, POSTGRES_DB: tapperl }
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U tably" --health-interval 5s --health-timeout 3s --health-retries 20
+          --health-cmd "pg_isready -U tapperl" --health-interval 5s --health-timeout 3s --health-retries 20
       redis:
         image: redis:7-alpine
         ports: ["6379:6379"]
@@ -40,7 +40,7 @@ jobs:
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - name: Test-Datenbank anlegen
-        run: PGPASSWORD=tably psql -h localhost -U tably -d tably -c 'CREATE DATABASE tably_test;'
+        run: PGPASSWORD=tapperl psql -h localhost -U tapperl -d tapperl -c 'CREATE DATABASE tapperl_test;'
       - name: Pakete bauen
         run: pnpm build:packages
       - name: Typprüfung

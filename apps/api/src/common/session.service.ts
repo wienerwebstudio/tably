@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Response } from 'express';
-import { CUSTOMER_COOKIE, CUSTOMER_SESSION_TTL_DAYS, SESSION_COOKIE, SESSION_TTL_DAYS } from '@tably/config';
-import type { Role } from '@tably/types';
+import { CUSTOMER_COOKIE, CUSTOMER_SESSION_TTL_DAYS, SESSION_COOKIE, SESSION_TTL_DAYS } from '@tapperl/config';
+import type { Role } from '@tapperl/types';
 import { ENV, type Env } from './env';
 import { PrismaService } from './prisma.service';
 import { hashToken, randomToken } from './crypto';

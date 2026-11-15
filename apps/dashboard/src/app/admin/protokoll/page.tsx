@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { ScrollText } from 'lucide-react';
-import type { AuditEntryDto, Page } from '@tably/types';
-import { Card, defineCopy, EmptyState, formatDateTime, PageHeader, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tably/ui';
+import type { AuditEntryDto, Page } from '@tapperl/types';
+import { Card, defineCopy, EmptyState, formatDateTime, PageHeader, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { actorLabel, auditLabel, LoadError, pagedKey, SearchField } from '@/components/admin/shared';
 
 const copy = defineCopy({

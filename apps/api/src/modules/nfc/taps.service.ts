@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { BookingPolicy, LoyaltyProgram, NfcDevice, PosEvent, TapEvent } from '@tably/database';
-import { verifySun } from '@tably/nfc';
-import { TAP_TTL_SECONDS } from '@tably/config';
-import type { ErrorCode } from '@tably/types';
+import type { BookingPolicy, LoyaltyProgram, NfcDevice, PosEvent, TapEvent } from '@tapperl/database';
+import { verifySun } from '@tapperl/nfc';
+import { TAP_TTL_SECONDS } from '@tapperl/config';
+import type { ErrorCode } from '@tapperl/types';
 import { PrismaService, isUniqueViolation } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
 import { EntitlementsService } from '../../common/entitlements.service';

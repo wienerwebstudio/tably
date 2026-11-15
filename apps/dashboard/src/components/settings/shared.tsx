@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
-import { UNLIMITED } from '@tably/config';
-import { cn, formatNumber } from '@tably/ui';
+import { UNLIMITED } from '@tapperl/config';
+import { cn, formatNumber } from '@tapperl/ui';
 
 export function formatLimit(limit: number): string {
   return limit === UNLIMITED ? 'unbegrenzt' : formatNumber(limit);

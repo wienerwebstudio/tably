@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { cn } from '@tably/ui';
+import { cn } from '@tapperl/ui';
 
 /*
- * Der Tably-Stempel als Zeichnung. Maßstab 4 Einheiten = 1 mm, Achse bei x = 100,
+ * Der Tapperl-Stempel als Zeichnung. Maßstab 4 Einheiten = 1 mm, Achse bei x = 100,
  * Stempelfläche bei y = 330. Proportionen nach hardware/drawings/massskizze.svg:
  * Ø 44 × 80 mm, Knauf Ø 34, Taille Ø 19, Bund Ø 30, Fuß 18 mm, Kappe 7,8 mm.
  */

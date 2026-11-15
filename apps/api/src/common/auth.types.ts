@@ -1,5 +1,5 @@
 import type { Request } from 'express';
-import type { Permission, Role } from '@tably/types';
+import type { Permission, Role } from '@tapperl/types';
 
 export interface AuthUser {
   id: string;

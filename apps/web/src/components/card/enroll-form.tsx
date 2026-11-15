@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import Link from 'next/link';
-import type { ProgramViewDto, TapResultDto } from '@tably/types';
-import { Alert, api, ApiError, Button, Checkbox, defineCopy, Field, Input, useCopy } from '@tably/ui';
+import type { ProgramViewDto, TapResultDto } from '@tapperl/types';
+import { Alert, api, ApiError, Button, Checkbox, defineCopy, Field, Input, useCopy } from '@tapperl/ui';
 
 const copy = defineCopy({
   de: {

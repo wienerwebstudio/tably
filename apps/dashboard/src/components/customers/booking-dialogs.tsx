@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
-import type { TransactionDto } from '@tably/types';
-import { Alert, api, Button, defineCopy, Dialog, Field, formatDateTime, Input, Segmented, Textarea, useCopy, useToast } from '@tably/ui';
+import type { TransactionDto } from '@tapperl/types';
+import { Alert, api, Button, defineCopy, Dialog, Field, formatDateTime, Input, Segmented, Textarea, useCopy, useToast } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 import { txType } from '@/lib/labels';
 import { useIntentKeys } from '@/components/counter/hooks';

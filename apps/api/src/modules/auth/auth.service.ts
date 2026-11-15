@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { hash, verify } from '@node-rs/argon2';
 import type { Response } from 'express';
 import type { z } from 'zod';
-import { TRIAL_DAYS, TRIAL_PLAN_ID } from '@tably/config';
-import { ROLE_PERMISSIONS, type acceptInvitationSchema, type registerSchema } from '@tably/types';
+import { TRIAL_DAYS, TRIAL_PLAN_ID } from '@tapperl/config';
+import { ROLE_PERMISSIONS, type acceptInvitationSchema, type registerSchema } from '@tapperl/types';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService, isUniqueViolation } from '../../common/prisma.service';
 import { SessionService } from '../../common/session.service';
@@ -92,7 +92,7 @@ export class AuthService {
       to: email,
       kind: 'auth.verify',
       subject: 'Bitte bestätige deine E-Mail-Adresse',
-      text: `Hallo ${name},\n\nbitte bestätige deine E-Mail-Adresse für Tably:\n${this.env.DASHBOARD_URL}/verify-email?token=${token}\n\nDer Link ist 48 Stunden gültig.`,
+      text: `Hallo ${name},\n\nbitte bestätige deine E-Mail-Adresse für Tapperl:\n${this.env.DASHBOARD_URL}/verify-email?token=${token}\n\nDer Link ist 48 Stunden gültig.`,
     });
   }
 
@@ -110,7 +110,7 @@ export class AuthService {
   async login(email: string, password: string, meta: RequestMeta, res: Response): Promise<{ mfaRequired: boolean }> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) {
-      this.dummyHash ??= this.hashPassword('tably-dummy-password');
+      this.dummyHash ??= this.hashPassword('tapperl-dummy-password');
       await verify(await this.dummyHash, password).catch(() => false);
       throw new AppError('invalid_credentials', 'E-Mail-Adresse oder Passwort ist falsch.');
     }
@@ -232,8 +232,8 @@ export class AuthService {
     if (user.totpEnabledAt) throw new AppError('conflict', 'Die Zwei-Faktor-Anmeldung ist bereits aktiv.');
     const secret = base32Encode(randomBytes(20));
     await this.prisma.user.update({ where: { id: user.id }, data: { totpSecretEnc: encryptSecret(secret) } });
-    const label = encodeURIComponent(`Tably:${user.email}`);
-    return { secret, otpauthUrl: `otpauth://totp/${label}?secret=${secret}&issuer=Tably&algorithm=SHA1&digits=6&period=30` };
+    const label = encodeURIComponent(`Tapperl:${user.email}`);
+    return { secret, otpauthUrl: `otpauth://totp/${label}?secret=${secret}&issuer=Tapperl&algorithm=SHA1&digits=6&period=30` };
   }
 
   async enableTotp(auth: AuthContext, code: string): Promise<void> {

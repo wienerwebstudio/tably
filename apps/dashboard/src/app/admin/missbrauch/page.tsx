@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { ShieldCheck } from 'lucide-react';
-import { Badge, Card, CardHeader, defineCopy, EmptyState, formatDateTime, formatNumber, PageHeader, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tably/ui';
+import { Badge, Card, CardHeader, defineCopy, EmptyState, formatDateTime, formatNumber, PageHeader, Pagination, Skeleton, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { flagReason, txSource, txType } from '@/lib/labels';
 import { LoadError, pagedKey } from '@/components/admin/shared';
 import type { AdminAbuse } from '@/components/admin/types';

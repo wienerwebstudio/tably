@@ -2,7 +2,7 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { Inbox } from 'lucide-react';
-import { api, Badge, Button, Card, defineCopy, EmptyState, errorMessage, formatDateTime, PageHeader, Segmented, Skeleton, useCopy, useToast } from '@tably/ui';
+import { api, Badge, Button, Card, defineCopy, EmptyState, errorMessage, formatDateTime, PageHeader, Segmented, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { LoadError } from '@/components/admin/shared';
 import type { AdminContactRequest } from '@/components/admin/types';
 

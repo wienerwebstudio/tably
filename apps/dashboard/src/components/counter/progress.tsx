@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@tably/ui';
+import { cn } from '@tapperl/ui';
 
 /** Fortschritt einer Stempelkarte als Punkte (bis 30) mit Textalternative. */
 export function StampProgress({ balance, required, size = 'md', className }: { balance: number; required: number; size?: 'sm' | 'md'; className?: string }) {

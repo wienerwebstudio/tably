@@ -2,7 +2,7 @@ import { Controller, Get, Headers, HttpCode, Param, Post } from '@nestjs/common'
 import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { z } from 'zod';
-import { adjustSchema, manualStampSchema, redeemCodeSchema, redeemSchema } from '@tably/types';
+import { adjustSchema, manualStampSchema, redeemCodeSchema, redeemSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody, ZQuery } from '../../common/zod';
 import { Can, Tenant } from '../../common/guards';
 import type { TenantContext } from '../../common/auth.types';

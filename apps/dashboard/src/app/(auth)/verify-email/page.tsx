@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { mutate } from 'swr';
-import { Alert, api, ApiError, buttonClass, Spinner } from '@tably/ui';
+import { Alert, api, ApiError, buttonClass, Spinner } from '@tapperl/ui';
 
 function Verify() {
   const token = useSearchParams().get('token');

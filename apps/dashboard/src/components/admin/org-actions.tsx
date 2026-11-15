@@ -1,9 +1,9 @@
 'use client';
 import * as React from 'react';
-import { TRIAL_DAYS, UNLIMITED } from '@tably/config';
-import type { PlanLimits } from '@tably/config';
-import type { SubscriptionStatus } from '@tably/types';
-import { Alert, api, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, Dialog, errorMessage, Field, Input, Select, Textarea, useCopy, useToast } from '@tably/ui';
+import { TRIAL_DAYS, UNLIMITED } from '@tapperl/config';
+import type { PlanLimits } from '@tapperl/config';
+import type { SubscriptionStatus } from '@tapperl/types';
+import { Alert, api, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, Dialog, errorMessage, Field, Input, Select, Textarea, useCopy, useToast } from '@tapperl/ui';
 import { limitLabel, subscriptionStatus } from '@/lib/labels';
 import { formatLimit } from './shared';
 import { LIMIT_KEYS, type AdminOrgDetail, type AdminPlan } from './types';

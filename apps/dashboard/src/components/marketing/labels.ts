@@ -1,4 +1,4 @@
-import type { CampaignDto, CampaignType, WalletStatusDto } from '@tably/types';
+import type { CampaignDto, CampaignType, WalletStatusDto } from '@tapperl/types';
 
 type Tone = 'neutral' | 'brand' | 'success' | 'warn' | 'danger' | 'info' | 'honey';
 export type Channel = CampaignDto['channels'][number];

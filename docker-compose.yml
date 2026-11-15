@@ -4,13 +4,13 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: tably
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tably}
-      POSTGRES_DB: tably
+      POSTGRES_USER: tapperl
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tapperl}
+      POSTGRES_DB: tapperl
     ports: ["127.0.0.1:5432:5432"]
     volumes: [pgdata:/var/lib/postgresql/data]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tably -d tably"]
+      test: ["CMD-SHELL", "pg_isready -U tapperl -d tapperl"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -30,7 +30,7 @@ services:
     build: { context: ., target: api }
     env_file: .env
     environment:
-      DATABASE_URL: postgresql://tably:${POSTGRES_PASSWORD:-tably}@postgres:5432/tably
+      DATABASE_URL: postgresql://tapperl:${POSTGRES_PASSWORD:-tapperl}@postgres:5432/tapperl
       REDIS_URL: redis://redis:6379
       QUEUE_DRIVER: bullmq
       TRUST_PROXY: "true"

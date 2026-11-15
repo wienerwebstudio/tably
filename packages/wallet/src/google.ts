@@ -22,7 +22,7 @@ export function sanitizeIdSuffix(value: string): string {
 }
 
 export function classId(config: GoogleWalletConfig, programId: string): string {
-  return `${config.issuerId}.tably_${sanitizeIdSuffix(programId)}`;
+  return `${config.issuerId}.tapperl_${sanitizeIdSuffix(programId)}`;
 }
 
 export function objectId(config: GoogleWalletConfig, serial: string): string {

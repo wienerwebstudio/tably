@@ -1,5 +1,5 @@
-import type { PlanFeatures, PlanLimits } from '@tably/config';
-import type { AuditEntryDto, BookingPolicy, DeviceKind, DeviceSecurity, DeviceStatus, InvoiceDto, LocationDto, OrganizationDto, ProgramStatus, Role, SubscriptionStatus, TransactionSource, TransactionType } from '@tably/types';
+import type { PlanFeatures, PlanLimits } from '@tapperl/config';
+import type { AuditEntryDto, BookingPolicy, DeviceKind, DeviceSecurity, DeviceStatus, InvoiceDto, LocationDto, OrganizationDto, ProgramStatus, Role, SubscriptionStatus, TransactionSource, TransactionType } from '@tapperl/types';
 
 /** Antwortformate der Super-Admin-Routen (apps/api/src/modules/admin/admin.controller.ts). */
 export type Provider = 'LOCAL' | 'STRIPE';

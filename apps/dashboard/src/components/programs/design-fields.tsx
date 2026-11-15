@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
-import { STAMP_ICONS } from '@tably/types';
-import { cn, Field, Input, StampIcon } from '@tably/ui';
+import { STAMP_ICONS } from '@tapperl/types';
+import { cn, Field, Input, StampIcon } from '@tapperl/ui';
 import { STAMP_ICON_LABELS } from './presets';
 
 export function ColorField({ label, value, onChange, hint }: { label: string; value: string; onChange: (v: string) => void; hint?: React.ReactNode }) {

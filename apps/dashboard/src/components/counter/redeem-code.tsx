@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Gift, PartyPopper } from 'lucide-react';
-import { api, ApiError, Button, Card, CardBody, CardHeader, defineCopy, errorMessage, Field, Input, useCopy, useToast } from '@tably/ui';
+import { api, ApiError, Button, Card, CardBody, CardHeader, defineCopy, errorMessage, Field, Input, useCopy, useToast } from '@tapperl/ui';
 
 const copy = defineCopy({
   de: {

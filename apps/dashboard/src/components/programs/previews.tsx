@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import QRCode from 'qrcode';
-import type { CardDesign } from '@tably/types';
-import { LoyaltyCard, PhoneFrame, Segmented, StampIcon, type LoyaltyCardData } from '@tably/ui';
+import type { CardDesign } from '@tapperl/types';
+import { LoyaltyCard, PhoneFrame, Segmented, StampIcon, type LoyaltyCardData } from '@tapperl/ui';
 
 export interface PreviewModel {
   organizationName: string;
@@ -41,7 +41,7 @@ function useQr(value: string): string | null {
 }
 
 function AppleWalletPreview({ m, balance }: { m: PreviewModel; balance: number }) {
-  const qr = useQr('TABLY-CODE');
+  const qr = useQr('TAPPERL-CODE');
   const shown = Math.min(balance, m.stampsRequired);
   const cols = m.stampsRequired <= 6 ? m.stampsRequired : Math.ceil(m.stampsRequired / (m.stampsRequired <= 14 ? 2 : 3));
   return (
@@ -78,7 +78,7 @@ function AppleWalletPreview({ m, balance }: { m: PreviewModel; balance: number }
 }
 
 function GoogleWalletPreview({ m, balance }: { m: PreviewModel; balance: number }) {
-  const qr = useQr('TABLY-CODE');
+  const qr = useQr('TAPPERL-CODE');
   return (
     <div className="p-3 pt-10">
       <div className="overflow-hidden rounded-3xl shadow-raised" style={{ background: m.design.backgroundColor, color: m.design.textColor }}>

@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { mutate } from 'swr';
-import { TRIAL_DAYS } from '@tably/config';
-import { Alert, api, Button, Checkbox, Field, Input } from '@tably/ui';
+import { TRIAL_DAYS } from '@tapperl/config';
+import { Alert, api, Button, Checkbox, Field, Input } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 
 const WEB_URL = process.env.NEXT_PUBLIC_WEB_URL ?? 'http://localhost:3000';

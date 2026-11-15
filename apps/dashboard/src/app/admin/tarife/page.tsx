@@ -2,7 +2,7 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { Check, Minus, Pencil } from 'lucide-react';
-import { Badge, Button, Card, cn, defineCopy, EmptyState, formatDateTime, formatMoney, PageHeader, Skeleton, useCopy } from '@tably/ui';
+import { Badge, Button, Card, cn, defineCopy, EmptyState, formatDateTime, formatMoney, PageHeader, Skeleton, useCopy } from '@tapperl/ui';
 import { featureLabel, limitLabel } from '@/lib/labels';
 import { formatLimit, LoadError } from '@/components/admin/shared';
 import { PlanEditor } from '@/components/admin/plan-editor';

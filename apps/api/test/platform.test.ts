@@ -177,7 +177,7 @@ describe('Wallet mit Testzertifikaten', () => {
     const certPem = forge.pki.certificateToPem(cert);
     const rsa = generateKeyPairSync('rsa', { modulusLength: 2048 });
     t = await createApp({
-      APPLE_PASS_TYPE_ID: 'pass.test.tably',
+      APPLE_PASS_TYPE_ID: 'pass.test.tapperl',
       APPLE_TEAM_ID: 'TEAM123456',
       APPLE_PASS_CERT_PEM: certPem,
       APPLE_PASS_KEY_PEM: forge.pki.privateKeyToPem(keys.privateKey),
@@ -216,15 +216,15 @@ describe('Wallet mit Testzertifikaten', () => {
     const serial = /"serialNumber":"([^"]+)"/.exec(text)![1]!;
 
     const anon = new Client(t).agent;
-    const base = `/wallet/apple/v1/devices/dev123/registrations/pass.test.tably/${serial}`;
+    const base = `/wallet/apple/v1/devices/dev123/registrations/pass.test.tapperl/${serial}`;
     expect((await anon.post(base).set('Authorization', 'ApplePass falsch').send({ pushToken: 'a'.repeat(64) })).status).toBe(401);
     expect((await anon.post(base).set('Authorization', `ApplePass ${token}`).send({ pushToken: 'a'.repeat(64) })).status).toBe(201);
     expect((await anon.post(base).set('Authorization', `ApplePass ${token}`).send({ pushToken: 'a'.repeat(64) })).status).toBe(200);
-    const serials = await anon.get('/wallet/apple/v1/devices/dev123/registrations/pass.test.tably');
+    const serials = await anon.get('/wallet/apple/v1/devices/dev123/registrations/pass.test.tapperl');
     expect(serials.body.serialNumbers).toEqual([serial]);
-    expect((await anon.get(`/wallet/apple/v1/devices/dev123/registrations/pass.test.tably?passesUpdatedSince=${serials.body.lastUpdated}`)).status).toBe(204);
-    expect((await anon.get(`/wallet/apple/v1/passes/pass.test.tably/${serial}`)).status).toBe(401);
-    const latest = await anon.get(`/wallet/apple/v1/passes/pass.test.tably/${serial}`).set('Authorization', `ApplePass ${token}`);
+    expect((await anon.get(`/wallet/apple/v1/devices/dev123/registrations/pass.test.tapperl?passesUpdatedSince=${serials.body.lastUpdated}`)).status).toBe(204);
+    expect((await anon.get(`/wallet/apple/v1/passes/pass.test.tapperl/${serial}`)).status).toBe(401);
+    const latest = await anon.get(`/wallet/apple/v1/passes/pass.test.tapperl/${serial}`).set('Authorization', `ApplePass ${token}`);
     expect(latest.status).toBe(200);
     expect(latest.headers['last-modified']).toBeDefined();
     expect((await anon.delete(base).set('Authorization', `ApplePass ${token}`)).status).toBe(200);
@@ -351,7 +351,7 @@ describe('Marketing, Analysen, Super-Admin', () => {
     expect((await m.client.patch('/admin/plans/starter', { priceMonthlyCents: 1 })).status).toBe(404);
     expect((await new Client(t).get('/admin/overview')).status).toBe(401);
 
-    const admin = await registerMerchant(t, 'Tably Betrieb');
+    const admin = await registerMerchant(t, 'Tapperl Betrieb');
     await t.prisma.user.update({ where: { id: admin.userId }, data: { isSuperAdmin: true } });
     const overview = await admin.client.get('/admin/overview');
     expect(overview.status).toBe(200);

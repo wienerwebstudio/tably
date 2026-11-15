@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { CreditCard } from 'lucide-react';
-import type { MyCardDto } from '@tably/types';
-import { defineCopy, EmptyState, ErrorState, LoyaltyCard, Skeleton, useCopy } from '@tably/ui';
+import type { MyCardDto } from '@tapperl/types';
+import { defineCopy, EmptyState, ErrorState, LoyaltyCard, Skeleton, useCopy } from '@tapperl/ui';
 
 const copy = defineCopy({
   de: {

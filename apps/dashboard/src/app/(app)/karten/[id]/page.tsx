@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { ArrowLeft, ExternalLink, Pencil, Plus, Trash2 } from 'lucide-react';
-import type { BookingPolicy, CardDesign, ProgramDto, RewardDto } from '@tably/types';
+import type { BookingPolicy, CardDesign, ProgramDto, RewardDto } from '@tapperl/types';
 import {
   Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, cn, ConfirmDialog, CopyButton, defineCopy, Dialog, ErrorState, Field, Input, PageHeader, Skeleton, Switch, TabPanel, Tabs, Textarea, useCopy, useToast,
-} from '@tably/ui';
+} from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { policyLabel, programStatus } from '@/lib/labels';
 import { useSubmit } from '@/lib/use-submit';

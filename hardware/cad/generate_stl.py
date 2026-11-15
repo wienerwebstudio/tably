@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Tably NFC-Stempel - STL-Generator (Python / manifold3d)
+Tapperl NFC-Stempel - STL-Generator (Python / manifold3d)
 =======================================================
 
 Diese Datei ist die TATSAECHLICHE QUELLE der STL-Dateien in ../stl/.
 Sie bildet dieselbe Geometrie mit denselben Parametern (Namen + Defaultwerte)
-nach wie ../cad/tably_stamp.scad. Grund: In der Build-Umgebung stand kein
+nach wie ../cad/tapperl_stamp.scad. Grund: In der Build-Umgebung stand kein
 OpenSCAD zur Verfuegung; die .scad-Datei konnte dort nicht gerendert werden.
 
 Aufruf:
@@ -26,7 +26,7 @@ import numpy as np
 from manifold3d import CrossSection, Manifold
 
 # --------------------------------------------------------------------------
-# PARAMETER  (identisch zu tably_stamp.scad - bei Aenderungen beide pflegen!)
+# PARAMETER  (identisch zu tapperl_stamp.scad - bei Aenderungen beide pflegen!)
 # --------------------------------------------------------------------------
 P = dict(
     # --- NFC-Tag ---
@@ -338,11 +338,11 @@ def main():
     p = dict(P, tag_d=a.tag_d)
     d, parts = build(p)
     jobs = [
-        ("griff", f"tably_griff.stl", to_print("griff", parts["griff"], d)),
-        ("fuss", f"tably_fuss_tag{int(a.tag_d)}.stl", to_print("fuss", parts["fuss"], d)),
-        ("kappe", "tably_kappe.stl", to_print("kappe", parts["kappe"], d)),
-        ("logo", "tably_logoscheibe.stl", to_print("logo", parts["logo"], d)),
-        ("logo_blank", "tably_logoscheibe_blank.stl",
+        ("griff", f"tapperl_griff.stl", to_print("griff", parts["griff"], d)),
+        ("fuss", f"tapperl_fuss_tag{int(a.tag_d)}.stl", to_print("fuss", parts["fuss"], d)),
+        ("kappe", "tapperl_kappe.stl", to_print("kappe", parts["kappe"], d)),
+        ("logo", "tapperl_logoscheibe.stl", to_print("logo", parts["logo"], d)),
+        ("logo_blank", "tapperl_logoscheibe_blank.stl",
          to_print("logo", part_logo(d, with_logo=False), d)),
     ]
     if not a.no_variants:
@@ -350,7 +350,7 @@ def main():
             if td == a.tag_d:
                 continue
             dv = derive(dict(P, tag_d=td))
-            jobs.append((f"fuss_tag{int(td)}", f"tably_fuss_tag{int(td)}.stl",
+            jobs.append((f"fuss_tag{int(td)}", f"tapperl_fuss_tag{int(td)}.stl",
                          to_print("fuss", part_fuss(dv), dv)))
 
     ok = True
@@ -372,7 +372,7 @@ def main():
 
     # Baugruppen-Vorschau (nicht zum Drucken): Teile in Einbaulage, einzelne Koerper
     asm = Manifold.compose([parts["kappe"], parts["fuss"], parts["griff"], parts["logo"]])
-    to_trimesh(asm).export(os.path.join(out, "tably_baugruppe_vorschau.stl"))
+    to_trimesh(asm).export(os.path.join(out, "tapperl_baugruppe_vorschau.stl"))
 
     # Kollisionspruefung in Einbaulage
     names = list(parts)

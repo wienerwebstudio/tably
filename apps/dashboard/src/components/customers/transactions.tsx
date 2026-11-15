@@ -2,8 +2,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Flag, Undo2 } from 'lucide-react';
-import type { TransactionDto } from '@tably/types';
-import { Badge, Button, cn, defineCopy, formatDateTime, fullName, Table, Td, Th, useCopy } from '@tably/ui';
+import type { TransactionDto } from '@tapperl/types';
+import { Badge, Button, cn, defineCopy, formatDateTime, fullName, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { flagReason, txSource, txType } from '@/lib/labels';
 
 const copy = defineCopy({

@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { z } from 'zod';
-import { DEFAULT_PLANS, TRIAL_DAYS, integrationStatus } from '@tably/config';
-import type { contactSchema, customerSelfUpdateSchema, enrollSchema } from '@tably/types';
-import { renderIcon } from '@tably/wallet';
+import { DEFAULT_PLANS, TRIAL_DAYS, integrationStatus } from '@tapperl/config';
+import type { contactSchema, customerSelfUpdateSchema, enrollSchema } from '@tapperl/types';
+import { renderIcon } from '@tapperl/wallet';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService, isUniqueViolation } from '../../common/prisma.service';
 import { SessionService } from '../../common/session.service';

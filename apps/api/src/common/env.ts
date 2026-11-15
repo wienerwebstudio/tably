@@ -1,4 +1,4 @@
-import { loadEnv, type Env } from '@tably/config';
+import { loadEnv, type Env } from '@tapperl/config';
 
 export const ENV = Symbol('ENV');
 export type { Env };

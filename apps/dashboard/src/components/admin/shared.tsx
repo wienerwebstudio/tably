@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import { Search } from 'lucide-react';
-import { UNLIMITED } from '@tably/config';
-import { ApiError, ErrorState, formatNumber, Input } from '@tably/ui';
+import { UNLIMITED } from '@tapperl/config';
+import { ApiError, ErrorState, formatNumber, Input } from '@tapperl/ui';
 import { auditAction } from '@/lib/labels';
 
 export const orgStatus: Record<string, { label: string; tone: 'success' | 'danger' }> = {

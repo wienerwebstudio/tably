@@ -1,4 +1,4 @@
-import { DEFAULT_PLANS, TRIAL_DAYS, type PlanDefinition } from '@tably/config';
+import { DEFAULT_PLANS, TRIAL_DAYS, type PlanDefinition } from '@tapperl/config';
 
 export type PublicPlan = Pick<PlanDefinition, 'id' | 'name' | 'description' | 'priceMonthlyCents' | 'priceYearlyCents' | 'currency' | 'limits' | 'features'>;
 
@@ -15,7 +15,7 @@ function isPlan(value: unknown): value is PublicPlan {
   return typeof p.id === 'string' && typeof p.name === 'string' && typeof p.priceMonthlyCents === 'number' && typeof p.priceYearlyCents === 'number' && typeof p.limits === 'object' && p.limits !== null && typeof p.features === 'object' && p.features !== null;
 }
 
-/** Tarife aus der API; bei Fehlern die Standardwerte aus @tably/config. */
+/** Tarife aus der API; bei Fehlern die Standardwerte aus @tapperl/config. */
 export async function getPlans(): Promise<PlansResult> {
   const fallback: PlansResult = { plans: [...DEFAULT_PLANS].sort((a, b) => a.sortOrder - b.sortOrder), trialDays: TRIAL_DAYS, live: false };
   try {

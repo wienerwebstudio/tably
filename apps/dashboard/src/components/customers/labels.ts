@@ -1,4 +1,4 @@
-import type { CustomerDto } from '@tably/types';
+import type { CustomerDto } from '@tapperl/types';
 
 /** Bezeichnungen, die nur in den Kundenansichten gebraucht werden. */
 type Tone = 'neutral' | 'success' | 'danger' | 'warn';

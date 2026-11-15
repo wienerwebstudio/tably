@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { ArrowRight, Check, Flag, Hourglass } from 'lucide-react';
-import type { OnboardingDto, TodayDto } from '@tably/types';
-import { Badge, buttonClass, Card, CardBody, CardHeader, cn, EmptyState, ErrorState, formatRelative, fullName, PageHeader, Skeleton, Stat } from '@tably/ui';
+import type { OnboardingDto, TodayDto } from '@tapperl/types';
+import { Badge, buttonClass, Card, CardBody, CardHeader, cn, EmptyState, ErrorState, formatRelative, fullName, PageHeader, Skeleton, Stat } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { txSource, txType } from '@/lib/labels';
 

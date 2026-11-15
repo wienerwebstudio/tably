@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import Stripe from 'stripe';
-import { DEFAULT_PLANS, UNLIMITED, type PlanLimits } from '@tably/config';
-import type { BillingInterval, Plan, SubscriptionStatus } from '@tably/database';
+import { DEFAULT_PLANS, UNLIMITED, type PlanLimits } from '@tapperl/config';
+import type { BillingInterval, Plan, SubscriptionStatus } from '@tapperl/database';
 import { ENV, type Env } from '../../common/env';
 import { Prisma, PrismaService, isUniqueViolation } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
@@ -313,7 +313,7 @@ export class BillingService implements OnModuleInit {
           provider: 'STRIPE' as const,
           externalId: object.id as string,
           number: (object.number as string | null) ?? object.id,
-          description: (line?.description as string | undefined) ?? 'Tably Abonnement',
+          description: (line?.description as string | undefined) ?? 'Tapperl Abonnement',
           amountCents: (object.amount_due as number | undefined) ?? 0,
           currency: String(object.currency ?? 'eur').toUpperCase(),
           status: event.type === 'invoice.paid' ? 'paid' : 'payment_failed',

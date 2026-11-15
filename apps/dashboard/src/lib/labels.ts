@@ -1,4 +1,4 @@
-import type { BookingPolicy, CampaignStatus, CampaignType, DeviceKind, DeviceSecurity, DeviceStatus, ProgramStatus, Role, SubscriptionStatus, TransactionSource, TransactionType } from '@tably/types';
+import type { BookingPolicy, CampaignStatus, CampaignType, DeviceKind, DeviceSecurity, DeviceStatus, ProgramStatus, Role, SubscriptionStatus, TransactionSource, TransactionType } from '@tapperl/types';
 
 /** Zentrale deutsche Bezeichnungen für Aufzählungswerte der API. */
 type Tone = 'neutral' | 'brand' | 'success' | 'warn' | 'danger' | 'info' | 'honey';

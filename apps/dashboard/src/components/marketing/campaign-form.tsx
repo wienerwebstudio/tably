@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { Cake, CreditCard, Gift, Mail, Megaphone, Sparkles, Undo2, Users, Wallet } from 'lucide-react';
-import type { CampaignDetailDto, CampaignDto, CampaignType, ProgramDto, WalletStatusDto } from '@tably/types';
-import { Alert, api, Button, Card, CardBody, CardHeader, Checkbox, cn, defineCopy, Field, Input, Segmented, Select, Spinner, Textarea, useCopy } from '@tably/ui';
+import type { CampaignDetailDto, CampaignDto, CampaignType, ProgramDto, WalletStatusDto } from '@tapperl/types';
+import { Alert, api, Button, Card, CardBody, CardHeader, Checkbox, cn, defineCopy, Field, Input, Segmented, Select, Spinner, Textarea, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { campaignType, channelLabel } from '@/lib/labels';
@@ -40,7 +40,7 @@ const copy = defineCopy({
     bodyHint: 'Tipp: {{vorname}} wird automatisch durch den Vornamen ersetzt – aus „Hallo {{vorname}}“ wird z. B. „Hallo Anna“.',
     bodyPlaceholder: 'Hallo {{vorname}}, …',
     insertName: 'Vornamen einfügen',
-    emailFooter: 'An E-Mails hängt Tably automatisch einen Hinweis mit Abmeldemöglichkeit an.',
+    emailFooter: 'An E-Mails hängt Tapperl automatisch einen Hinweis mit Abmeldemöglichkeit an.',
     audienceTitle: 'Zielgruppe',
     audienceTextOnce: 'Ohne Einschränkung geht die Kampagne an alle aktiven Kunden.',
     audienceTextAuto: 'Die Nachricht geht automatisch an jeden Kunden, sobald der Anlass eintritt. Hier kannst du den Kreis zusätzlich einschränken.',

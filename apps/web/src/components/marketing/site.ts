@@ -1,4 +1,4 @@
-import type { LoyaltyCardData } from '@tably/ui';
+import type { LoyaltyCardData } from '@tapperl/ui';
 
 export const DASHBOARD_URL = (process.env.NEXT_PUBLIC_DASHBOARD_URL ?? 'http://localhost:3001').replace(/\/+$/, '');
 export const LOGIN_URL = `${DASHBOARD_URL}/login`;
@@ -129,7 +129,7 @@ export const INDUSTRIES: IndustryExample[] = [
     label: 'Dienstleister',
     short: 'Service',
     headline: 'Wiederkehrende Aufträge sichtbar machen',
-    text: 'Fahrradwerkstatt, Änderungsschneiderei, Hundesalon: Überall, wo Menschen regelmäßig wiederkommen, ersetzt Tably die Papierkarte.',
+    text: 'Fahrradwerkstatt, Änderungsschneiderei, Hundesalon: Überall, wo Menschen regelmäßig wiederkommen, ersetzt Tapperl die Papierkarte.',
     ideas: ['Fünf Services, ein Check gratis', 'Freigabe durch das Team vor der Buchung', 'Notiz zur Kundin direkt am Profil'],
     card: { organizationName: 'Radwerkstatt Speiche', cardTitle: 'Servicekarte', stampsRequired: 5, balance: 2, stampIcon: 'star', rewardName: 'Sicherheitscheck', backgroundColor: '#F2EFE6', textColor: '#2B2F36', accentColor: '#D4572E' },
   },

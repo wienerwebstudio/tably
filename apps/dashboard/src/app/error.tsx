@@ -1,5 +1,5 @@
 'use client';
-import { Button, Logo } from '@tably/ui';
+import { Button, Logo } from '@tapperl/ui';
 
 export default function GlobalError({ reset }: { error: Error; reset: () => void }) {
   return (

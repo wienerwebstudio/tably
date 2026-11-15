@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { z } from 'zod';
-import { cardDesignSchema, type createProgramSchema, type rewardInputSchema, type updateProgramSchema } from '@tably/types';
+import { cardDesignSchema, type createProgramSchema, type rewardInputSchema, type updateProgramSchema } from '@tapperl/types';
 import { ENV, type Env } from '../../common/env';
 import { Prisma, PrismaService } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';

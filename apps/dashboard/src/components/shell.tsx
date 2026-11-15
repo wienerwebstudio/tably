@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { BarChart3, ChevronsUpDown, CreditCard, History, LayoutDashboard, LogOut, Megaphone, Menu as MenuIcon, Moon, Nfc, Settings, ShieldCheck, Store, Sun, Users, X } from 'lucide-react';
-import type { Permission } from '@tably/types';
-import { Alert, api, Badge, Button, cn, Logo, Menu, MenuItem, MenuLabel, MenuSeparator, useToast } from '@tably/ui';
+import type { Permission } from '@tapperl/types';
+import { Alert, api, Badge, Button, cn, Logo, Menu, MenuItem, MenuLabel, MenuSeparator, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { roleLabel } from '@/lib/labels';
 
@@ -64,7 +64,7 @@ function ThemeToggleItem() {
         const next = !dark;
         document.documentElement.classList.toggle('dark', next);
         try {
-          localStorage.setItem('tably-theme', next ? 'dark' : 'light');
+          localStorage.setItem('tapperl-theme', next ? 'dark' : 'light');
         } catch {
           /* Speicher nicht verfügbar */
         }

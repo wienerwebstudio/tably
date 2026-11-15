@@ -1,4 +1,4 @@
-// Tably – relationales Datenmodell
+// Tapperl – relationales Datenmodell
 // Grundsatz: Jede mandantenbezogene Tabelle trägt `organizationId`. Alle Zugriffe
 // der API filtern serverseitig auf die Organisation der Sitzung.
 

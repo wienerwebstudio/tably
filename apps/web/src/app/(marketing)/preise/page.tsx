@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { TRIAL_PLAN_ID } from '@tably/config';
+import { TRIAL_PLAN_ID } from '@tapperl/config';
 import { FaqList, pickFaq } from '@/components/marketing/faq';
 import { getPlans } from '@/components/marketing/plans';
 import { PricingTable } from '@/components/marketing/pricing';
@@ -41,7 +41,7 @@ export default async function PricingPage() {
         <Container>
           <div className="grid grid-cols-1 items-center gap-10 rounded-[2rem] border border-line bg-paper p-6 sm:p-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-14">
             <div className="mx-auto w-28 sm:w-36">
-              <StampSide title="Der Tably-Stempel in der Seitenansicht" />
+              <StampSide title="Der Tapperl-Stempel in der Seitenansicht" />
             </div>
             <div>
               <Eyebrow>Hardware</Eyebrow>

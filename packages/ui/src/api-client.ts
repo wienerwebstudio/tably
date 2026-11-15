@@ -1,4 +1,4 @@
-import type { ApiErrorBody, ErrorCode } from '@tably/types';
+import type { ApiErrorBody, ErrorCode } from '@tapperl/types';
 
 export class ApiError extends Error {
   constructor(
@@ -28,7 +28,7 @@ export interface ApiOptions {
 export async function api<T>(path: string, options: ApiOptions = {}): Promise<T> {
   const method = options.method ?? (options.body !== undefined ? 'POST' : 'GET');
   const headers: Record<string, string> = { Accept: 'application/json' };
-  if (method !== 'GET') headers['X-Tably-Request'] = '1';
+  if (method !== 'GET') headers['X-Tapperl-Request'] = '1';
   if (options.body !== undefined) headers['Content-Type'] = 'application/json';
   if (options.idempotencyKey) headers['Idempotency-Key'] = options.idempotencyKey;
 

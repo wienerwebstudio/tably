@@ -34,7 +34,7 @@ describe('Registrierung und Anmeldung', () => {
   it('setzt ein HttpOnly-Cookie mit SameSite=Lax', async () => {
     const client = new Client(t);
     const res = await client.post('/auth/register', { name: 'Test Person', email: `${uniq('c')}@example.com`, password: 'Sicheres-Passwort-123', organizationName: 'Testladen', acceptTerms: true });
-    const cookie = (res.headers['set-cookie'] as unknown as string[]).find((c) => c.startsWith('tably_session='))!;
+    const cookie = (res.headers['set-cookie'] as unknown as string[]).find((c) => c.startsWith('tapperl_session='))!;
     expect(cookie).toContain('HttpOnly');
     expect(cookie).toContain('SameSite=Lax');
   });
@@ -122,9 +122,9 @@ describe('CSRF-Schutz', () => {
   });
   it('lehnt fremde Origins ab', async () => {
     const m = await registerMerchant(t);
-    const res = await m.client.agent.patch('/organization').set('X-Tably-Request', '1').set('Origin', 'https://boese.example').send({ name: 'Neu' });
+    const res = await m.client.agent.patch('/organization').set('X-Tapperl-Request', '1').set('Origin', 'https://boese.example').send({ name: 'Neu' });
     expect(res.status).toBe(403);
-    const ok = await m.client.agent.patch('/organization').set('X-Tably-Request', '1').set('Origin', 'http://localhost:3001').send({ name: 'Neuer Name' });
+    const ok = await m.client.agent.patch('/organization').set('X-Tapperl-Request', '1').set('Origin', 'http://localhost:3001').send({ name: 'Neuer Name' });
     expect(ok.status).toBe(200);
   });
 });

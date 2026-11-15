@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Check, Minus } from 'lucide-react';
-import { Badge, buttonClass, cn, formatMoney, formatNumber, Segmented } from '@tably/ui';
+import { Badge, buttonClass, cn, formatMoney, formatNumber, Segmented } from '@tapperl/ui';
 import type { PublicPlan } from './plans';
 import { REGISTER_URL } from './site';
 

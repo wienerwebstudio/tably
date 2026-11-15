@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import type { LoyaltyCard, StampTransaction, TransactionSource } from '@tably/database';
-import { campaignConfigSchema } from '@tably/types';
-import { REDEMPTION_CODE_TTL_SECONDS } from '@tably/config';
+import type { LoyaltyCard, StampTransaction, TransactionSource } from '@tapperl/database';
+import { campaignConfigSchema } from '@tapperl/types';
+import { REDEMPTION_CODE_TTL_SECONDS } from '@tapperl/config';
 import { Prisma, PrismaService, isUniqueViolation, type Tx } from '../../common/prisma.service';
 import { QueueService } from '../../common/queue.service';
 import { AppError, notFound } from '../../common/errors';

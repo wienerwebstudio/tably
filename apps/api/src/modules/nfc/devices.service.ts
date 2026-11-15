@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomBytes } from 'node:crypto';
 import type { z } from 'zod';
-import type { NfcDevice } from '@tably/database';
-import { buildPersonalizationProfile, buildTapUrl, generateSun, SDM_COUNTER_MAX } from '@tably/nfc';
-import type { createDeviceSchema, deviceStatusSchema, updateDeviceSchema } from '@tably/types';
+import type { NfcDevice } from '@tapperl/database';
+import { buildPersonalizationProfile, buildTapUrl, generateSun, SDM_COUNTER_MAX } from '@tapperl/nfc';
+import type { createDeviceSchema, deviceStatusSchema, updateDeviceSchema } from '@tapperl/types';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService, type Prisma } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';

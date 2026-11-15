@@ -1,5 +1,5 @@
 // ============================================================================
-//  Tably NFC-Stempel  -  parametrisches OpenSCAD-Modell              Rev. A
+//  Tapperl NFC-Stempel  -  parametrisches OpenSCAD-Modell              Rev. A
 // ============================================================================
 //  Passiver NFC-Stempel (NTAG 424 DNA) in der Form eines klassischen
 //  Holzgriff-Stempels. 4 Druckteile, alle ohne Stuetzstrukturen FDM-druckbar:
@@ -18,7 +18,7 @@
 //  verwendet. Diese .scad-Datei wurde dort nicht kompiliert/getestet.
 //  Parameter-Aenderungen bitte in beiden Dateien nachziehen.
 //
-//  Rendern:  openscad -D 'part="griff"' -o tably_griff.stl tably_stamp.scad
+//  Rendern:  openscad -D 'part="griff"' -o tapperl_griff.stl tapperl_stamp.scad
 //            part = assembly | section | plate | griff | fuss | kappe | logo
 // ============================================================================
 

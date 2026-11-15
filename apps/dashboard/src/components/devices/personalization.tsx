@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import type { PersonalizationDto } from '@tably/types';
-import { Alert, api, Button, CopyButton, defineCopy, Dialog, useCopy } from '@tably/ui';
+import type { PersonalizationDto } from '@tapperl/types';
+import { Alert, api, Button, CopyButton, defineCopy, Dialog, useCopy } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 
 const copy = defineCopy({

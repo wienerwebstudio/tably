@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import { Check, Clock, Hourglass, Nfc, XCircle } from 'lucide-react';
-import type { CardViewDto, TapResultDto } from '@tably/types';
-import { api, ApiError, Badge, buttonClass, cn, defineCopy, Spinner, useCopy } from '@tably/ui';
+import type { CardViewDto, TapResultDto } from '@tapperl/types';
+import { api, ApiError, Badge, buttonClass, cn, defineCopy, Spinner, useCopy } from '@tapperl/ui';
 import { EnrollForm } from '@/components/card/enroll-form';
 import { ProgramCard } from '@/components/card/program-card';
 

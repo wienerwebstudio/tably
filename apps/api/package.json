@@ -1,5 +1,5 @@
 {
-  "name": "@tably/api",
+  "name": "@tapperl/api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,11 +18,11 @@
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/throttler": "^6.4.0",
     "@node-rs/argon2": "^2.0.2",
-    "@tably/config": "workspace:*",
-    "@tably/database": "workspace:*",
-    "@tably/nfc": "workspace:*",
-    "@tably/types": "workspace:*",
-    "@tably/wallet": "workspace:*",
+    "@tapperl/config": "workspace:*",
+    "@tapperl/database": "workspace:*",
+    "@tapperl/nfc": "workspace:*",
+    "@tapperl/types": "workspace:*",
+    "@tapperl/wallet": "workspace:*",
     "bullmq": "^5.58.0",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",

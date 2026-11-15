@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { ArrowLeft, ArrowRight, Check, Nfc, PartyPopper, TestTube2 } from 'lucide-react';
-import { INDUSTRIES } from '@tably/config';
-import type { DeviceDetailDto, DeviceDto, LocationDto, OnboardingDto, ProgramDto, SimulatedTapDto } from '@tably/types';
-import { Alert, api, ApiError, Badge, Button, buttonClass, Card, cn, defineCopy, Field, Input, Logo, LoyaltyCard, Skeleton, useCopy, useToast } from '@tably/ui';
+import { INDUSTRIES } from '@tapperl/config';
+import type { DeviceDetailDto, DeviceDto, LocationDto, OnboardingDto, ProgramDto, SimulatedTapDto } from '@tapperl/types';
+import { Alert, api, ApiError, Badge, Button, buttonClass, Card, cn, defineCopy, Field, Input, Logo, LoyaltyCard, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { industryLabel } from '@/lib/labels';
 import { useSubmit } from '@/lib/use-submit';
@@ -43,7 +43,7 @@ const copy = defineCopy({
     recheck: 'Ich habe bestätigt',
     deviceTitle: 'Deinen Stempel registrieren',
     deviceText: 'Der NFC-Stempel ist das Gerät, das dein Team an das Handy der Kund:innen hält.',
-    physical: 'Ich habe einen Tably-Stempel',
+    physical: 'Ich habe einen Tapperl-Stempel',
     physicalHint: 'Der Stempel wird registriert und beim ersten Tap aktiviert.',
     simulated: 'Erst ohne Hardware ausprobieren',
     simulatedHint: 'Ein simulierter Stempel verhält sich wie ein echter – ideal zum Testen.',

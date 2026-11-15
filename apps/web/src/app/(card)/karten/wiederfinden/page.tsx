@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Alert, api, ApiError, Button, defineCopy, Field, Input, Spinner, useCopy } from '@tably/ui';
+import { Alert, api, ApiError, Button, defineCopy, Field, Input, Spinner, useCopy } from '@tapperl/ui';
 
 const copy = defineCopy({
   de: {

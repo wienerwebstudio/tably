@@ -1,5 +1,5 @@
 {
-  "name": "tably",
+  "name": "tapperl",
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@10.28.0",
@@ -13,11 +13,11 @@
     "typecheck": "pnpm -r run typecheck",
     "test": "pnpm -r run test",
     "test:e2e": "playwright test",
-    "db:generate": "pnpm --filter @tably/database run generate",
-    "db:migrate": "pnpm --filter @tably/database run migrate:deploy",
-    "db:migrate:dev": "pnpm --filter @tably/database run migrate:dev",
-    "db:seed": "pnpm --filter @tably/api run seed",
-    "db:seed:demo": "pnpm --filter @tably/api run seed:demo"
+    "db:generate": "pnpm --filter @tapperl/database run generate",
+    "db:migrate": "pnpm --filter @tapperl/database run migrate:deploy",
+    "db:migrate:dev": "pnpm --filter @tapperl/database run migrate:dev",
+    "db:seed": "pnpm --filter @tapperl/api run seed",
+    "db:seed:demo": "pnpm --filter @tapperl/api run seed:demo"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

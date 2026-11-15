@@ -2,8 +2,8 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { CheckCircle2 } from 'lucide-react';
-import type { Page } from '@tably/types';
-import { Badge, Card, defineCopy, EmptyState, formatDateTime, PageHeader, Pagination, Skeleton, useCopy } from '@tably/ui';
+import type { Page } from '@tapperl/types';
+import { Badge, Card, defineCopy, EmptyState, formatDateTime, PageHeader, Pagination, Skeleton, useCopy } from '@tapperl/ui';
 import { LoadError, pagedKey } from '@/components/admin/shared';
 import type { AdminErrorRow } from '@/components/admin/types';
 

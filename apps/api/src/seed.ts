@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { randomBytes } from 'node:crypto';
 import { NestFactory } from '@nestjs/core';
-import { TRIAL_DAYS } from '@tably/config';
+import { TRIAL_DAYS } from '@tapperl/config';
 import { AppModule } from './app.module';
 import { PrismaService } from './common/prisma.service';
 import { AuthService } from './modules/auth/auth.service';
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
   }
 
   if (demo) {
-    const email = 'demo@tably.local';
+    const email = 'demo@tapperl.local';
     const password = 'Demo-Passwort-123';
     if (await prisma.user.findUnique({ where: { email } })) {
       console.log('Demo-Betrieb existiert bereits.');

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { cn, LoyaltyCard } from '@tably/ui';
+import { cn, LoyaltyCard } from '@tapperl/ui';
 import { Reveal } from '@/components/marketing/reveal';
 import { INDUSTRIES } from '@/components/marketing/site';
 import { CheckList, ClosingCta, Container, PageHero, PrimaryCta, SecondaryCta } from '@/components/marketing/ui';
@@ -15,7 +15,7 @@ export default function IndustriesPage() {
       <PageHero
         eyebrow="Branchen"
         title="Eine Karte für jeden Laden, in den man gern zurückkommt."
-        lead="Zwölf Beispiele, wie Betriebe im deutschsprachigen Raum Tably einsetzen können. Alle gezeigten Betriebe, Karten und Prämien sind frei erfunden – sie zeigen, was der Karten-Designer hergibt."
+        lead="Zwölf Beispiele, wie Betriebe im deutschsprachigen Raum Tapperl einsetzen können. Alle gezeigten Betriebe, Karten und Prämien sind frei erfunden – sie zeigen, was der Karten-Designer hergibt."
       >
         <nav aria-label="Branchen auf dieser Seite">
           <ul className="flex flex-wrap gap-2">
@@ -52,7 +52,7 @@ export default function IndustriesPage() {
 
       <Container className="py-16 text-center sm:py-20">
         <h2 className="font-display text-3xl text-ink sm:text-4xl">Deine Branche ist nicht dabei?</h2>
-        <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted">Tably funktioniert überall, wo wiederkehrende Besuche belohnt werden sollen. Schreib uns, was du vorhast.</p>
+        <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted">Tapperl funktioniert überall, wo wiederkehrende Besuche belohnt werden sollen. Schreib uns, was du vorhast.</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <PrimaryCta />
           <SecondaryCta href="/kontakt">Kontakt aufnehmen</SecondaryCta>

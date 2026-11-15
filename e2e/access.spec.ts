@@ -29,10 +29,10 @@ test.describe('Zugriffsschutz', () => {
 
     // Sitzungscookie ist für Skripte nicht lesbar
     const cookies = await context.cookies(DASHBOARD);
-    const session = cookies.find((c) => c.name === 'tably_session');
+    const session = cookies.find((c) => c.name === 'tapperl_session');
     expect(session?.httpOnly).toBe(true);
     expect(session?.sameSite).toBe('Lax');
-    expect(await page.evaluate(() => document.cookie)).not.toContain('tably_session');
+    expect(await page.evaluate(() => document.cookie)).not.toContain('tapperl_session');
   });
 
   test('Plattformverwaltung ist für Händler nicht erreichbar', async ({ page }) => {

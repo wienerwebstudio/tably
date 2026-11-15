@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import useSWR, { mutate } from 'swr';
-import type { Role } from '@tably/types';
-import { Alert, api, ApiError, Button, buttonClass, Field, Input, Skeleton } from '@tably/ui';
+import type { Role } from '@tapperl/types';
+import { Alert, api, ApiError, Button, buttonClass, Field, Input, Skeleton } from '@tapperl/ui';
 import { roleLabel } from '@/lib/labels';
 import { useSubmit } from '@/lib/use-submit';
 
@@ -49,7 +49,7 @@ function Invite() {
       </div>
       {form.error ? <Alert tone="danger">{form.error}</Alert> : null}
       {data.userExists ? (
-        <p className="text-sm text-muted">Für diese Adresse gibt es bereits ein Tably-Konto. Mit einem Klick trittst du dem Team bei.</p>
+        <p className="text-sm text-muted">Für diese Adresse gibt es bereits ein Tapperl-Konto. Mit einem Klick trittst du dem Team bei.</p>
       ) : (
         <>
           <Field label="Dein Name" error={form.fields.name}>

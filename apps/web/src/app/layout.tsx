@@ -10,9 +10,9 @@ const siteUrl = process.env.NEXT_PUBLIC_WEB_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: 'Tably – Digitale Treuekarten mit NFC-Stempel', template: '%s · Tably' },
+  title: { default: 'Tapperl – Digitale Treuekarten mit NFC-Stempel', template: '%s · Tapperl' },
   description: 'Tap. Stamp. Reward. Digitale Kundenkarten für Cafés, Salons und Läden – gestempelt mit einem echten NFC-Stempel statt QR-Scanner.',
-  openGraph: { type: 'website', locale: 'de_DE', siteName: 'Tably' },
+  openGraph: { type: 'website', locale: 'de_DE', siteName: 'Tapperl' },
 };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f8f7f3' };
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Cake, Check, Clock, Gift, RotateCcw, ShieldCheck, Sparkles, X } from 'lucide-react';
-import { Badge, cn, LoyaltyCard } from '@tably/ui';
+import { Badge, cn, LoyaltyCard } from '@tapperl/ui';
 import { HERO_CARD } from './site';
 
 /*

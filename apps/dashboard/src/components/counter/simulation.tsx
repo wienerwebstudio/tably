@@ -3,8 +3,8 @@ import * as React from 'react';
 import useSWR from 'swr';
 import QRCode from 'qrcode';
 import { ExternalLink, FlaskConical, Smartphone } from 'lucide-react';
-import type { DeviceDto, SimulatedTapDto } from '@tably/types';
-import { api, Badge, Button, buttonClass, Card, CardBody, CopyButton, defineCopy, errorMessage, Field, Select, Skeleton, useCopy, useToast } from '@tably/ui';
+import type { DeviceDto, SimulatedTapDto } from '@tapperl/types';
+import { api, Badge, Button, buttonClass, Card, CardBody, CopyButton, defineCopy, errorMessage, Field, Select, Skeleton, useCopy, useToast } from '@tapperl/ui';
 
 const copy = defineCopy({
   de: {
@@ -19,7 +19,7 @@ const copy = defineCopy({
     scan: 'Oder mit dem Handy scannen:',
     qrAlt: 'QR-Code mit der simulierten Tap-URL',
     copy: 'URL kopieren',
-    localhost: 'Die Adresse zeigt auf „localhost“. Der QR-Code funktioniert deshalb nur auf Geräten, die Tably unter dieser Adresse erreichen.',
+    localhost: 'Die Adresse zeigt auf „localhost“. Der QR-Code funktioniert deshalb nur auf Geräten, die Tapperl unter dieser Adresse erreichen.',
     created: (n: number) => `Simulierter Tap Nr. ${n} erzeugt.`,
     program: 'Karte',
     noProgram: 'keinem Programm zugeordnet',

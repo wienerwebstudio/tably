@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Skeleton } from '@tably/ui';
+import { Skeleton } from '@tapperl/ui';
 
 /** Rücksprungadresse des Zahlungsanbieters (…/einstellungen/abo?checkout=…) → Abo-Reiter. */
 function Redirect() {

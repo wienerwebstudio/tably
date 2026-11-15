@@ -1,6 +1,6 @@
 # Externe Integrationen: Stand und fehlende Voraussetzungen
 
-Grundsatz: Tably behauptet keine Integration, die nicht eingerichtet ist. Jede Oberfläche zeigt den tatsächlichen Zustand (`/wallet/status`, `/billing` → `mode`, `/admin/system`).
+Grundsatz: Tapperl behauptet keine Integration, die nicht eingerichtet ist. Jede Oberfläche zeigt den tatsächlichen Zustand (`/wallet/status`, `/billing` → `mode`, `/admin/system`).
 
 ## Übersicht
 
@@ -21,7 +21,7 @@ Grundsatz: Tably behauptet keine Integration, die nicht eingerichtet ist. Jede O
 **Benötigt**
 
 1. Apple Developer Program (kostenpflichtig).
-2. Pass Type ID anlegen (z. B. `pass.de.tably.loyalty`) und dafür ein Zertifikat erzeugen.
+2. Pass Type ID anlegen (z. B. `pass.de.tapperl.loyalty`) und dafür ein Zertifikat erzeugen.
 3. Zertifikat und privaten Schlüssel als PEM exportieren, dazu das Apple-WWDR-Zwischenzertifikat (G4).
 4. Variablen setzen: `APPLE_PASS_TYPE_ID`, `APPLE_TEAM_ID`, `APPLE_PASS_CERT_PEM`, `APPLE_PASS_KEY_PEM` (optional `APPLE_PASS_KEY_PASSPHRASE`), `APPLE_WWDR_CERT_PEM`.
 5. `API_PUBLIC_URL` muss öffentlich per HTTPS erreichbar sein (Pass-Webservice unter `/wallet/apple/v1/…`).
@@ -84,7 +84,7 @@ Für den Produktivbetrieb zusätzlich nötig: Absenderdomain mit SPF, DKIM und D
 
 ## Kassensysteme
 
-Generische Schnittstelle (Premium-Tarif): `POST /integrations/pos/events` mit `Authorization: Bearer tably_…`.
+Generische Schnittstelle (Premium-Tarif): `POST /integrations/pos/events` mit `Authorization: Bearer tapperl_…`.
 
 ```json
 { "externalId": "bon-2026-000123", "locationId": "…", "amountCents": 420, "currency": "EUR" }

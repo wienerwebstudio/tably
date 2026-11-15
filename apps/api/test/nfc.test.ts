@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { generateKeyPairSync, randomBytes } from 'node:crypto';
-import { generateSun, signDeviceRequest } from '@tably/nfc';
+import { generateSun, signDeviceRequest } from '@tapperl/nfc';
 import { Client, createApp, createProgram, createSimDevice, enrollCustomer, registerMerchant, resetDb, simulateTap, uniq, type Merchant, type TestApp } from './helpers';
 
 let t: TestApp;
@@ -277,10 +277,10 @@ describe('Buchungsrichtlinien', () => {
     const d = await createSimDevice(m, p.id);
     const c = await enrollCustomer(t, m, p);
     const apiKey = (await m.client.post('/organization/api-keys', { name: 'Kasse' })).body.key as string;
-    expect(apiKey.startsWith('tably_')).toBe(true);
+    expect(apiKey.startsWith('tapperl_')).toBe(true);
     const pos = (body: object, key = apiKey) => new Client(t).agent.post('/integrations/pos/events').set('Authorization', `Bearer ${key}`).send(body);
 
-    expect((await pos({ externalId: 'x' }, 'tably_falsch')).status).toBe(401);
+    expect((await pos({ externalId: 'x' }, 'tapperl_falsch')).status).toBe(401);
 
     // Reihenfolge 1: erst Tap, dann Kasse
     const waiting = await tap(c.client, await simulateTap(m, d.id));
@@ -374,10 +374,10 @@ describe('Aktiver Stempel (Ausbaustufe B, Backend-Schnittstelle)', () => {
       return new Client(t).agent
         .post('/devices/v1/taps')
         .set('Content-Type', 'application/json')
-        .set('X-Tably-Device', publicId)
-        .set('X-Tably-Timestamp', String(timestamp))
-        .set('X-Tably-Nonce', nonce)
-        .set('X-Tably-Signature', signature)
+        .set('X-Tapperl-Device', publicId)
+        .set('X-Tapperl-Timestamp', String(timestamp))
+        .set('X-Tapperl-Nonce', nonce)
+        .set('X-Tapperl-Signature', signature)
         .send(opts.tamper ? body.replace(`"sequence":${sequence}`, `"sequence":${sequence + 100}`) : body);
     };
     expect((await send(1)).body).toMatchObject({ status: 'completed', balance: 1 });

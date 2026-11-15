@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import useSWR, { useSWRConfig } from 'swr';
 import { ArrowLeft, KeyRound, RefreshCw, ShieldAlert, ShieldCheck } from 'lucide-react';
-import type { BookingPolicy, DeviceDetailDto, DeviceStatus, LocationDto, ProgramDto } from '@tably/types';
-import { Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, DefinitionList, Dialog, EmptyState, ErrorState, Field, formatDateTime, formatRelative, Input, PageHeader, Select, Skeleton, Textarea, useCopy, useToast } from '@tably/ui';
+import type { BookingPolicy, DeviceDetailDto, DeviceStatus, LocationDto, ProgramDto } from '@tapperl/types';
+import { Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, DefinitionList, Dialog, EmptyState, ErrorState, Field, formatDateTime, formatRelative, Input, PageHeader, Select, Skeleton, Textarea, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { deviceKind, deviceSecurity, deviceStatus, policyLabel } from '@/lib/labels';
@@ -25,7 +25,7 @@ const copy = defineCopy({
     activateTitle: 'So aktivierst du den Stempel',
     activateLead: 'Der Stempel ist registriert, aber noch nicht in Betrieb.',
     step1Title: 'Chip personalisieren',
-    step1Text: 'Ein NTAG-424-DNA-Chip muss einmalig mit einem NFC-Schreibgerät beschrieben werden – das geht nicht mit dem Dashboard allein. Tably liefert dir dafür alle Werte: URL-Vorlage, Offsets und die beiden Schlüssel.',
+    step1Text: 'Ein NTAG-424-DNA-Chip muss einmalig mit einem NFC-Schreibgerät beschrieben werden – das geht nicht mit dem Dashboard allein. Tapperl liefert dir dafür alle Werte: URL-Vorlage, Offsets und die beiden Schlüssel.',
     step1Owner: 'Die Personalisierungsdaten darf nur die Inhaberin oder der Inhaber bzw. eine Administratorin oder ein Administrator abrufen.',
     step2Title: 'Stempel einmal an ein Smartphone halten',
     step2Text: 'Der erste gültige Tap aktiviert den Stempel und verbindet ihn fest mit diesem Chip. Ab dann können Kunden Stempel sammeln.',

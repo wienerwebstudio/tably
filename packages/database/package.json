@@ -1,5 +1,5 @@
 {
-  "name": "@tably/database",
+  "name": "@tapperl/database",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
-    "@tably/config": "workspace:*"
+    "@tapperl/config": "workspace:*"
   },
   "devDependencies": {
     "prisma": "^6.19.0",

@@ -2,7 +2,7 @@
  * Antwortformate der API, wie die Oberflächen sie verwenden.
  * (Datumswerte kommen als ISO-Strings über JSON.)
  */
-import type { PlanFeatures, PlanLimits } from '@tably/config';
+import type { PlanFeatures, PlanLimits } from '@tapperl/config';
 import type { CardDesign } from './schemas';
 import type { Permission, Role } from './permissions';
 import type { ErrorCode } from './errors';

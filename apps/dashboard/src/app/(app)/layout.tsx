@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { ErrorState, Logo, Spinner } from '@tably/ui';
+import { ErrorState, Logo, Spinner } from '@tapperl/ui';
 import { SessionProvider, useMe } from '@/lib/session';
 import { Shell } from '@/components/shell';
 
@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   if (status === 'error') {
     return (
       <div className="flex min-h-dvh items-center justify-center">
-        <ErrorState title="Tably ist gerade nicht erreichbar" description="Bitte prüfe deine Verbindung und versuche es erneut." onRetry={() => void refresh()} />
+        <ErrorState title="Tapperl ist gerade nicht erreichbar" description="Bitte prüfe deine Verbindung und versuche es erneut." onRetry={() => void refresh()} />
       </div>
     );
   }

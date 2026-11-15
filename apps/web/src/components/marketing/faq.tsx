@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
-import { cn } from '@tably/ui';
+import { cn } from '@tapperl/ui';
 
 export interface FaqItem {
   id: string;
@@ -129,7 +129,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
         id: 'vorrat',
         q: 'Kann das Personal Stempel „auf Vorrat“ sammeln?',
         plain: 'Wer den Stempel in der Hand hat, kann ihn an ein Handy halten. Dagegen helfen Tageslimits, die Freigabe durch das Team, die Kassen-Kopplung und die Auswertung je Stempel.',
-        a: <p>Wer den Stempel in der Hand hat, kann ihn an ein Handy halten – das ist bei Papier nicht anders. Tably begrenzt den Schaden: Tageslimit je Karte, markierte Auffälligkeiten, abgelehnte Taps in der Auswertung je Stempel und, wenn du es strenger brauchst, die Freigabe oder die Kopplung an die Kasse.</p>,
+        a: <p>Wer den Stempel in der Hand hat, kann ihn an ein Handy halten – das ist bei Papier nicht anders. Tapperl begrenzt den Schaden: Tageslimit je Karte, markierte Auffälligkeiten, abgelehnte Taps in der Auswertung je Stempel und, wenn du es strenger brauchst, die Freigabe oder die Kopplung an die Kasse.</p>,
       },
     ],
   },
@@ -162,7 +162,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
         plain: 'Ja, Wallet-Karten werden unterstützt. Die Aktivierung erfordert eine Einrichtung beim jeweiligen Anbieter; bei Google gehört eine Freischaltung durch Google dazu.',
         a: (
           <>
-            <p>Ja, Tably unterstützt Wallet-Karten für beide Plattformen. Die Karte im Browser funktioniert immer; die Wallet-Karte ist eine zusätzliche Ablage.</p>
+            <p>Ja, Tapperl unterstützt Wallet-Karten für beide Plattformen. Die Karte im Browser funktioniert immer; die Wallet-Karte ist eine zusätzliche Ablage.</p>
             <p>Wichtig: Die Aktivierung erfordert eine Einrichtung beim jeweiligen Anbieter – bei Apple ein Zertifikat aus einem Entwicklerkonto, bei Google ein Aussteller-Konto, das Google erst freischalten muss. Wie lange Google dafür braucht, können wir nicht zusagen. Ob Wallet-Karten für dein Konto schon verfügbar sind, klären wir gern mit dir.</p>
           </>
         ),
@@ -202,7 +202,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
         id: 'preise',
         q: 'Sind die Preise inklusive Mehrwertsteuer?',
         plain: 'Nein. Alle Preise verstehen sich zuzüglich der gesetzlichen Mehrwertsteuer. Der Stempel ist nicht enthalten.',
-        a: <p>Nein. Tably richtet sich an Unternehmen, alle Preise verstehen sich zuzüglich der gesetzlichen Mehrwertsteuer. Der Stempel (Hardware) ist nicht im Tarif enthalten.</p>,
+        a: <p>Nein. Tapperl richtet sich an Unternehmen, alle Preise verstehen sich zuzüglich der gesetzlichen Mehrwertsteuer. Der Stempel (Hardware) ist nicht im Tarif enthalten.</p>,
       },
       {
         id: 'datenschutz',

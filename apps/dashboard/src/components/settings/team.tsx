@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { MoreHorizontal, ShieldCheck, ShieldOff, UserMinus, UserPlus, Users } from 'lucide-react';
-import { assignableRoles, type MemberDto, type MembersDto, type Role } from '@tably/types';
-import { Alert, api, Badge, Button, Card, CardHeader, cn, ConfirmDialog, defineCopy, Dialog, EmptyState, ErrorState, errorMessage, Field, formatDate, formatRelative, Input, Menu, MenuItem, Skeleton, Table, Td, Th, useCopy, useToast } from '@tably/ui';
+import { assignableRoles, type MemberDto, type MembersDto, type Role } from '@tapperl/types';
+import { Alert, api, Badge, Button, Card, CardHeader, cn, ConfirmDialog, defineCopy, Dialog, EmptyState, ErrorState, errorMessage, Field, formatDate, formatRelative, Input, Menu, MenuItem, Skeleton, Table, Td, Th, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useSubmit } from '@/lib/use-submit';
 import { roleHint, roleLabel } from '@/lib/labels';
@@ -13,7 +13,7 @@ import { formatLimit } from './shared';
 const copy = defineCopy({
   de: {
     title: 'Team',
-    description: 'Wer in deinem Betrieb mit Tably arbeitet und was die Person darf.',
+    description: 'Wer in deinem Betrieb mit Tapperl arbeitet und was die Person darf.',
     invite: 'Mitglied einladen',
     colName: 'Name',
     colRole: 'Rolle',

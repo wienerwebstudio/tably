@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { buttonClass, cn, Logo } from '@tably/ui';
+import { buttonClass, cn, Logo } from '@tapperl/ui';
 import { LOGIN_URL, NAV, REGISTER_URL } from './site';
 
 export function SiteHeader() {
@@ -42,7 +42,7 @@ export function SiteHeader() {
   return (
     <header className={cn('sticky top-0 z-40 border-b bg-paper/85 backdrop-blur-md transition-colors', scrolled || open ? 'border-line' : 'border-transparent')}>
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
-        <Link href="/" aria-label="Tably – zur Startseite" className="-ml-1 rounded-lg p-1">
+        <Link href="/" aria-label="Tapperl – zur Startseite" className="-ml-1 rounded-lg p-1">
           <Logo className="text-[17px]" />
         </Link>
 

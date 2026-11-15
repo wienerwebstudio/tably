@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { FlaskConical, Nfc } from 'lucide-react';
-import type { DeviceDetailDto, LocationDto, ProgramDto } from '@tably/types';
-import { Alert, api, Button, cn, defineCopy, Dialog, Field, Input, Select, useCopy } from '@tably/ui';
+import type { DeviceDetailDto, LocationDto, ProgramDto } from '@tapperl/types';
+import { Alert, api, Button, cn, defineCopy, Dialog, Field, Input, Select, useCopy } from '@tapperl/ui';
 import { useSubmit } from '@/lib/use-submit';
 
 const copy = defineCopy({

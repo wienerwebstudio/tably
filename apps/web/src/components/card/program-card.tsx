@@ -1,5 +1,5 @@
-import type { ProgramViewDto } from '@tably/types';
-import { LoyaltyCard } from '@tably/ui';
+import type { ProgramViewDto } from '@tapperl/types';
+import { LoyaltyCard } from '@tapperl/ui';
 
 /** LoyaltyCard aus der öffentlichen Programmsicht der API. */
 export function ProgramCard({ program, balance, highlightIndex, compact, className }: { program: ProgramViewDto; balance: number; highlightIndex?: number | null; compact?: boolean; className?: string }) {

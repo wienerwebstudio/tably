@@ -4,7 +4,7 @@ import { LegalPage, LegalSection, Todo } from '@/components/marketing/legal';
 
 export const metadata: Metadata = {
   title: 'Allgemeine Geschäftsbedingungen',
-  description: 'Allgemeine Geschäftsbedingungen für die Nutzung der Tably-Plattform durch Unternehmen (Entwurf).',
+  description: 'Allgemeine Geschäftsbedingungen für die Nutzung der Tapperl-Plattform durch Unternehmen (Entwurf).',
   robots: { index: false },
 };
 
@@ -12,7 +12,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Allgemeine Geschäftsbedingungen"
-      intro="Gerüst der Bedingungen für die Nutzung der Tably-Plattform durch Unternehmen."
+      intro="Gerüst der Bedingungen für die Nutzung der Tapperl-Plattform durch Unternehmen."
       updated={
         <>
           Stand: <Todo>Datum</Todo>.
@@ -21,7 +21,7 @@ export default function TermsPage() {
     >
       <LegalSection title="§ 1 Geltungsbereich und Anbieter">
         <p>
-          Diese Bedingungen gelten für Verträge über die Nutzung der Software-Plattform „Tably“ zwischen <Todo>Firmenname mit Rechtsform, Anschrift</Todo> („Anbieter“) und dem Kunden.
+          Diese Bedingungen gelten für Verträge über die Nutzung der Software-Plattform „Tapperl“ zwischen <Todo>Firmenname mit Rechtsform, Anschrift</Todo> („Anbieter“) und dem Kunden.
         </p>
         <p>Das Angebot richtet sich ausschließlich an Unternehmer im Sinne von § 14 BGB. Abweichende Bedingungen des Kunden gelten nur, wenn der Anbieter ihnen ausdrücklich zustimmt.</p>
         <p>

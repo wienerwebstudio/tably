@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { ConsentType } from '@tably/database';
+import type { ConsentType } from '@tapperl/database';
 import type { z } from 'zod';
-import { PRIVACY_POLICY_VERSION } from '@tably/config';
-import type { customerCreateSchema, customerListQuerySchema, customerUpdateSchema } from '@tably/types';
+import { PRIVACY_POLICY_VERSION } from '@tapperl/config';
+import type { customerCreateSchema, customerListQuerySchema, customerUpdateSchema } from '@tapperl/types';
 import { Prisma, PrismaService, isUniqueViolation, type Tx } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
 import { EntitlementsService } from '../../common/entitlements.service';

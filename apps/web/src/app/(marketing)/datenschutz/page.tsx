@@ -4,7 +4,7 @@ import { LegalAddress, LegalPage, LegalSection, Todo } from '@/components/market
 
 export const metadata: Metadata = {
   title: 'Datenschutzhinweise',
-  description: 'Welche personenbezogenen Daten Tably auf der Website, im Händlerkonto und in der digitalen Stempelkarte verarbeitet – und welche Rechte du hast (Entwurf).',
+  description: 'Welche personenbezogenen Daten Tapperl auf der Website, im Händlerkonto und in der digitalen Stempelkarte verarbeitet – und welche Rechte du hast (Entwurf).',
   robots: { index: false },
 };
 
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection title="2. Zwei Rollen: Wer ist wofür verantwortlich?" id="rollen">
-        <p>Tably ist eine Plattform, über die Betriebe („Händler“) ihren Kund:innen digitale Stempelkarten anbieten. Daraus ergeben sich zwei Rollen:</p>
+        <p>Tapperl ist eine Plattform, über die Betriebe („Händler“) ihren Kund:innen digitale Stempelkarten anbieten. Daraus ergeben sich zwei Rollen:</p>
         <ul>
           <li>
             <strong>Website und Händlerkonten:</strong> Für die Daten von Besucher:innen dieser Website und von Personen, die ein Händlerkonto anlegen oder nutzen, ist der oben genannte Betreiber Verantwortlicher.
@@ -102,7 +102,7 @@ export default function PrivacyPage() {
         </ul>
         <h3>Ein Cookie zur Wiedererkennung der Karte</h3>
         <p>
-          Damit dein Browser deine Karte beim nächsten Besuch wiederfindet, wird ein einzelnes, technisch notwendiges Cookie gesetzt (<code>tably_customer</code>). Es enthält eine zufällige Kennung und keine persönlichen Angaben; auf dem Server wird nur ein Hash dieser Kennung gespeichert. Das Cookie wird nicht zum Tracking verwendet und nicht mit Dritten geteilt.
+          Damit dein Browser deine Karte beim nächsten Besuch wiederfindet, wird ein einzelnes, technisch notwendiges Cookie gesetzt (<code>tapperl_customer</code>). Es enthält eine zufällige Kennung und keine persönlichen Angaben; auf dem Server wird nur ein Hash dieser Kennung gespeichert. Das Cookie wird nicht zum Tracking verwendet und nicht mit Dritten geteilt.
         </p>
         <p>
           Laufzeit des Cookies: <Todo>Laufzeit bestätigen (derzeit technisch auf 400 Tage eingestellt)</Todo>

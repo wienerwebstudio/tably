@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import useSWR from 'swr';
-import type { ProgramViewDto } from '@tably/types';
-import { Alert, ApiError, defineCopy, EmptyState, ErrorState, Skeleton, useCopy } from '@tably/ui';
+import type { ProgramViewDto } from '@tapperl/types';
+import { Alert, ApiError, defineCopy, EmptyState, ErrorState, Skeleton, useCopy } from '@tapperl/ui';
 import { EnrollForm } from '@/components/card/enroll-form';
 import { ProgramCard } from '@/components/card/program-card';
 

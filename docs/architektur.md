@@ -2,7 +2,7 @@
 
 ## Überblick
 
-Tably ist ein **modularer Monolith** in einem pnpm-Monorepo. Drei ausführbare Dienste teilen sich sechs Pakete:
+Tapperl ist ein **modularer Monolith** in einem pnpm-Monorepo. Drei ausführbare Dienste teilen sich sechs Pakete:
 
 ```
 apps/

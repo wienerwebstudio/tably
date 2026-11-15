@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
-<title>Tably NFC-Stempel – Maßskizze</title>
+<title>Tapperl NFC-Stempel – Maßskizze</title>
 <defs>
   <marker id="arr" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="3.2" markerHeight="1.9" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
     <path d="M0,0 L10,3 L0,6 Z" fill="#111"/></marker>
@@ -188,10 +188,10 @@
 <rect class="frame2" x="250" y="255" width="160" height="32"/>
 <line class="thin" x1="250.00" y1="267.00" x2="410.00" y2="267.00"/>
 <line class="thin" x1="350.00" y1="267.00" x2="350.00" y2="287.00"/>
-<text class="big" x="254.00" y="263.30" text-anchor="start">Tably NFC-Stempel – Maßskizze Baugruppe</text>
+<text class="big" x="254.00" y="263.30" text-anchor="start">Tapperl NFC-Stempel – Maßskizze Baugruppe</text>
 <text class="tbl" x="254.00" y="273.00" text-anchor="start">Alle Maße in mm · Nennmaße des CAD-Modells</text>
 <text class="tbl" x="254.00" y="278.00" text-anchor="start">Allgemeintoleranz FDM ca. ±0,2 mm</text>
-<text class="tbl" x="254.00" y="283.00" text-anchor="start">Quelle: cad/generate_stl.py (= tably_stamp.scad)</text>
+<text class="tbl" x="254.00" y="283.00" text-anchor="start">Quelle: cad/generate_stl.py (= tapperl_stamp.scad)</text>
 <text class="tbl" x="354.00" y="273.00" text-anchor="start">Maßstab 2:1 (Detail 10:1)</text>
 <text class="tbl" x="354.00" y="278.00" text-anchor="start">Blatt A3 quer · Rev. A</text>
 <text class="tbl" x="354.00" y="283.00" text-anchor="start">Gesamt Ø44 × 80</text>

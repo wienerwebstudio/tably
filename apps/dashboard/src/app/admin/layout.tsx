@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ArrowLeft, LogOut, ShieldCheck } from 'lucide-react';
-import { api, buttonClass, cn, defineCopy, ErrorState, Logo, Spinner, useCopy } from '@tably/ui';
+import { api, buttonClass, cn, defineCopy, ErrorState, Logo, Spinner, useCopy } from '@tapperl/ui';
 import { useMe } from '@/lib/session';
 
 const copy = defineCopy({
@@ -14,7 +14,7 @@ const copy = defineCopy({
     backShort: 'Dashboard',
     logout: 'Abmelden',
     skip: 'Zum Inhalt springen',
-    unreachableTitle: 'Tably ist gerade nicht erreichbar',
+    unreachableTitle: 'Tapperl ist gerade nicht erreichbar',
     unreachableText: 'Bitte prüfe deine Verbindung und versuche es erneut.',
     notFoundTitle: 'Diese Seite gibt es nicht',
     notFoundText: 'Die Adresse ist falsch oder die Seite wurde verschoben.',

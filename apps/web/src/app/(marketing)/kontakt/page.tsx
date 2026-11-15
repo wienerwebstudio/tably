@@ -6,7 +6,7 @@ import { Container, Eyebrow } from '@/components/marketing/ui';
 
 export const metadata: Metadata = {
   title: 'Kontakt',
-  description: 'Fragen zu Tably, eine Demo oder den NFC-Stempel vorbestellen: Schreib uns über das Kontaktformular.',
+  description: 'Fragen zu Tapperl, eine Demo oder den NFC-Stempel vorbestellen: Schreib uns über das Kontaktformular.',
 };
 
 const HELP = [

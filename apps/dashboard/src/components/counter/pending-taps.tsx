@@ -2,8 +2,8 @@
 import * as React from 'react';
 import useSWR from 'swr';
 import { Check, Coffee, Hourglass, X } from 'lucide-react';
-import type { PendingTapDto, TapResultDto } from '@tably/types';
-import { api, Badge, Button, Card, CardHeader, cn, defineCopy, EmptyState, ErrorState, errorMessage, formatRelative, Skeleton, useCopy, useToast } from '@tably/ui';
+import type { PendingTapDto, TapResultDto } from '@tapperl/types';
+import { api, Badge, Button, Card, CardHeader, cn, defineCopy, EmptyState, ErrorState, errorMessage, formatRelative, Skeleton, useCopy, useToast } from '@tapperl/ui';
 import { useNow } from './hooks';
 import { StampProgress } from './progress';
 

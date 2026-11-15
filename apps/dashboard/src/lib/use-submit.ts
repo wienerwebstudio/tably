@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { ApiError } from '@tably/ui';
+import { ApiError } from '@tapperl/ui';
 
 /**
  * Kapselt Absenden, Ladezustand und Fehler eines Formulars.

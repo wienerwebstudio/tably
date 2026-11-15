@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { cn } from '@tably/ui';
+import { cn } from '@tapperl/ui';
 
 /**
  * Dezentes Einblenden beim Scrollen. Ohne JavaScript und bei reduzierter

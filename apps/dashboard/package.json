@@ -1,5 +1,5 @@
 {
-  "name": "@tably/dashboard",
+  "name": "@tapperl/dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "test": "echo \"Abdeckung über Playwright (pnpm test:e2e)\""
   },
   "dependencies": {
-    "@tably/config": "workspace:*",
-    "@tably/types": "workspace:*",
-    "@tably/ui": "workspace:*",
+    "@tapperl/config": "workspace:*",
+    "@tapperl/types": "workspace:*",
+    "@tapperl/ui": "workspace:*",
     "lucide-react": "^1.0.0",
     "motion": "^12.23.0",
     "next": "^16.0.0",

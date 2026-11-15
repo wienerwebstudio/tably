@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Alert, cn, LoyaltyCard } from '@tably/ui';
+import { Alert, cn, LoyaltyCard } from '@tapperl/ui';
 import { AnalyticsMock, ApiMock, CampaignMock, CustomersMock, DesignerMock, DevicesMock, PolicyMock, TeamMock } from '@/components/marketing/mocks';
 import { Reveal } from '@/components/marketing/reveal';
 import { HERO_CARD } from '@/components/marketing/site';
@@ -7,7 +7,7 @@ import { CheckList, ClosingCta, Container, PageHero, PrimaryCta, SecondaryCta, T
 
 export const metadata: Metadata = {
   title: 'Funktionen',
-  description: 'Kartendesigner, Kundenverwaltung, NFC-Stempel und Geräteverwaltung, Buchungsrichtlinien gegen Missbrauch, Wallet-Karten, Marketing, Analysen, Team und Rollen, Kassen-Schnittstelle: alle Funktionen von Tably im Überblick.',
+  description: 'Kartendesigner, Kundenverwaltung, NFC-Stempel und Geräteverwaltung, Buchungsrichtlinien gegen Missbrauch, Wallet-Karten, Marketing, Analysen, Team und Rollen, Kassen-Schnittstelle: alle Funktionen von Tapperl im Überblick.',
 };
 
 function WalletMock() {
@@ -123,7 +123,7 @@ const FEATURES: Array<{ id: string; nav: string; title: string; lead: string; po
 export default function FeaturesPage() {
   return (
     <>
-      <PageHero eyebrow="Funktionen" title="Vom ersten Tap bis zur eingelösten Prämie." lead="Tably ist mehr als ein Stempel. Hier steht, was die Plattform kann – gegliedert nach dem, was du im Alltag damit tust.">
+      <PageHero eyebrow="Funktionen" title="Vom ersten Tap bis zur eingelösten Prämie." lead="Tapperl ist mehr als ein Stempel. Hier steht, was die Plattform kann – gegliedert nach dem, was du im Alltag damit tust.">
         <div className="flex flex-col gap-3 sm:flex-row">
           <PrimaryCta />
           <SecondaryCta href="/preise">Preise ansehen</SecondaryCta>

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, formatMoney, formatNumber, PageHeader, Skeleton, Table, Td, Th, useCopy } from '@tably/ui';
+import { Badge, Card, CardBody, CardHeader, DefinitionList, defineCopy, formatMoney, formatNumber, PageHeader, Skeleton, Table, Td, Th, useCopy } from '@tapperl/ui';
 import { deviceSecurity, deviceStatus, subscriptionStatus } from '@/lib/labels';
 import { LoadError, providerLabel } from '@/components/admin/shared';
 import type { AdminOverview, AdminSystem } from '@/components/admin/types';

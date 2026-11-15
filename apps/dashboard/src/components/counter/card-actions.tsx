@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Check, Gift, Stamp } from 'lucide-react';
-import { Alert, api, ApiError, Button, cn, ConfirmDialog, defineCopy, errorMessage, useCopy, useToast } from '@tably/ui';
+import { Alert, api, ApiError, Button, cn, ConfirmDialog, defineCopy, errorMessage, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { useIntentKeys } from './hooks';
 

@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { ChevronRight, Megaphone, Plus } from 'lucide-react';
-import type { CampaignDetailDto, CampaignDto, WalletStatusDto } from '@tably/types';
-import { Badge, buttonClass, Card, CardHeader, defineCopy, EmptyState, ErrorState, formatDate, formatDateTime, PageHeader, Skeleton, useCopy } from '@tably/ui';
+import type { CampaignDetailDto, CampaignDto, WalletStatusDto } from '@tapperl/types';
+import { Badge, buttonClass, Card, CardHeader, defineCopy, EmptyState, ErrorState, formatDate, formatDateTime, PageHeader, Skeleton, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { campaignStatus, campaignType, channelLabel } from '@/lib/labels';
 import { DeliveryBanner } from '@/components/marketing/delivery-banner';
@@ -16,7 +16,7 @@ const copy = defineCopy({
     create: 'Neue Kampagne',
     errorText: 'Die Kampagnen konnten nicht geladen werden.',
     emptyTitle: 'Noch keine Kampagne',
-    emptyText: 'Kündige zum Beispiel ein Angebot an oder lass Tably deinen Kunden automatisch zum Geburtstag gratulieren.',
+    emptyText: 'Kündige zum Beispiel ein Angebot an oder lass Tapperl deinen Kunden automatisch zum Geburtstag gratulieren.',
     runningTitle: 'Automatisch laufend',
     runningText: 'Diese Kampagnen arbeiten nach dem Start von selbst, bis du sie pausierst oder beendest.',
     runningEmpty: 'Noch keine automatische Kampagne. Geburtstagsgrüße, Rückgewinnung und Bonus-Stempel-Aktionen erscheinen hier.',

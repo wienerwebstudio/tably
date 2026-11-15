@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { z } from 'zod';
-import type { Campaign } from '@tably/database';
-import { campaignConfigSchema, segmentSchema, type campaignInputSchema, type Segment } from '@tably/types';
+import type { Campaign } from '@tapperl/database';
+import { campaignConfigSchema, segmentSchema, type campaignInputSchema, type Segment } from '@tapperl/types';
 import { ENV, type Env } from '../../common/env';
 import { Prisma, PrismaService } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';

@@ -1,8 +1,8 @@
 'use client';
 import * as React from 'react';
 import useSWR from 'swr';
-import type { LocationDto } from '@tably/types';
-import { ApiError, newIdempotencyKey } from '@tably/ui';
+import type { LocationDto } from '@tapperl/types';
+import { ApiError, newIdempotencyKey } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 
 /**
@@ -57,7 +57,7 @@ export function useDebounced<T>(value: T, delayMs = 300): T {
  */
 export function useCounterLocation() {
   const { me } = useSession();
-  const storageKey = `tably-theke-standort:${me.organization?.id ?? ''}`;
+  const storageKey = `tapperl-theke-standort:${me.organization?.id ?? ''}`;
   const { data, error, isLoading, mutate } = useSWR<LocationDto[]>('/organization/locations');
   const [stored, setStored] = React.useState<string | null>(null);
   const [ready, setReady] = React.useState(false);

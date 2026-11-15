@@ -3,8 +3,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { BarChart3, Lock } from 'lucide-react';
-import type { AnalyticsDto, DeviceStatus, LocationDto, ProgramDto } from '@tably/types';
-import { ApiError, Badge, BarChart, BarList, Card, CardBody, CardHeader, cn, defineCopy, EmptyState, ErrorState, Field, formatRelative, PageHeader, Segmented, Select, Skeleton, Stat, Table, Td, Th, useCopy, type SeriesPoint } from '@tably/ui';
+import type { AnalyticsDto, DeviceStatus, LocationDto, ProgramDto } from '@tapperl/types';
+import { ApiError, Badge, BarChart, BarList, Card, CardBody, CardHeader, cn, defineCopy, EmptyState, ErrorState, Field, formatRelative, PageHeader, Segmented, Select, Skeleton, Stat, Table, Td, Th, useCopy, type SeriesPoint } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { deviceStatus } from '@/lib/labels';
 

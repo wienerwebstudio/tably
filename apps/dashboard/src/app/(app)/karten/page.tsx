@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { CreditCard, Plus } from 'lucide-react';
-import type { ProgramDto } from '@tably/types';
-import { Badge, buttonClass, Card, defineCopy, EmptyState, ErrorState, LoyaltyCard, PageHeader, Skeleton, useCopy } from '@tably/ui';
+import type { ProgramDto } from '@tapperl/types';
+import { Badge, buttonClass, Card, defineCopy, EmptyState, ErrorState, LoyaltyCard, PageHeader, Skeleton, useCopy } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
 import { policyLabel, programStatus } from '@/lib/labels';
 import { toCardData } from '@/components/programs/previews';
