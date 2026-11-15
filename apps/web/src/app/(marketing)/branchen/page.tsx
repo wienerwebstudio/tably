@@ -38,12 +38,12 @@ export default function IndustriesPage() {
                 <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-brand">{ind.label}</p>
                 <h2 className="mt-3 font-display text-[1.9rem] leading-[1.14] tracking-[-0.015em] text-ink text-balance sm:text-4xl">{ind.headline}</h2>
                 <p className="mt-4 text-lg leading-relaxed text-muted text-pretty">{ind.text}</p>
-                <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-subtle">So könnte es aussehen</h3>
+                <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">So könnte es aussehen</h3>
                 <CheckList items={ind.ideas} className="mt-4" />
               </div>
               <Reveal className={cn('mx-auto w-full max-w-[400px]', i % 2 === 1 && 'lg:order-1')}>
                 <LoyaltyCard data={ind.card} className={i % 2 === 0 ? 'rotate-2' : '-rotate-2'} />
-                <p className="mt-6 text-center text-xs text-subtle">Beispielkarte · fiktiver Betrieb</p>
+                <p className="mt-6 text-center text-xs text-muted">Beispielkarte · fiktiver Betrieb</p>
               </Reveal>
             </Container>
           </section>

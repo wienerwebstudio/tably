@@ -245,7 +245,7 @@ function ProfileSkeleton() {
     <div aria-busy="true">
       <Skeleton className="mb-3 h-4 w-24" />
       <Skeleton className="mb-8 h-8 w-64" />
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="flex flex-col gap-5">
           <Skeleton className="h-72 rounded-2xl" />
           <Skeleton className="h-64 rounded-2xl" />
@@ -393,7 +393,7 @@ export default function CustomerProfilePage() {
       {deleted ? <Alert tone="info" title={t.deletedTitle} className="mb-5">{t.deletedText}</Alert> : null}
       {blocked ? <Alert tone="danger" title={t.blockedTitle} className="mb-5">{t.blockedText}</Alert> : null}
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="flex min-w-0 flex-col gap-5">
           <Card>
             <CardHeader title={t.cards} />

@@ -78,10 +78,10 @@ export function CardLookup({ locationId }: { locationId: string | null }) {
   const name = card ? fullName(card.customer) : '';
 
   return (
-    <Card>
+    <Card className="@container">
       <CardHeader title={t.title} description={t.description} />
       <CardBody>
-        <form onSubmit={(e) => void submit(e)} className="flex flex-col gap-3 sm:flex-row sm:items-start" noValidate>
+        <form onSubmit={(e) => void submit(e)} className="flex flex-col gap-3 @md:flex-row @md:items-start" noValidate>
           <Field label={t.label} error={error} hint={t.hint} className="flex-1">
             <Input
               ref={inputRef}
@@ -100,7 +100,7 @@ export function CardLookup({ locationId }: { locationId: string | null }) {
               className="h-14 font-mono text-xl tracking-widest placeholder:text-base placeholder:tracking-normal"
             />
           </Field>
-          <Button type="submit" size="lg" className="h-14 sm:mt-[26px]" loading={loading}>
+          <Button type="submit" size="lg" className="h-14 @md:mt-[26px]" loading={loading}>
             {loading ? null : <Search className="size-5" aria-hidden />}
             {t.search}
           </Button>

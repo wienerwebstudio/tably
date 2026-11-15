@@ -9,8 +9,9 @@ import { StampSide } from './stamp';
 type Phase = 'idle' | 'tap' | 'notify' | 'press' | 'stamped';
 const DURATION: Record<Phase, number> = { idle: 1300, tap: 1000, notify: 1300, press: 450, stamped: 1900 };
 const NEXT: Record<Phase, Phase> = { idle: 'tap', tap: 'notify', notify: 'press', press: 'stamped', stamped: 'idle' };
-const START = 7;
-const TOTAL = HERO_CARD.stampsRequired;
+const TOTAL = 8;
+const START = 5;
+const CARD = { ...HERO_CARD, stampsRequired: TOTAL };
 
 const STEPS: Array<{ label: string; active: (p: Phase, full: boolean) => boolean }> = [
   { label: 'Stempel ans Handy', active: (p) => p === 'tap' },
@@ -54,40 +55,38 @@ export function HeroDemo() {
         Darstellung des Ablaufs: Der Stempel wird an das Smartphone gehalten, auf dem Smartphone erscheint eine Mitteilung, nach dem Antippen wird ein Stempel auf der digitalen Karte gebucht. Ist die Karte voll, wird die Prämie freigeschaltet.
       </figcaption>
 
-      <div className="relative px-6 pt-16 sm:px-10" aria-hidden>
+      <div className="relative px-4 pt-36 sm:px-10 sm:pt-40" aria-hidden>
         {/* ruhiger Hintergrundkreis */}
-        <div className="absolute left-1/2 top-24 -z-10 size-[26rem] max-w-[120%] -translate-x-1/2 rounded-full bg-brand-soft/70" />
+        <div className="absolute left-1/2 top-48 -z-10 size-[26rem] max-w-[120%] -translate-x-1/2 rounded-full bg-brand-soft/70" />
 
-        {/* Funkwellen an der Kontaktstelle */}
-        <div className="pointer-events-none absolute right-[21%] top-[5.2rem] z-20 size-0">
-          {[0, 1, 2].map((i) => (
-            <motion.span
-              key={i}
-              className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-honey"
-              initial={false}
-              animate={down ? { scale: [0.3, 1.5], opacity: [0.7, 0] } : { scale: 0.3, opacity: 0 }}
-              transition={down ? { duration: 0.9, delay: 0.25 + i * 0.16, ease: 'easeOut' } : { duration: 0.1 }}
-            />
-          ))}
-        </div>
-
-        {/* der Stempel */}
+        {/* der Stempel – etwa im Größenverhältnis zum Smartphone */}
         <motion.div
-          className="absolute right-[4%] top-0 z-30 w-[23%] origin-bottom drop-shadow-[0_18px_18px_rgb(20_24_27/0.25)]"
+          className="absolute right-0 top-0 z-30 w-[34%] origin-bottom sm:right-[2%]"
           initial={false}
-          animate={down ? { y: 10, x: -6, rotate: -10 } : { y: -30, x: 4, rotate: -16 }}
+          animate={down ? { y: 14, x: -10, rotate: -12 } : { y: -22, x: 0, rotate: -17 }}
           transition={{ type: 'spring', stiffness: 170, damping: 17 }}
         >
-          <StampSide />
+          <div className="pointer-events-none absolute bottom-[4%] left-1/2 size-0">
+            {[0, 1, 2].map((i) => (
+              <motion.span
+                key={i}
+                className="absolute left-1/2 top-1/2 size-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-honey"
+                initial={false}
+                animate={down ? { scale: [0.4, 1.5], opacity: [0.7, 0] } : { scale: 0.4, opacity: 0 }}
+                transition={down ? { duration: 0.9, delay: 0.25 + i * 0.16, ease: 'easeOut' } : { duration: 0.1 }}
+              />
+            ))}
+          </div>
+          <StampSide className="relative drop-shadow-[0_18px_16px_rgb(20_24_27/0.28)]" />
         </motion.div>
 
-        <PhoneFrame className="max-w-[300px]" label="Smartphone mit digitaler Treuekarte">
-          <div className="relative flex h-[500px] flex-col bg-paper px-3.5 pb-4 pt-10">
+        <PhoneFrame className="max-w-[316px]" label="Smartphone mit digitaler Treuekarte">
+          <div className="relative flex h-[510px] flex-col bg-paper px-2.5 pb-3 pt-10">
             <AnimatePresence>
               {showBanner ? (
                 <motion.div
                   key="banner"
-                  className="absolute inset-x-2.5 top-8 z-20 flex items-center gap-3 rounded-2xl border border-line bg-surface/95 p-3 shadow-raised backdrop-blur"
+                  className="absolute inset-x-2 top-8 z-20 flex items-center gap-3 rounded-2xl border border-line bg-surface/95 p-3 shadow-raised backdrop-blur"
                   initial={{ y: -70, opacity: 0 }}
                   animate={{ y: 0, opacity: 1, scale: phase === 'press' ? 0.96 : 1 }}
                   exit={{ y: -20, opacity: 0, transition: { duration: 0.2 } }}
@@ -118,7 +117,7 @@ export function HeroDemo() {
               <span className="flex size-8 items-center justify-center rounded-full bg-sunken text-xs font-semibold text-muted">L</span>
             </div>
 
-            <LoyaltyCard compact className="mt-4 rounded-[22px] shadow-raised" data={{ ...HERO_CARD, balance }} highlightIndex={phase === 'stamped' ? balance - 1 : null} />
+            <LoyaltyCard compact className="mt-4 rounded-[22px] shadow-raised" data={{ ...CARD, balance }} highlightIndex={phase === 'stamped' ? balance - 1 : null} />
 
             <div className="mt-3.5 min-h-[58px]">
               <AnimatePresence mode="wait" initial={false}>

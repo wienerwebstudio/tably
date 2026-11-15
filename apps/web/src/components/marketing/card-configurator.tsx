@@ -136,13 +136,13 @@ export function CardConfigurator() {
                 {current} von {total}
               </span>
             </label>
-            <input id={rangeId} type="range" min={0} max={total} step={1} value={current} onChange={(e) => setBalance(Number(e.target.value))} className="mt-4 h-2 w-full cursor-pointer accent-[var(--brand)]" />
+            <input id={rangeId} type="range" min={0} max={total} step={1} value={current} onChange={(e) => setBalance(Number(e.target.value))} className="mt-6 h-2 w-full cursor-pointer accent-[var(--brand)]" />
           </div>
           <div>
-            <label htmlFor={nameId} className="text-sm font-semibold text-ink">
+            <label htmlFor={nameId} className="block text-sm font-semibold text-ink">
               Name deines Betriebs
             </label>
-            <Input id={nameId} className="mt-2.5" value={name} maxLength={32} onChange={(e) => setName(e.target.value)} placeholder={industry.card.organizationName} autoComplete="off" />
+            <Input id={nameId} className="mt-3" value={name} maxLength={32} onChange={(e) => setName(e.target.value)} placeholder={industry.card.organizationName} autoComplete="off" />
           </div>
         </div>
         <p className="text-sm leading-relaxed text-muted">Die Vorschau läuft nur in deinem Browser, es wird nichts gespeichert oder übertragen. Im Karten-Designer kommen Logo, eigene Farbwerte, Prämien und Regeln dazu.</p>

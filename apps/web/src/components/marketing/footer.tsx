@@ -46,7 +46,7 @@ export function SiteFooter() {
           <nav aria-label="Fußzeile" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
             {groups.map((group) => (
               <div key={group.title}>
-                <h2 className="text-[13px] font-semibold uppercase tracking-[0.12em] text-subtle">{group.title}</h2>
+                <h2 className="text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">{group.title}</h2>
                 <ul className="mt-4 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.href}>

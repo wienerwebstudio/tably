@@ -339,6 +339,9 @@ describe('Kundenverwaltung und DSGVO', () => {
     await stamp(m.client, c1.cardId, key(), 5);
 
     expect((await m.client.get('/customers?q=mara')).body.total).toBe(1);
+    await m.client.post('/customers', { firstName: 'Mara', lastName: 'Schmidt', programId: p.id });
+    expect((await m.client.get('/customers?q=mara%20schmidt')).body.total).toBe(1);
+    expect((await m.client.get('/customers?q=mara')).body.total).toBe(2);
     expect((await m.client.get('/customers?activity=reward_ready')).body.items.map((x: { firstName: string }) => x.firstName)).toEqual(['Mara']);
     const code = (await c1.client.get(`/public/cards/${c1.cardId}`)).body.shortCode as string;
     expect((await m.client.get(`/customers?q=${code}`)).body.total).toBe(1);
@@ -362,7 +365,7 @@ describe('Kundenverwaltung und DSGVO', () => {
     expect(gone).toMatchObject({ firstName: 'Gelöscht', email: null, phone: null, birthday: null, status: 'ANONYMIZED' });
     expect((await c1.client.get(`/public/cards/${c1.cardId}`)).status).toBe(404);
     expect(await t.prisma.stampTransaction.count({ where: { customerId: customer.id } })).toBe(1);
-    expect((await m.client.get('/customers')).body.total).toBe(1);
+    expect((await m.client.get('/customers')).body.total).toBe(2);
     const audit = await m.client.get('/organization/audit');
     expect(audit.body.items.map((i: { action: string }) => i.action)).toEqual(expect.arrayContaining(['customer.anonymized', 'customer.exported', 'customer.list_exported']));
   });

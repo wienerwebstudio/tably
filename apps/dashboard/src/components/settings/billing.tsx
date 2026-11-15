@@ -362,7 +362,7 @@ export function BillingSettings() {
                   <Th className="hidden md:table-cell">{t.colDescription}</Th>
                   <Th className="text-right">{t.colAmount}</Th>
                   <Th>{t.colStatus}</Th>
-                  <Th><span className="sr-only">{t.colLinks}</span></Th>
+                  <Th aria-label={t.colLinks} />
                 </tr>
               </thead>
               <tbody>

@@ -210,7 +210,7 @@ export function TeamSettings() {
                   <Th>{t.colRole}</Th>
                   <Th className="hidden md:table-cell">{t.colLastLogin}</Th>
                   <Th className="hidden sm:table-cell">{t.col2fa}</Th>
-                  <Th><span className="sr-only">{t.colActions}</span></Th>
+                  <Th aria-label={t.colActions} />
                 </tr>
               </thead>
               <tbody>

@@ -62,7 +62,7 @@ function TapRow({ tap, now, onDecided }: { tap: PendingTapDto; now: number; onDe
   };
 
   return (
-    <li className="flex flex-col gap-4 px-5 py-4 sm:px-6 md:flex-row md:items-center">
+    <li className="flex flex-col gap-4 px-5 py-4 @2xl:flex-row @2xl:items-center sm:px-6">
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <p className="truncate text-lg font-semibold text-ink">{name}</p>
@@ -86,7 +86,7 @@ function TapRow({ tap, now, onDecided }: { tap: PendingTapDto; now: number; onDe
           </span>
         </p>
       </div>
-      <div className="grid shrink-0 grid-cols-2 gap-2 md:w-80">
+      <div className="grid shrink-0 grid-cols-2 gap-2 @2xl:w-80">
         <Button variant="outline" size="lg" className="h-14" onClick={() => void decide('REJECT')} loading={busy === 'REJECT'} disabled={busy !== null} aria-label={`${t.reject}: ${name}`}>
           {busy === 'REJECT' ? null : <X className="size-5" aria-hidden />}
           {t.reject}
@@ -106,7 +106,7 @@ export function PendingTaps() {
   const now = useNow(1000);
 
   return (
-    <Card>
+    <Card className="@container">
       <CardHeader
         title={
           <span className="flex items-center gap-2">
@@ -116,7 +116,7 @@ export function PendingTaps() {
         }
         description={t.description}
         action={
-          <span className="hidden items-center gap-1.5 text-xs text-subtle sm:inline-flex">
+          <span className="hidden items-center gap-1.5 text-xs text-subtle @lg:inline-flex">
             <span className="size-1.5 animate-pulse rounded-full bg-success" aria-hidden />
             {t.live}
           </span>

@@ -364,28 +364,19 @@ export function CompanySettings() {
         <Card>
           <CardHeader title={t.brandTitle} description={t.brandDescription} />
           <CardBody className="grid gap-6 sm:grid-cols-2">
-            <Field label={t.brandColor} error={colorError ?? save.fields.brandColor} hint={t.brandColorHint} htmlFor="brand-color-hex">
-              <div className="flex items-center gap-3">
-                <input
-                  type="color"
-                  aria-label={t.brandColorPicker}
-                  value={validColor ? form.brandColor.toLowerCase() : '#1f3a2e'}
-                  onChange={(e) => (setColorError(null), setForm((f) => (f ? { ...f, brandColor: e.target.value.toUpperCase() } : f)))}
-                  disabled={!editable}
-                  className="size-10 shrink-0 cursor-pointer rounded-lg border border-line-strong bg-surface p-1 disabled:cursor-not-allowed disabled:opacity-70"
-                />
-                <Input
-                  id="brand-color-hex"
-                  value={form.brandColor}
-                  onChange={(e) => (setColorError(null), set('brandColor')(e))}
-                  disabled={!editable}
-                  maxLength={7}
-                  spellCheck={false}
-                  aria-invalid={colorError ? true : undefined}
-                  className="max-w-36 font-mono uppercase"
-                />
-              </div>
-            </Field>
+            <div className="flex items-start gap-3">
+              <input
+                type="color"
+                aria-label={t.brandColorPicker}
+                value={validColor ? form.brandColor.toLowerCase() : '#1f3a2e'}
+                onChange={(e) => (setColorError(null), setForm((f) => (f ? { ...f, brandColor: e.target.value.toUpperCase() } : f)))}
+                disabled={!editable}
+                className="mt-[26px] size-10 shrink-0 cursor-pointer rounded-lg border border-line-strong bg-surface p-1 disabled:cursor-not-allowed disabled:opacity-70"
+              />
+              <Field label={t.brandColor} error={colorError ?? save.fields.brandColor} hint={t.brandColorHint} className="min-w-0 flex-1">
+                <Input id="brand-color-hex" value={form.brandColor} onChange={(e) => (setColorError(null), set('brandColor')(e))} disabled={!editable} maxLength={7} spellCheck={false} className="max-w-36 font-mono uppercase" />
+              </Field>
+            </div>
             <LogoCard org={org.data} editable={editable} onChanged={async () => { await org.mutate(); await refresh(); }} />
           </CardBody>
         </Card>

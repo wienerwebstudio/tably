@@ -48,7 +48,7 @@ export default function HardwarePage() {
               <Link href="/kontakt?thema=hardware" className="inline-flex h-12 items-center justify-center rounded-xl bg-brand px-6 font-medium text-on-brand transition-colors hover:bg-brand-hover">
                 Stempel vorbestellen
               </Link>
-              <Badge tone="honey" className="px-3 py-1.5 text-[13px]">
+              <Badge tone="warn" className="px-3 py-1.5 text-[13px]">
                 Preis auf Anfrage
               </Badge>
             </div>
@@ -94,7 +94,7 @@ export default function HardwarePage() {
         <Container>
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
             <div>
-              <SectionHeading eyebrow="Maße & Material" title="Klein genug für jede Theke, groß genug für jede Hand." />
+              <SectionHeading eyebrow="Abmessungen & Material" title="Klein genug für jede Theke, groß genug für jede Hand." />
               <dl className="mt-10 divide-y divide-line border-y border-line text-[15px]">
                 {SPECS.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-1 gap-1 py-3.5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6">

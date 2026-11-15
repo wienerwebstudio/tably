@@ -82,7 +82,7 @@ export default function CounterPage() {
   return (
     <>
       <PageHeader title={t.title} description={t.description} actions={<LocationPicker state={location} />} />
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="flex min-w-0 flex-col gap-5">
           <PendingTaps />
           <CardLookup locationId={location.locationId} />

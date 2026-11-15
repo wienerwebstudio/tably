@@ -32,9 +32,9 @@ export function TapFeedMock({ className }: { className?: string }) {
           <Avatar name="Jonas" className="bg-honey-soft text-honey" />
           <div className="min-w-0 flex-1">
             <p className="truncate font-medium text-ink">Jonas</p>
-            <p className="truncate text-xs text-muted">Tap geprüft · wartet auf Freigabe</p>
+            <p className="truncate text-xs text-muted">Wartet auf Freigabe</p>
           </div>
-          <span className="flex size-8 items-center justify-center rounded-lg border border-line-strong text-muted">
+          <span className="hidden size-8 items-center justify-center rounded-lg border border-line-strong text-muted min-[420px]:flex">
             <X className="size-4" />
           </span>
           <span className="flex h-8 items-center gap-1.5 rounded-lg bg-brand px-3 text-xs font-medium text-on-brand">
@@ -55,7 +55,7 @@ export function TapFeedMock({ className }: { className?: string }) {
         <li className="flex items-center gap-3 px-4 py-3">
           <Avatar name="?" />
           <div className="min-w-0 flex-1">
-            <p className="truncate font-medium text-ink">Unbekanntes Gerät</p>
+            <p className="truncate font-medium text-ink">Unbekannt</p>
             <p className="truncate text-xs text-muted">Link wurde bereits verwendet</p>
           </div>
           <Badge tone="danger" dot>
@@ -98,11 +98,11 @@ export function AnalyticsMock({ className }: { className?: string }) {
             </span>
           ))}
         </div>
-        <dl className="mt-4 grid grid-cols-3 gap-3 text-xs">
+        <dl className="mt-4 grid grid-cols-1 gap-2 text-xs min-[420px]:grid-cols-3">
           {[
-            ['Aktive Karten', 'Karten mit Stempel im Zeitraum'],
-            ['Wiederkehrend', 'Anteil mit zweitem Besuch'],
-            ['Prämien', 'eingelöst im Zeitraum'],
+            ['Aktive Karten', 'mit Stempel im Zeitraum'],
+            ['Wiederkehrquote', 'kommen erneut'],
+            ['Prämien', 'eingelöst'],
           ].map(([k, v]) => (
             <div key={k} className="rounded-lg bg-sunken p-2.5">
               <dt className="font-semibold text-ink">{k}</dt>
@@ -203,7 +203,7 @@ export function DesignerMock({ className }: { className?: string }) {
   const swatches = ['#F6F1E7', '#1F3A2E', '#7A2E22', '#16223B', '#FBEAF0'];
   return (
     <MockFrame title="Karten-Designer" note={null} className={className}>
-      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center">
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[8.25rem_minmax(0,1fr)] sm:items-center">
         <div className="space-y-3.5 text-xs">
           <div>
             <p className="font-medium text-muted">Hintergrund</p>

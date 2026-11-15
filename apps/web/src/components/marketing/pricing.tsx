@@ -85,7 +85,7 @@ export function PricingTable({ plans, trialDays, trialPlanId }: { plans: PublicP
                 {trialDays} Tage kostenlos testen
               </a>
 
-              <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-subtle">Umfang</h3>
+              <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">Umfang</h3>
               <ul className="mt-4 space-y-3 text-[15px] text-ink">
                 {LIMITS.map((l) => (
                   <li key={l.key} className="flex gap-3">
@@ -95,12 +95,12 @@ export function PricingTable({ plans, trialDays, trialPlanId }: { plans: PublicP
                 ))}
               </ul>
 
-              <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-subtle">Funktionen</h3>
+              <h3 className="mt-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">Funktionen</h3>
               <ul className="mt-4 space-y-3 text-[15px]">
                 {FEATURES.map((f) => {
                   const on = plan.features[f.key];
                   return (
-                    <li key={f.key} className={cn('flex gap-3', on ? 'text-ink' : 'text-subtle')}>
+                    <li key={f.key} className={cn('flex gap-3', on ? 'text-ink' : 'text-muted')}>
                       {on ? <Check className="mt-0.5 size-[18px] shrink-0 text-brand" strokeWidth={2.5} aria-hidden /> : <Minus className="mt-0.5 size-[18px] shrink-0" aria-hidden />}
                       <span>
                         {f.label}

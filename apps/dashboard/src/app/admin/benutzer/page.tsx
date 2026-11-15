@@ -88,7 +88,7 @@ export default function AdminUsersPage() {
                   <Th>{t.colOrgs}</Th>
                   <Th className="hidden md:table-cell">{t.colSecurity}</Th>
                   <Th className="hidden lg:table-cell">{t.colLastLogin}</Th>
-                  <Th><span className="sr-only">{t.colActions}</span></Th>
+                  <Th aria-label={t.colActions} />
                 </tr>
               </thead>
               <tbody>

@@ -227,8 +227,8 @@ export default function CustomersPage() {
             <EmptyState icon={<Users />} title={t.emptyTitle} description={t.emptyText} action={createButton ?? undefined} />
           )
         ) : (
-          <div className={cn('transition-opacity', searching && 'opacity-60')}>
-            <div className="hidden md:block">
+          <div className={cn('@container transition-opacity', searching && 'opacity-60')}>
+            <div className="hidden @3xl:block">
               <Table>
                 <thead>
                   <tr>
@@ -236,7 +236,7 @@ export default function CustomersPage() {
                     <Th>{t.colCard}</Th>
                     <Th className="text-right">{t.colVisits}</Th>
                     <Th>{t.colLast}</Th>
-                    <Th>{t.colSince}</Th>
+                    <Th className="hidden xl:table-cell">{t.colSince}</Th>
                     <Th>{t.colStatus}</Th>
                   </tr>
                 </thead>
@@ -252,7 +252,7 @@ export default function CustomersPage() {
                       <Td><CardSummary customer={c} /></Td>
                       <Td className="text-right tabular">{c.cards.reduce((sum, card) => sum + card.visits, 0)}</Td>
                       <Td className="whitespace-nowrap text-muted">{formatRelative(c.lastActivityAt)}</Td>
-                      <Td className="whitespace-nowrap text-muted tabular">{formatDate(c.createdAt)}</Td>
+                      <Td className="hidden whitespace-nowrap text-muted tabular xl:table-cell">{formatDate(c.createdAt)}</Td>
                       <Td><Badge tone={customerStatus[c.status].tone}>{customerStatus[c.status].label}</Badge></Td>
                     </tr>
                   ))}
@@ -260,7 +260,7 @@ export default function CustomersPage() {
               </Table>
             </div>
 
-            <ul className="divide-y divide-line md:hidden">
+            <ul className="divide-y divide-line @3xl:hidden">
               {data.items.map((c) => (
                 <li key={c.id}>
                   <Link href={`/kunden/${c.id}`} className="flex items-center gap-3 px-5 py-4 hover:bg-paper" aria-label={`${fullName(c)} – ${t.open}`}>

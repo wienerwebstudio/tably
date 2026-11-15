@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Fingerprint, KeyRound, Server, UserCheck } from 'lucide-react';
-import { formatMoney, LoyaltyCard } from '@tably/ui';
+import { formatMoney, LoyaltyCard, StampIcon } from '@tably/ui';
 import { CardConfigurator } from '@/components/marketing/card-configurator';
 import { FaqList, pickFaq } from '@/components/marketing/faq';
 import { HeroDemo } from '@/components/marketing/hero-demo';
@@ -52,17 +52,18 @@ const SECURITY = [
 export default async function HomePage() {
   const { plans, trialDays } = await getPlans();
   const faq = pickFaq(['app', 'geraete', 'ablauf', 'foto', 'stempelpreis']);
-  const examples = ['bakery', 'barbershop', 'florist', 'fitness', 'beauty', 'carwash'].map((id) => INDUSTRIES.find((i) => i.id === id)!);
+  const examples = ['bakery', 'barbershop', 'florist'].map((id) => INDUSTRIES.find((i) => i.id === id)!);
 
   return (
     <>
       {/* Hero */}
       <div className="relative overflow-hidden">
-        <Container className="grid grid-cols-1 items-center gap-x-12 gap-y-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:pb-28 lg:pt-20">
+        <Container className="grid grid-cols-1 items-center gap-x-12 gap-y-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:pb-28 lg:pt-20">
           <div>
             <Eyebrow>Digitale Treuekarten mit NFC-Stempel</Eyebrow>
-            <h1 className="mt-6 font-display text-[2.7rem] leading-[1.03] tracking-[-0.025em] text-ink text-balance sm:text-6xl lg:text-[4.4rem]">
-              Der Stempel bleibt. <span className="text-brand">Das Papier geht.</span>
+            <h1 className="mt-6 font-display text-[clamp(1.9rem,9.2vw,3rem)] leading-[1.05] tracking-[-0.025em] text-ink sm:text-6xl lg:text-[4.1rem]">
+              <span className="block">Der Stempel bleibt.</span>
+              <span className="block text-brand">Das Papier geht.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted text-pretty sm:text-xl">
               Tably macht aus deiner Stempelkarte eine digitale Karte auf dem Smartphone deiner Gäste. Gestempelt wird wie immer: mit einem echten Stempel, den dein Team kurz ans Handy hält.
@@ -142,14 +143,14 @@ export default async function HomePage() {
               <div className="overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
                 <div className="hidden grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)] border-b border-line text-[13px] font-semibold uppercase tracking-[0.1em] md:grid" aria-hidden>
                   <span className="px-6 py-4" />
-                  <span className="px-6 py-4 text-subtle">QR-Scan durch das Team</span>
+                  <span className="px-6 py-4 text-muted">QR-Scan durch das Team</span>
                   <span className="bg-brand-soft/60 px-6 py-4 text-brand">Tably-Stempel</span>
                 </div>
                 {COMPARE.map((row) => (
                   <div key={row.topic} className="grid grid-cols-1 border-b border-line last:border-b-0 md:grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)]">
                     <h3 className="px-5 pt-5 text-[15px] font-semibold text-ink md:px-6 md:py-5">{row.topic}</h3>
                     <p className="px-5 pt-2 text-[15px] leading-relaxed text-muted md:px-6 md:py-5">
-                      <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.1em] text-subtle md:sr-only">QR-Scan durch das Team</span>
+                      <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.1em] text-muted md:sr-only">QR-Scan durch das Team</span>
                       {row.qr}
                     </p>
                     <p className="mt-4 bg-brand-soft/60 px-5 py-4 text-[15px] leading-relaxed text-ink md:mt-0 md:px-6 md:py-5">
@@ -168,7 +169,15 @@ export default async function HomePage() {
       <Section tone="surface">
         <Container>
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Funktionen" title="Alles, was eine Stempelkarte braucht. Und was Papier nie konnte." />
+            <SectionHeading
+              className="max-w-3xl"
+              eyebrow="Funktionen"
+              title={
+                <>
+                  Alles, was eine Stempelkarte braucht. <span className="sm:block">Und was Papier nie konnte.</span>
+                </>
+              }
+            />
             <TextLink href="/funktionen" className="shrink-0">
               Alle Funktionen
             </TextLink>
@@ -188,38 +197,35 @@ export default async function HomePage() {
                 <TapFeedMock className="mt-8" />
               </article>
             </Reveal>
-            <Reveal className="lg:col-span-2">
+            <Reveal className="lg:col-span-3">
               <article className="flex h-full min-w-0 flex-col rounded-3xl border border-line bg-paper p-6 sm:p-8">
                 <h3 className="font-display text-2xl text-ink">Marketing mit Einwilligung</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted">Angebote, Geburtstagsgrüße, Rückgewinnung und Bonus-Stempel – nur an Menschen, die zugestimmt haben.</p>
                 <CampaignMock className="mt-8" />
               </article>
             </Reveal>
-            <Reveal className="lg:col-span-2" delay={80}>
+            <Reveal className="lg:col-span-3" delay={80}>
               <article className="flex h-full min-w-0 flex-col rounded-3xl border border-line bg-paper p-6 sm:p-8">
                 <h3 className="font-display text-2xl text-ink">Analysen</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted">Welche Tage laufen, wer wiederkommt, welche Prämie zieht. Je Standort, Stempel und Karte.</p>
                 <AnalyticsMock className="mt-8" />
               </article>
             </Reveal>
-            <Reveal className="lg:col-span-2" delay={160}>
-              <article className="flex h-full min-w-0 flex-col rounded-3xl border border-line bg-paper p-6 sm:p-8">
-                <h3 className="font-display text-2xl text-ink">Und außerdem</h3>
-                <dl className="mt-5 divide-y divide-line text-[15px]">
-                  {[
-                    ['Kundenverwaltung', 'Profile, Verlauf, manuelle Korrekturen'],
-                    ['Geräteverwaltung', 'Stempel zuordnen, auswerten, sperren'],
-                    ['Wallet-Karten', 'Apple und Google, nach Einrichtung'],
-                    ['Team & Rollen', 'Vier Rollen mit klaren Rechten'],
-                    ['Kassen-Schnittstelle', 'Stempel an Bons koppeln (API)'],
-                  ].map(([k, v]) => (
-                    <div key={k} className="py-3.5 first:pt-0">
-                      <dt className="font-semibold text-ink">{k}</dt>
-                      <dd className="mt-0.5 text-muted">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </article>
+            <Reveal className="lg:col-span-6">
+              <dl className="grid grid-cols-1 gap-x-8 rounded-3xl border border-line bg-paper px-6 text-[15px] sm:grid-cols-2 sm:px-8 lg:grid-cols-5 lg:py-2">
+                {[
+                  ['Kundenverwaltung', 'Profile, Verlauf, manuelle Korrekturen'],
+                  ['Geräteverwaltung', 'Stempel zuordnen, auswerten, sperren'],
+                  ['Wallet-Karten', 'Apple und Google, nach Einrichtung'],
+                  ['Team & Rollen', 'Vier Rollen mit klaren Rechten'],
+                  ['Kassen-Schnittstelle', 'Stempel an Bons koppeln (API)'],
+                ].map(([k, v]) => (
+                  <div key={k} className="border-b border-line py-5 last:border-b-0 lg:border-b-0">
+                    <dt className="font-semibold text-ink">{k}</dt>
+                    <dd className="mt-1 leading-relaxed text-muted">{v}</dd>
+                  </div>
+                ))}
+              </dl>
             </Reveal>
           </div>
         </Container>
@@ -254,6 +260,16 @@ export default async function HomePage() {
                     <p className="mt-1 text-[15px] leading-relaxed text-muted">{ex.headline}</p>
                   </Link>
                 </Reveal>
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-12 flex flex-wrap gap-2 border-t border-line pt-8" aria-label="Weitere Branchen">
+            {INDUSTRIES.filter((i) => !examples.includes(i)).map((i) => (
+              <li key={i.id}>
+                <Link href={`/branchen#${i.id}`} className="inline-flex h-10 items-center gap-2 rounded-full border border-line-strong bg-surface px-4 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand">
+                  <StampIcon name={i.card.stampIcon} className="size-4 text-muted" />
+                  {i.label}
+                </Link>
               </li>
             ))}
           </ul>

@@ -77,8 +77,8 @@ export function TransactionList({ items, showCustomer, showProgram, linkCustomer
     ) : null;
 
   return (
-    <>
-      <div className="hidden md:block">
+    <div className="@container">
+      <div className="hidden @3xl:block">
         <Table>
           <thead>
             <tr>
@@ -117,7 +117,7 @@ export function TransactionList({ items, showCustomer, showProgram, linkCustomer
         </Table>
       </div>
 
-      <ul className="divide-y divide-line border-t border-line md:hidden">
+      <ul className="divide-y divide-line border-t border-line @3xl:hidden">
         {items.map((row) => (
           <li key={row.id} className={cn('flex flex-col gap-1.5 px-5 py-3.5 text-sm', reversedIds.has(row.id) && 'opacity-60')}>
             <div className="flex items-center gap-2">
@@ -138,6 +138,6 @@ export function TransactionList({ items, showCustomer, showProgram, linkCustomer
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
