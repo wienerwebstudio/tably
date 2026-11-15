@@ -46,7 +46,7 @@ class HealthController {
 }
 
 // In Tests ist die Begrenzung abgeschaltet; ein eigener Test aktiviert sie gezielt (TEST_RATE_LIMITS=true).
-const skipThrottle = () => getEnv().NODE_ENV === 'test' && process.env.TEST_RATE_LIMITS !== 'true';
+const skipThrottle = () => getEnv().RATE_LIMIT_DISABLED || (getEnv().NODE_ENV === 'test' && process.env.TEST_RATE_LIMITS !== 'true');
 
 /**
  * Modularer Monolith: ein Prozess, klar getrennte Fachmodule unter src/modules.

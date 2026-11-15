@@ -60,7 +60,7 @@ pnpm build
 pnpm test:e2e
 ```
 
-Die End-to-End-Tests starten die gebauten Dienste bei Bedarf selbst. Sie brauchen `NFC_SIMULATOR_ENABLED=true` und keinen SMTP-Zugang (sie lesen Links aus dem Testpostfach).
+Die End-to-End-Tests starten die gebauten Dienste bei Bedarf selbst. Sie brauchen `NFC_SIMULATOR_ENABLED=true`, `RATE_LIMIT_DISABLED=true` (viele Registrierungen von einer IP) und keinen SMTP-Zugang (sie lesen Links aus dem Testpostfach). Der Rundgang durch das Super-Admin-Panel läuft nur mit `E2E_ADMIN_EMAIL` und `E2E_ADMIN_PASSWORD`.
 
 ```bash
 pnpm typecheck

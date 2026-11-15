@@ -31,6 +31,8 @@ export const envSchema = z.object({
   /** Aktiviert den klar gekennzeichneten NFC-Simulationsmodus. */
   NFC_SIMULATOR_ENABLED: bool,
   TRUST_PROXY: bool,
+  /** Nur für automatisierte Tests: schaltet das Rate Limiting ab. In Produktion nicht erlaubt. */
+  RATE_LIMIT_DISABLED: bool,
   COOKIE_SECURE: bool,
 
   // E-Mail (optional – ohne SMTP wird der lokale Testmodus verwendet)
@@ -73,6 +75,7 @@ export function loadEnv(source: Record<string, string | undefined> = process.env
     if (env.NFC_SIMULATOR_ENABLED) {
       throw new Error('NFC_SIMULATOR_ENABLED darf in Produktion nicht aktiv sein.');
     }
+    if (env.RATE_LIMIT_DISABLED) throw new Error('RATE_LIMIT_DISABLED darf in Produktion nicht aktiv sein.');
     if (/^0+$/.test(env.APP_ENCRYPTION_KEY)) throw new Error('APP_ENCRYPTION_KEY ist ein Platzhalter.');
   }
   if (env.QUEUE_DRIVER === 'bullmq' && !env.REDIS_URL) {

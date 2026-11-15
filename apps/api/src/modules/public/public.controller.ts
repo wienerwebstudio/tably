@@ -55,7 +55,8 @@ export class PublicController {
 
   @Post('programs/:orgSlug/:programSlug/enroll')
   @HttpCode(200)
-  @Throttle({ default: { limit: 10, ttl: 600_000 } })
+  // Großzügig, weil Gäste im WLAN eines Geschäfts dieselbe IP teilen
+  @Throttle({ default: { limit: 60, ttl: 600_000 } })
   @ApiOperation({ summary: 'Kundenkonto und Karte anlegen; optional einen offenen Tap einlösen' })
   @ApiZodBody(enrollSchema)
   enroll(
