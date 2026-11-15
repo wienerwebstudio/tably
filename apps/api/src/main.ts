@@ -11,7 +11,7 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { bodyParser: false });
   configureApp(app);
   await app.listen(env.API_PORT, '0.0.0.0');
-  new Logger('Bootstrap').log(`Tably API läuft auf Port ${env.API_PORT} · Queue: ${env.QUEUE_DRIVER} · Doku: /docs`);
+  new Logger('Bootstrap').log(`Tapperl API läuft auf Port ${env.API_PORT} · Queue: ${env.QUEUE_DRIVER} · Doku: /docs`);
 }
 
 void bootstrap();

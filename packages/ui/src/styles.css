@@ -1,0 +1,140 @@
+/*
+ * Tapperl Design-Tokens. Wird von beiden Apps nach `@import "tailwindcss"` eingebunden.
+ * Farben sind semantisch benannt und über CSS-Variablen umschaltbar (Dark Mode).
+ */
+@theme {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-on-brand: var(--on-brand);
+  --color-honey: var(--honey);
+  --color-honey-soft: var(--honey-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(20 24 27 / 0.04), 0 1px 1px rgb(20 24 27 / 0.03);
+  --shadow-raised: 0 12px 32px -12px rgb(20 24 27 / 0.18), 0 2px 6px rgb(20 24 27 / 0.05);
+  --shadow-pass: 0 30px 60px -24px rgb(20 24 27 / 0.45), 0 8px 20px -8px rgb(20 24 27 / 0.2);
+
+  --animate-pop: pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  --animate-fade-up: fade-up 0.4s ease-out both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes pop {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes fade-up {
+    0% { transform: translateY(8px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+:root {
+  --paper: #f8f7f3;
+  --surface: #ffffff;
+  --sunken: #f1efe9;
+  --ink: #15181b;
+  --muted: #59616b;
+  --subtle: #8a919a;
+  --line: #e6e3db;
+  --line-strong: #cfcbc0;
+  --brand: #1f3a2e;
+  --brand-hover: #16291f;
+  --brand-soft: #e6eee9;
+  --on-brand: #ffffff;
+  --honey: #c98a2b;
+  --honey-soft: #fbf1df;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --success: #17703f;
+  --success-soft: #e5f4ea;
+  --warn: #9a5200;
+  --warn-soft: #fdf0dc;
+  --info: #1d4f91;
+  --info-soft: #e7eff9;
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #101214;
+  --surface: #181b1e;
+  --sunken: #0b0d0e;
+  --ink: #f1f0ec;
+  --muted: #a4abb3;
+  --subtle: #78808a;
+  --line: #2a2e32;
+  --line-strong: #3c4147;
+  --brand: #8fc9a8;
+  --brand-hover: #a6d8ba;
+  --brand-soft: #1b2a22;
+  --on-brand: #0d1a13;
+  --honey: #e8b86d;
+  --honey-soft: #2c2415;
+  --danger: #ff8a7d;
+  --danger-soft: #331a17;
+  --success: #6fd39a;
+  --success-soft: #142a1d;
+  --warn: #f0b560;
+  --warn-soft: #2e2311;
+  --info: #8db8f0;
+  --info-soft: #152334;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--brand) 22%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}

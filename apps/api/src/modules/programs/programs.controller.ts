@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import type { z } from 'zod';
-import { createProgramSchema, programStatusSchema, rewardInputSchema, rewardUpdateSchema, updateProgramSchema } from '@tably/types';
+import { createProgramSchema, programStatusSchema, rewardInputSchema, rewardUpdateSchema, updateProgramSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { Can, CurrentAuth, Member, Tenant } from '../../common/guards';
 import type { AuthContext, TenantContext } from '../../common/auth.types';

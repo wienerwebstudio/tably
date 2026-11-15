@@ -26,9 +26,9 @@ const card: WalletCardModel = {
   backgroundColor: '#1F3A2E',
   textColor: '#FFFFFF',
   accentColor: '#E8B86D',
-  cardUrl: 'https://tably.example/c/abc',
+  cardUrl: 'https://tapperl.example/c/abc',
   terms: 'Nicht mit anderen Aktionen kombinierbar.',
-  logoUrl: 'https://tably.example/logo.png',
+  logoUrl: 'https://tapperl.example/logo.png',
 };
 
 /** Selbstsigniertes Testzertifikat – ersetzt für die Strukturprüfung Pass-Zertifikat und WWDR. */
@@ -39,7 +39,7 @@ function selfSigned(): { certPem: string; keyPem: string } {
   cert.serialNumber = '01';
   cert.validity.notBefore = new Date(Date.now() - 86_400_000);
   cert.validity.notAfter = new Date(Date.now() + 86_400_000 * 30);
-  const attrs = [{ name: 'commonName', value: 'Pass Type ID: pass.test.tably' }];
+  const attrs = [{ name: 'commonName', value: 'Pass Type ID: pass.test.tapperl' }];
   cert.setSubject(attrs);
   cert.setIssuer(attrs);
   cert.sign(keys.privateKey, forge.md.sha256.create());
@@ -64,12 +64,12 @@ function readZip(buf: Buffer): Map<string, Buffer> {
 describe('Apple Wallet – .pkpass', () => {
   const { certPem, keyPem } = selfSigned();
   const config: ApplePassConfig = {
-    passTypeIdentifier: 'pass.test.tably',
+    passTypeIdentifier: 'pass.test.tapperl',
     teamIdentifier: 'TEAM123456',
     certificatePem: certPem,
     privateKeyPem: keyPem,
     wwdrPem: certPem,
-    webServiceUrl: 'https://api.tably.example/wallet/apple',
+    webServiceUrl: 'https://api.tapperl.example/wallet/apple',
   };
   const pkpass = createPkpass(config, { card, authenticationToken: 'a'.repeat(32) });
   const files = readZip(pkpass);
@@ -96,7 +96,7 @@ describe('Apple Wallet – .pkpass', () => {
 
   it('pass.json beschreibt eine storeCard mit Webservice', () => {
     const pass = JSON.parse(files.get('pass.json')!.toString());
-    expect(pass.passTypeIdentifier).toBe('pass.test.tably');
+    expect(pass.passTypeIdentifier).toBe('pass.test.tapperl');
     expect(pass.serialNumber).toBe(card.serial);
     expect(pass.storeCard.headerFields[0].value).toBe('4 / 10');
     expect(pass.webServiceURL).toBe(config.webServiceUrl);
@@ -145,12 +145,12 @@ describe('Google Wallet', () => {
   const { publicKey, privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
   const config: GoogleWalletConfig = {
     issuerId: '3388000000012345678',
-    serviceAccountEmail: 'wallet@tably-test.iam.gserviceaccount.com',
+    serviceAccountEmail: 'wallet@tapperl-test.iam.gserviceaccount.com',
     privateKeyPem: privateKey.export({ type: 'pkcs8', format: 'pem' }).toString(),
   };
 
   it('erzeugt einen korrekt signierten Save-Link', () => {
-    const url = createSaveUrl(config, 'prog_1', card, ['https://tably.example'], 1_800_000_000);
+    const url = createSaveUrl(config, 'prog_1', card, ['https://tapperl.example'], 1_800_000_000);
     expect(url.startsWith('https://pay.google.com/gp/v/save/')).toBe(true);
     const [h, p, s] = url.split('/save/')[1]!.split('.');
     expect(createVerify('RSA-SHA256').update(`${h}.${p}`).verify(publicKey, Buffer.from(s!, 'base64url'))).toBe(true);

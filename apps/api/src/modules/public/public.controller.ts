@@ -3,8 +3,8 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import type { Response } from 'express';
 import { z } from 'zod';
-import { CUSTOMER_COOKIE } from '@tably/config';
-import { cardRecoverySchema, contactSchema, customerRedeemRequestSchema, customerSelfUpdateSchema, enrollSchema, tapSchema, tokenSchema } from '@tably/types';
+import { CUSTOMER_COOKIE } from '@tapperl/config';
+import { cardRecoverySchema, contactSchema, customerRedeemRequestSchema, customerSelfUpdateSchema, enrollSchema, tapSchema, tokenSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { Browser } from '../../common/guards';
 import { clientIp, userAgent, type AppRequest, type CustomerBrowser } from '../../common/auth.types';
@@ -55,7 +55,8 @@ export class PublicController {
 
   @Post('programs/:orgSlug/:programSlug/enroll')
   @HttpCode(200)
-  @Throttle({ default: { limit: 10, ttl: 600_000 } })
+  // Großzügig, weil Gäste im WLAN eines Geschäfts dieselbe IP teilen
+  @Throttle({ default: { limit: 60, ttl: 600_000 } })
   @ApiOperation({ summary: 'Kundenkonto und Karte anlegen; optional einen offenen Tap einlösen' })
   @ApiZodBody(enrollSchema)
   enroll(

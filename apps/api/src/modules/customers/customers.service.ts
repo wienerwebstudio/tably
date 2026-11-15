@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { ConsentType } from '@tably/database';
+import type { ConsentType } from '@tapperl/database';
 import type { z } from 'zod';
-import { PRIVACY_POLICY_VERSION } from '@tably/config';
-import type { customerCreateSchema, customerListQuerySchema, customerUpdateSchema } from '@tably/types';
+import { PRIVACY_POLICY_VERSION } from '@tapperl/config';
+import type { customerCreateSchema, customerListQuerySchema, customerUpdateSchema } from '@tapperl/types';
 import { Prisma, PrismaService, isUniqueViolation, type Tx } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
 import { EntitlementsService } from '../../common/entitlements.service';
@@ -42,17 +42,21 @@ export class CustomersService {
     if (query.status) where.status = query.status;
     else where.status = { not: 'ANONYMIZED' };
     if (query.q) {
-      const q = query.q;
-      and.push({
-        OR: [
-          { firstName: { contains: q, mode: 'insensitive' } },
-          { lastName: { contains: q, mode: 'insensitive' } },
-          { email: { contains: q, mode: 'insensitive' } },
-          { phone: { contains: q } },
-          { cards: { some: { shortCode: { equals: q.toUpperCase().replace(/\s/g, '') } } } },
-          { cards: { some: { shortCode: { equals: q.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^(.{4})(.{4})$/, '$1-$2') } } } },
-        ],
-      });
+      const code = query.q.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const shortCode = code.length === 8 ? `${code.slice(0, 4)}-${code.slice(4)}` : null;
+      // Jedes Wort muss in mindestens einem Feld vorkommen („Mara Schmidt“ findet Vor- und Nachname).
+      const words = query.q.split(/\s+/).filter(Boolean).slice(0, 5);
+      const byWords: Prisma.CustomerWhereInput = {
+        AND: words.map((word) => ({
+          OR: [
+            { firstName: { contains: word, mode: 'insensitive' as const } },
+            { lastName: { contains: word, mode: 'insensitive' as const } },
+            { email: { contains: word, mode: 'insensitive' as const } },
+            { phone: { contains: word } },
+          ],
+        })),
+      };
+      and.push(shortCode ? { OR: [byWords, { cards: { some: { shortCode } } }] } : byWords);
     }
     if (query.programId) and.push({ cards: { some: { programId: query.programId } } });
     const now = new Date();
@@ -256,6 +260,7 @@ export class CustomersService {
       await tx.loyaltyCard.updateMany({ where: { customerId: id }, data: { status: 'BLOCKED' } });
       await tx.notification.updateMany({ where: { customerId: id }, data: { recipient: null, body: '', subject: '' } });
       await tx.consentRecord.updateMany({ where: { customerId: id }, data: { ip: null, userAgent: null } });
+      await tx.tapEvent.updateMany({ where: { customerId: id, status: { in: ['VERIFIED', 'PENDING_APPROVAL', 'PENDING_POS'] } }, data: { status: 'REJECTED', rejectReason: 'customer_blocked', completedAt: new Date() } });
       await tx.tapEvent.updateMany({ where: { customerId: id }, data: { ip: null } });
       await tx.customer.update({
         where: { id },

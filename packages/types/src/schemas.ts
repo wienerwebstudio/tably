@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { INDUSTRIES } from '@tably/config';
+import { INDUSTRIES } from '@tapperl/config';
 
 const trimmed = (max: number, min = 1) => z.string().trim().min(min).max(max);
 const optionalText = (max: number) =>

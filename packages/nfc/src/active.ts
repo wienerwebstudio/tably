@@ -7,12 +7,12 @@ import { createHash, createPublicKey, verify as cryptoVerify, sign as cryptoSign
  * (Ed25519-Schlüsselpaar, privater Schlüssel im Secure Element) und meldet
  * gelesene Kundenkennungen per HTTPS an das Backend. Jede Anfrage ist signiert:
  *
- *   X-Tably-Device:    <publicId>
- *   X-Tably-Timestamp: <Unix-Sekunden>
- *   X-Tably-Nonce:     <mind. 16 zufällige Zeichen>
- *   X-Tably-Signature: base64( Ed25519( kanonischer String ) )
+ *   X-Tapperl-Device:    <publicId>
+ *   X-Tapperl-Timestamp: <Unix-Sekunden>
+ *   X-Tapperl-Nonce:     <mind. 16 zufällige Zeichen>
+ *   X-Tapperl-Signature: base64( Ed25519( kanonischer String ) )
  *
- *   kanonischer String = "TABLY-DEVICE-V1\n" + publicId + "\n" + timestamp + "\n"
+ *   kanonischer String = "TAPPERL-DEVICE-V1\n" + publicId + "\n" + timestamp + "\n"
  *                        + nonce + "\n" + METHOD + "\n" + path + "\n" + sha256hex(body)
  *
  * Das Backend prüft Signatur, Zeitfenster (±90 s) und Einmaligkeit der Nonce.
@@ -21,7 +21,7 @@ import { createHash, createPublicKey, verify as cryptoVerify, sign as cryptoSign
  * Apple/Google und geeignete Reader-Hardware erforderlich (siehe docs).
  */
 
-export const DEVICE_SIGNATURE_VERSION = 'TABLY-DEVICE-V1';
+export const DEVICE_SIGNATURE_VERSION = 'TAPPERL-DEVICE-V1';
 export const DEVICE_CLOCK_SKEW_SECONDS = 90;
 
 export interface SignedDeviceRequest {
@@ -77,7 +77,7 @@ export function verifyDeviceRequest(
 
 /** Was ein aktiver Stempel pro Lesevorgang meldet. */
 export interface ActiveReaderTapReport {
-  /** Vom Reader gelesene Kartenkennung (Kurzcode oder Seriennummer der Tably-Karte) */
+  /** Vom Reader gelesene Kartenkennung (Kurzcode oder Seriennummer der Tapperl-Karte) */
   cardIdentifier: string;
   /** Wie die Kennung gelesen wurde */
   channel: 'qr' | 'nfc_hce' | 'apple_vas' | 'google_smart_tap';

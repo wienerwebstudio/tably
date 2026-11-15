@@ -22,6 +22,7 @@ import { DevicesService } from './modules/nfc/devices.service';
 import { TapsService } from './modules/nfc/taps.service';
 import { PublicController } from './modules/public/public.controller';
 import { PublicService } from './modules/public/public.service';
+import { DevController } from './modules/public/dev.controller';
 import { WalletController } from './modules/wallet/wallet.controller';
 import { WalletService } from './modules/wallet/wallet.service';
 import { BillingController } from './modules/billing/billing.controller';
@@ -45,7 +46,7 @@ class HealthController {
 }
 
 // In Tests ist die Begrenzung abgeschaltet; ein eigener Test aktiviert sie gezielt (TEST_RATE_LIMITS=true).
-const skipThrottle = () => getEnv().NODE_ENV === 'test' && process.env.TEST_RATE_LIMITS !== 'true';
+const skipThrottle = () => getEnv().RATE_LIMIT_DISABLED || (getEnv().NODE_ENV === 'test' && process.env.TEST_RATE_LIMITS !== 'true');
 
 /**
  * Modularer Monolith: ein Prozess, klar getrennte Fachmodule unter src/modules.
@@ -72,6 +73,7 @@ const skipThrottle = () => getEnv().NODE_ENV === 'test' && process.env.TEST_RATE
     PosController,
     ActiveReaderController,
     PublicController,
+    DevController,
     WalletController,
     BillingController,
     CampaignsController,

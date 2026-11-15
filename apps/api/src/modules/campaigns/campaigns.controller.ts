@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { z } from 'zod';
-import { campaignInputSchema, segmentSchema } from '@tably/types';
+import { campaignInputSchema, segmentSchema } from '@tapperl/types';
 import { ApiZodBody, ZBody } from '../../common/zod';
 import { Can, CurrentAuth, Tenant } from '../../common/guards';
 import type { AuthContext, TenantContext } from '../../common/auth.types';

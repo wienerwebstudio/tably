@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Headers, HttpCode, Param, Post, Query, Res } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
-import { PKPASS_MIME } from '@tably/wallet';
+import { PKPASS_MIME } from '@tapperl/wallet';
 import { Browser, Member, Tenant } from '../../common/guards';
 import type { CustomerBrowser, TenantContext } from '../../common/auth.types';
 import { AppError } from '../../common/errors';

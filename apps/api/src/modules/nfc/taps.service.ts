@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { BookingPolicy, LoyaltyProgram, NfcDevice, PosEvent, TapEvent } from '@tably/database';
-import { verifySun } from '@tably/nfc';
-import { TAP_TTL_SECONDS } from '@tably/config';
-import type { ErrorCode } from '@tably/types';
+import type { BookingPolicy, LoyaltyProgram, NfcDevice, PosEvent, TapEvent } from '@tapperl/database';
+import { verifySun } from '@tapperl/nfc';
+import { TAP_TTL_SECONDS } from '@tapperl/config';
+import type { ErrorCode } from '@tapperl/types';
 import { PrismaService, isUniqueViolation } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
 import { EntitlementsService } from '../../common/entitlements.service';
@@ -263,7 +263,7 @@ export class TapsService {
       WHERE id = (
         SELECT id FROM "PosEvent"
         WHERE "organizationId" = ${organizationId} AND "consumedAt" IS NULL
-          AND "occurredAt" >= now() - make_interval(mins => ${POS_MATCH_WINDOW_MIN})
+          AND "occurredAt" >= now() - make_interval(mins => ${POS_MATCH_WINDOW_MIN}::int)
           AND ("locationId" IS NULL OR ${locationId}::text IS NULL OR "locationId" = ${locationId})
         ORDER BY "occurredAt" ASC LIMIT 1 FOR UPDATE SKIP LOCKED
       ) RETURNING *`;

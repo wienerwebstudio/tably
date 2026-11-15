@@ -1,4 +1,4 @@
-export const APP_NAME = 'Tably';
+export const APP_NAME = 'Tapperl';
 
 export const INDUSTRIES = [
   'cafe',
@@ -25,5 +25,5 @@ export const TAP_TTL_SECONDS = 180;
 export const REDEMPTION_CODE_TTL_SECONDS = 300;
 export const PRIVACY_POLICY_VERSION = '2026-11';
 
-export const SESSION_COOKIE = 'tably_session';
-export const CUSTOMER_COOKIE = 'tably_customer';
+export const SESSION_COOKIE = 'tapperl_session';
+export const CUSTOMER_COOKIE = 'tapperl_customer';

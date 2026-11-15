@@ -6,7 +6,7 @@ Wichtige Einschränkung vorab: **tapstamp.co.uk war nicht abrufbar** (HTTP 403, 
 
 ## Kurzfazit
 
-1. **Ekhtem (Dubai) ist praktisch das Tably-Konzept, bereits am Markt**: 3D-gedruckter NFC-Stempel, Chip erzeugt pro Tap einen einmal gültigen Link, Karte im Browser plus Apple/Google Wallet, ohne Kunden-App und ohne Personal-App. Das Alleinstellungsmerkmal ist also nicht mehr weltweit einzigartig, im DACH-Raum aber (soweit auffindbar) unbesetzt.
+1. **Ekhtem (Dubai) ist praktisch das Tapperl-Konzept, bereits am Markt**: 3D-gedruckter NFC-Stempel, Chip erzeugt pro Tap einen einmal gültigen Link, Karte im Browser plus Apple/Google Wallet, ohne Kunden-App und ohne Personal-App. Das Alleinstellungsmerkmal ist also nicht mehr weltweit einzigartig, im DACH-Raum aber (soweit auffindbar) unbesetzt.
 2. **Stamply (CH) und Boomerang (US)** arbeiten mit QR-Scan durch das Personal (Scanner-Web-App/PWA) bzw. Kiosk-Selbstscan. NFC kommt auf ihren Seiten nicht vor.
 3. **Stamply basiert sehr wahrscheinlich auf Boomerang (White Label)** (Einschätzung, Begründung unten). Der lokale DACH-Wettbewerber ist damit ein Wiederverkäufer ohne eigene Technologie.
 4. **TapStamp (UK)** nutzt einen fest montierten NFC-"Pod", an den der Kunde sein Handy hält, und setzt laut Verzeichnissen auf eine eigene Kunden-App (iOS/Android), also mit Installationshürde.
@@ -177,25 +177,25 @@ Quellen der Tabelle: siehe die jeweiligen Abschnitte oben.
 
 ---
 
-## 6. Konsequenzen für Tably
+## 6. Konsequenzen für Tapperl
 
 **Was die Recherche am Produktversprechen ändert**
 
-- "Tap. Stamp. Reward." mit physischem Stempel ist bereits bei Ekhtem live. Tably sollte sich nicht als Welt-Neuheit positionieren, sondern als erste solche Lösung im DACH-Raum mit Self-Service, Mandantenfähigkeit und offengelegter Sicherheit. (Ob es im DACH-Raum weitere NFC-Stempel-Anbieter gibt, wurde nicht untersucht; nur die vier vorgegebenen Anbieter wurden analysiert.)
+- "Tap. Stamp. Reward." mit physischem Stempel ist bereits bei Ekhtem live. Tapperl sollte sich nicht als Welt-Neuheit positionieren, sondern als erste solche Lösung im DACH-Raum mit Self-Service, Mandantenfähigkeit und offengelegter Sicherheit. (Ob es im DACH-Raum weitere NFC-Stempel-Anbieter gibt, wurde nicht untersucht; nur die vier vorgegebenen Anbieter wurden analysiert.)
 - Ekhtems Ablauf bestätigt die Machbarkeit des MVP ohne Apple-/Google-Freigaben: Einmal-Link im Browser, Telefonnummer beim ersten Besuch, Wallet als optionaler zweiter Schritt.
 
-**Wo Tably besser sein kann**
+**Wo Tapperl besser sein kann**
 
 1. **Geschwindigkeit am Tresen.** Stamply und Boomerang brauchen ein eingeloggtes Gerät, Kamera und mehrere Klicks. Der Stempel braucht kein Gerät, keinen Login und keine Schulung. Das ist der klarste, belegbare Vorteil gegenüber den QR-Anbietern.
 2. **Personal löst aus, nicht der Kunde.** Beim stationären Pod (TapStamp) oder Kiosk-Selbstscan (Stamply, Boomerang) stempelt der Kunde selbst; geschützt wird nur per Verzögerung. Ein Stempel in der Hand des Barista bindet die Vergabe an eine bewusste Handlung des Personals.
 3. **Keine Kunden-App.** Gegenüber TapStamp ein direkter Vorteil; gleichauf mit den anderen.
-4. **Self-Service statt Vor-Ort-Termin.** Ekhtem liefert und richtet persönlich ein. Tably kann Stempel vorpersonalisiert versenden und per Erst-Tap aktivieren ("Stempel antippen, mit Konto verknüpfen"). Das skaliert überregional.
-5. **Transparente Sicherheit.** Keiner der vier erklärt sein Verfahren. Tably kann offen dokumentieren, was der Tap beweist und was nicht (siehe `nfc-und-wallet.md`), und Regeln wie "ein Stempel pro Tag/Kunde", Geofencing oder Stempel-Sperre bei Verlust konfigurierbar machen. Ekhtem hat die Tagesregel und die Sperre bereits.
-6. **Preis und Paketierung.** Lücke zwischen Stamply (CHF 39 bis 149) und Boomerang (USD 164 bis 299). Stamply sperrt Automationen hinter den mittleren Plan. Tably kann Win-back, Geburtstag und Review-Aufforderung schon im Einstiegsplan anbieten, wie Ekhtem es im Einheitspreis tut. Zu klären ist die Hardware: einmalige Gebühr (TapStamp), Leihgabe im Abo (Ekhtem) oder Kauf.
+4. **Self-Service statt Vor-Ort-Termin.** Ekhtem liefert und richtet persönlich ein. Tapperl kann Stempel vorpersonalisiert versenden und per Erst-Tap aktivieren ("Stempel antippen, mit Konto verknüpfen"). Das skaliert überregional.
+5. **Transparente Sicherheit.** Keiner der vier erklärt sein Verfahren. Tapperl kann offen dokumentieren, was der Tap beweist und was nicht (siehe `nfc-und-wallet.md`), und Regeln wie "ein Stempel pro Tag/Kunde", Geofencing oder Stempel-Sperre bei Verlust konfigurierbar machen. Ekhtem hat die Tagesregel und die Sperre bereits.
+6. **Preis und Paketierung.** Lücke zwischen Stamply (CHF 39 bis 149) und Boomerang (USD 164 bis 299). Stamply sperrt Automationen hinter den mittleren Plan. Tapperl kann Win-back, Geburtstag und Review-Aufforderung schon im Einstiegsplan anbieten, wie Ekhtem es im Einheitspreis tut. Zu klären ist die Hardware: einmalige Gebühr (TapStamp), Leihgabe im Abo (Ekhtem) oder Kauf.
 7. **Mandantenfähigkeit und Filialen.** Ekhtem rechnet pro Filiale mit eigenem Stempel ab; Boomerang verlangt den Franchise-Plan. Mehrere Stempel pro Standort und mehrere Standorte pro Mandant von Anfang an sauber abzubilden ist ein Differenzierungsmerkmal.
 8. **Datenstandort und Sprache.** Boomerang hostet in den USA und Deutschland, Stamply hängt vermutlich daran. EU-/CH-Hosting und deutschsprachige Oberfläche sind für DACH-KMU ein Verkaufsargument.
 
-**Was Tably mindestens gleichziehen muss**
+**Was Tapperl mindestens gleichziehen muss**
 
 - Apple Wallet und Google Wallet mit Aktualisierung nach jedem Stempel (alle ausser evtl. TapStamp).
 - QR-Fallback für Geräte ohne NFC (Ekhtem, TapStamp).

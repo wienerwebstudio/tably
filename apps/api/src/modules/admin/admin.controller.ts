@@ -1,8 +1,8 @@
 import { Controller, Get, Inject, Param, Patch } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { z } from 'zod';
-import { integrationStatus } from '@tably/config';
-import { adminOrgUpdateSchema, adminUpdatePlanSchema, adminUserUpdateSchema, paginationSchema } from '@tably/types';
+import { integrationStatus } from '@tapperl/config';
+import { adminOrgUpdateSchema, adminUpdatePlanSchema, adminUserUpdateSchema, paginationSchema } from '@tapperl/types';
 import { ZBody, ZQuery } from '../../common/zod';
 import { CurrentAuth, SuperAdmin } from '../../common/guards';
 import type { AuthContext } from '../../common/auth.types';

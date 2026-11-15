@@ -31,11 +31,18 @@ export const envSchema = z.object({
   /** Aktiviert den klar gekennzeichneten NFC-Simulationsmodus. */
   NFC_SIMULATOR_ENABLED: bool,
   TRUST_PROXY: bool,
+  /** Nur für automatisierte Tests: schaltet das Rate Limiting ab. In Produktion nicht erlaubt. */
+  RATE_LIMIT_DISABLED: bool,
   COOKIE_SECURE: bool,
 
   // E-Mail (optional – ohne SMTP wird der lokale Testmodus verwendet)
   SMTP_URL: optional,
-  MAIL_FROM: z.string().default('Tably <no-reply@tably.local>'),
+  /** Alternative zu SMTP_URL: Einzelwerte (praktisch, wenn das Passwort Sonderzeichen enthält) */
+  SMTP_HOST: optional,
+  SMTP_PORT: z.coerce.number().int().optional(),
+  SMTP_USER: optional,
+  SMTP_PASS: optional,
+  MAIL_FROM: z.string().default('Tapperl <no-reply@tapperl.local>'),
 
   // Stripe (optional – ohne Schlüssel läuft die Abrechnung im lokalen Testmodus)
   STRIPE_SECRET_KEY: optional,
@@ -73,6 +80,7 @@ export function loadEnv(source: Record<string, string | undefined> = process.env
     if (env.NFC_SIMULATOR_ENABLED) {
       throw new Error('NFC_SIMULATOR_ENABLED darf in Produktion nicht aktiv sein.');
     }
+    if (env.RATE_LIMIT_DISABLED) throw new Error('RATE_LIMIT_DISABLED darf in Produktion nicht aktiv sein.');
     if (/^0+$/.test(env.APP_ENCRYPTION_KEY)) throw new Error('APP_ENCRYPTION_KEY ist ein Platzhalter.');
   }
   if (env.QUEUE_DRIVER === 'bullmq' && !env.REDIS_URL) {
@@ -93,7 +101,7 @@ export interface IntegrationStatus {
 export function integrationStatus(env: Env): IntegrationStatus {
   return {
     stripe: Boolean(env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET),
-    smtp: Boolean(env.SMTP_URL),
+    smtp: Boolean(env.SMTP_URL || env.SMTP_HOST),
     appleWallet: Boolean(
       env.APPLE_PASS_TYPE_ID && env.APPLE_TEAM_ID && env.APPLE_PASS_CERT_PEM && env.APPLE_PASS_KEY_PEM && env.APPLE_WWDR_CERT_PEM,
     ),

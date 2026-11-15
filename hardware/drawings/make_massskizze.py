@@ -230,17 +230,17 @@ BX, BY, BW, BH = 250, 255, 160, 32
 out.append(f'<rect class="frame2" x="{BX}" y="{BY}" width="{BW}" height="{BH}"/>')
 line(BX, BY + 12, BX + BW, BY + 12, "thin")
 line(BX + 100, BY + 12, BX + 100, BY + BH, "thin")
-text(BX + 4, BY + 8.3, "Tably NFC-Stempel – Maßskizze Baugruppe", cls="big", anchor="start")
+text(BX + 4, BY + 8.3, "Tapperl NFC-Stempel – Maßskizze Baugruppe", cls="big", anchor="start")
 text(BX + 4, BY + 18, "Alle Maße in mm · Nennmaße des CAD-Modells", cls="tbl", anchor="start")
 text(BX + 4, BY + 23, "Allgemeintoleranz FDM ca. ±0,2 mm", cls="tbl", anchor="start")
-text(BX + 4, BY + 28, "Quelle: cad/generate_stl.py (= tably_stamp.scad)", cls="tbl", anchor="start")
+text(BX + 4, BY + 28, "Quelle: cad/generate_stl.py (= tapperl_stamp.scad)", cls="tbl", anchor="start")
 text(BX + 104, BY + 18, "Maßstab 2:1 (Detail 10:1)", cls="tbl", anchor="start")
 text(BX + 104, BY + 23, "Blatt A3 quer · Rev. A", cls="tbl", anchor="start")
 text(BX + 104, BY + 28, f"Gesamt Ø{fmt(d['foot_d'])} × {fmt(H)}", cls="tbl", anchor="start")
 
 svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
-<title>Tably NFC-Stempel – Maßskizze</title>
+<title>Tapperl NFC-Stempel – Maßskizze</title>
 <defs>
   <marker id="arr" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="3.2" markerHeight="1.9" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
     <path d="M0,0 L10,3 L0,6 Z" fill="#111"/></marker>

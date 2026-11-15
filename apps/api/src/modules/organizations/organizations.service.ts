@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { z } from 'zod';
-import { assignableRoles, type inviteMemberSchema, type locationSchema, type Role, type updateOrganizationSchema } from '@tably/types';
+import { assignableRoles, type inviteMemberSchema, type locationSchema, type Role, type updateOrganizationSchema } from '@tapperl/types';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService } from '../../common/prisma.service';
 import { AuditService } from '../../common/audit.service';
@@ -144,8 +144,8 @@ export class OrganizationsService {
       to: input.email,
       kind: 'team.invitation',
       organizationId: ctx.organizationId,
-      subject: `Einladung zu ${org.name} auf Tably`,
-      text: `Hallo,\n\ndu wurdest eingeladen, bei „${org.name}“ auf Tably mitzuarbeiten.\n\nEinladung annehmen:\n${this.env.DASHBOARD_URL}/invite?token=${token}\n\nDer Link ist 7 Tage gültig.`,
+      subject: `Einladung zu ${org.name} auf Tapperl`,
+      text: `Hallo,\n\ndu wurdest eingeladen, bei „${org.name}“ auf Tapperl mitzuarbeiten.\n\nEinladung annehmen:\n${this.env.DASHBOARD_URL}/invite?token=${token}\n\nDer Link ist 7 Tage gültig.`,
     });
     await this.audit.byUser(ctx, 'member.invited', { type: 'Invitation', id: invitation.id }, { email: input.email, role: input.role });
     return invitation;
@@ -195,7 +195,7 @@ export class OrganizationsService {
 
   async createApiKey(ctx: TenantContext, name: string) {
     await this.entitlements.assertFeature(ctx.organizationId, 'posApi', 'Die Kassen-Schnittstelle');
-    const key = `tably_${randomToken(30)}`;
+    const key = `tapperl_${randomToken(30)}`;
     const record = await this.prisma.apiKey.create({
       data: { organizationId: ctx.organizationId, name, prefix: key.slice(0, 12), keyHash: hashToken(key), scopes: ['pos:write'], createdById: ctx.userId },
       select: { id: true, name: true, prefix: true, scopes: true, createdAt: true },

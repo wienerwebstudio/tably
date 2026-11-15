@@ -88,8 +88,8 @@ describe('SUN – Ablehnungen', () => {
 
 describe('Personalisierungsprofil', () => {
   it('berechnet Offsets passend zur URL-Vorlage', () => {
-    const p = buildPersonalizationProfile({ webUrl: 'https://tably.example', publicId: 'st_abc123' });
-    expect(p.urlTemplate).toBe(`https://tably.example/t/st_abc123?e=${'0'.repeat(32)}&c=${'0'.repeat(16)}`);
+    const p = buildPersonalizationProfile({ webUrl: 'https://tapperl.example', publicId: 'st_abc123' });
+    expect(p.urlTemplate).toBe(`https://tapperl.example/t/st_abc123?e=${'0'.repeat(32)}&c=${'0'.repeat(16)}`);
     // Offset 7 = Beginn der URI-Nutzdaten in der NDEF-Datei
     expect(p.ndefUriPayload.slice(p.piccDataOffset - 7, p.piccDataOffset - 7 + 32)).toBe('0'.repeat(32));
     expect(p.ndefUriPayload.slice(p.sdmMacOffset - 7 - 2, p.sdmMacOffset - 7)).toBe('c=');

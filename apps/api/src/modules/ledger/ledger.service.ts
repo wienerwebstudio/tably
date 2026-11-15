@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import type { LoyaltyCard, StampTransaction, TransactionSource } from '@tably/database';
-import { campaignConfigSchema } from '@tably/types';
-import { REDEMPTION_CODE_TTL_SECONDS } from '@tably/config';
+import type { LoyaltyCard, StampTransaction, TransactionSource } from '@tapperl/database';
+import { campaignConfigSchema } from '@tapperl/types';
+import { REDEMPTION_CODE_TTL_SECONDS } from '@tapperl/config';
 import { Prisma, PrismaService, isUniqueViolation, type Tx } from '../../common/prisma.service';
 import { QueueService } from '../../common/queue.service';
 import { AppError, notFound } from '../../common/errors';
@@ -173,6 +173,10 @@ export class LedgerService {
       const now = new Date();
       if (customer.status !== 'ACTIVE') throw new AppError('customer_blocked', 'Dieses Kundenkonto ist gesperrt.');
       if (card.status !== 'ACTIVE') throw new AppError('card_blocked', 'Diese Karte ist nicht aktiv.');
+      if (card.expiresAt && card.expiresAt < now) {
+        await tx.loyaltyCard.update({ where: { id: card.id }, data: { status: 'EXPIRED' } });
+        throw new AppError('card_blocked', 'Diese Karte ist abgelaufen.');
+      }
       if (program.status !== 'PUBLISHED') throw new AppError('program_not_published', 'Dieses Treueprogramm ist derzeit nicht aktiv.');
       if ((program.validFrom && program.validFrom > now) || (program.validUntil && program.validUntil < now)) {
         throw new AppError('program_expired', 'Dieses Treueprogramm läuft aktuell nicht.');
@@ -220,6 +224,10 @@ export class LedgerService {
         flagReason,
         countsAsVisit: limited,
       });
+      // Karten mit Verfallsfrist verlängern sich mit jedem Besuch.
+      if (program.cardValidityDays && limited) {
+        written.card = await tx.loyaltyCard.update({ where: { id: card.id }, data: { expiresAt: new Date(now.getTime() + program.cardValidityDays * 86_400_000) } });
+      }
       return { ...written, duplicate: false };
     });
   }

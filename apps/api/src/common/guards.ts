@@ -1,8 +1,8 @@
 import { applyDecorators, CanActivate, createParamDecorator, ExecutionContext, Injectable, SetMetadata, UseGuards } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ApiCookieAuth, ApiSecurity } from '@nestjs/swagger';
-import { CUSTOMER_COOKIE, SESSION_COOKIE } from '@tably/config';
-import { can, type Permission } from '@tably/types';
+import { CUSTOMER_COOKIE, SESSION_COOKIE } from '@tapperl/config';
+import { can, type Permission } from '@tapperl/types';
 import { AppError, forbidden } from './errors';
 import { SessionService } from './session.service';
 import { PrismaService } from './prisma.service';
@@ -10,9 +10,9 @@ import { EntitlementsService } from './entitlements.service';
 import { clientIp, userAgent, type AppRequest, type AuthContext, type CustomerBrowser, type TenantContext, type ApiKeyContext } from './auth.types';
 import { hashToken } from './crypto';
 
-const PERMISSION_KEY = 'tably:permission';
-const ALLOW_RESTRICTED_KEY = 'tably:allowRestricted';
-const SCOPE_KEY = 'tably:scope';
+const PERMISSION_KEY = 'tapperl:permission';
+const ALLOW_RESTRICTED_KEY = 'tapperl:allowRestricted';
+const SCOPE_KEY = 'tapperl:scope';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
@@ -79,7 +79,7 @@ export class ApiKeyGuard implements CanActivate {
     const req = context.switchToHttp().getRequest<AppRequest>();
     const header = req.headers.authorization;
     const key = typeof header === 'string' && header.startsWith('Bearer ') ? header.slice(7).trim() : null;
-    if (!key || !key.startsWith('tably_')) throw new AppError('unauthenticated', 'API-Schlüssel fehlt.');
+    if (!key || !key.startsWith('tapperl_')) throw new AppError('unauthenticated', 'API-Schlüssel fehlt.');
     const record = await this.prisma.apiKey.findUnique({ where: { keyHash: hashToken(key) }, include: { organization: { select: { status: true } } } });
     if (!record || record.revokedAt) throw new AppError('unauthenticated', 'API-Schlüssel ungültig.');
     if (record.organization.status !== 'ACTIVE') throw new AppError('organization_suspended', 'Konto gesperrt.');

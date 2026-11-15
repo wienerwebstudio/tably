@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { createPkpass, createSaveUrl, GoogleWalletClient, pushPassUpdate, type ApplePassConfig, type GoogleWalletConfig } from '@tably/wallet';
+import { createPkpass, createSaveUrl, GoogleWalletClient, pushPassUpdate, type ApplePassConfig, type GoogleWalletConfig } from '@tapperl/wallet';
 import { ENV, type Env } from '../../common/env';
 import { PrismaService } from '../../common/prisma.service';
 import { QueueService } from '../../common/queue.service';

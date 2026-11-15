@@ -19,7 +19,7 @@ export type MailResult = { status: 'SENT' | 'SENT_TEST' | 'FAILED' | 'DUPLICATE'
 
 /**
  * E-Mail-Versand über einen Adapter:
- *  - SMTP, wenn SMTP_URL gesetzt ist
+ *  - SMTP, wenn SMTP_URL oder SMTP_HOST (+ SMTP_PORT/SMTP_USER/SMTP_PASS) gesetzt ist
  *  - sonst lokaler Testmodus: die Nachricht wird NICHT versendet, sondern nur
  *    als Notification mit Status SENT_TEST gespeichert (Testpostfach).
  * Jede Nachricht wird protokolliert.
@@ -33,7 +33,21 @@ export class MailService {
     private readonly prisma: PrismaService,
     @Inject(ENV) private readonly env: Env,
   ) {
-    this.transporter = env.SMTP_URL ? nodemailer.createTransport(env.SMTP_URL) : null;
+    if (env.SMTP_URL) {
+      this.transporter = nodemailer.createTransport(env.SMTP_URL);
+    } else if (env.SMTP_HOST) {
+      const port = env.SMTP_PORT ?? 465;
+      this.transporter = nodemailer.createTransport({
+        host: env.SMTP_HOST,
+        port,
+        // 465 = TLS von Anfang an, 587 = STARTTLS
+        secure: port === 465,
+        requireTLS: port !== 465,
+        auth: env.SMTP_USER ? { user: env.SMTP_USER, pass: env.SMTP_PASS ?? '' } : undefined,
+      });
+    } else {
+      this.transporter = null;
+    }
   }
 
   get mode(): 'smtp' | 'local' {

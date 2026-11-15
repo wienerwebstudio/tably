@@ -1,4 +1,4 @@
-# Tably NFC-Stempel – Hardware (Rev. A)
+# Tapperl NFC-Stempel – Hardware (Rev. A)
 
 Physischer, 3D-gedruckter Stempel für digitale Treuekarten. Der Barista hält den Stempel kurz an das
 Smartphone des Kunden; im Stempelfuß sitzt ein **passiver NFC-Tag (NXP NTAG 424 DNA)**, der eine
@@ -6,16 +6,16 @@ Smartphone des Kunden; im Stempelfuß sitzt ein **passiver NFC-Tag (NXP NTAG 424
 
 | Datei | Inhalt |
 |---|---|
-| `cad/tably_stamp.scad` | parametrisches OpenSCAD-Modell (Referenzmodell, alle Parameter oben) |
+| `cad/tapperl_stamp.scad` | parametrisches OpenSCAD-Modell (Referenzmodell, alle Parameter oben) |
 | `cad/generate_stl.py` | Python-Generator (manifold3d + trimesh), **tatsächliche Quelle der STL-Dateien** |
-| `stl/tably_griff.stl`, `tably_fuss_tag22/25/30.stl`, `tably_kappe.stl`, `tably_logoscheibe.stl`, `tably_logoscheibe_blank.stl` | Druckteile in Drucklage |
-| `stl/tably_baugruppe_vorschau.stl` | Baugruppe in Einbaulage, nur zur Ansicht (4 getrennte Körper, nicht drucken) |
+| `stl/tapperl_griff.stl`, `tapperl_fuss_tag22/25/30.stl`, `tapperl_kappe.stl`, `tapperl_logoscheibe.stl`, `tapperl_logoscheibe_blank.stl` | Druckteile in Drucklage |
+| `stl/tapperl_baugruppe_vorschau.stl` | Baugruppe in Einbaulage, nur zur Ansicht (4 getrennte Körper, nicht drucken) |
 | `drawings/massskizze.svg` | Maßskizze A3: Schnitt A–A, Draufsicht, Detail Tag-Tasche |
 | `drawings/make_massskizze.py` | erzeugt die Skizze aus derselben Geometrie wie die STLs |
 
 > **Ehrlicher Hinweis zur Herkunft der STLs:** In der Build-Umgebung ließ sich OpenSCAD nicht
 > installieren/ausführen. Die STLs wurden deshalb mit `cad/generate_stl.py` erzeugt, das dieselben
-> Parameter und Formeln wie `tably_stamp.scad` verwendet. Die `.scad`-Datei wurde **nicht kompiliert
+> Parameter und Formeln wie `tapperl_stamp.scad` verwendet. Die `.scad`-Datei wurde **nicht kompiliert
 > oder gerendert** – vor der ersten Nutzung einmal in OpenSCAD öffnen und gegen die STLs
 > (Bounding-Box, Volumen) prüfen. Parameteränderungen müssen in beiden Dateien nachgezogen werden.
 
@@ -102,13 +102,13 @@ Geprüfte STL-Dateien (Ausgabe von `generate_stl.py`, Drucklage):
 
 | Datei | Bounding-Box X × Y × Z [mm] | Volumen [cm³] | Dreiecke | wasserdicht |
 |---|---|---|---|---|
-| `tably_griff.stl` | 34,00 × 34,00 × 71,50 | 32,58 | 47 344 | ja |
-| `tably_fuss_tag25.stl` | 44,00 × 44,00 × 17,00 | 17,25 | 45 526 | ja |
-| `tably_fuss_tag22.stl` | 44,00 × 44,00 × 17,00 | 17,31 | 45 526 | ja |
-| `tably_fuss_tag30.stl` | 44,00 × 44,00 × 17,00 | 17,11 | 45 526 | ja |
-| `tably_kappe.stl` | 44,00 × 44,00 × 7,80 | 3,70 | 19 742 | ja |
-| `tably_logoscheibe.stl` | 23,80 × 23,80 × 2,40 | 0,96 | 1 766 | ja |
-| `tably_logoscheibe_blank.stl` | 23,80 × 23,80 × 2,40 | 1,02 | 838 | ja |
+| `tapperl_griff.stl` | 34,00 × 34,00 × 71,50 | 32,58 | 47 344 | ja |
+| `tapperl_fuss_tag25.stl` | 44,00 × 44,00 × 17,00 | 17,25 | 45 526 | ja |
+| `tapperl_fuss_tag22.stl` | 44,00 × 44,00 × 17,00 | 17,31 | 45 526 | ja |
+| `tapperl_fuss_tag30.stl` | 44,00 × 44,00 × 17,00 | 17,11 | 45 526 | ja |
+| `tapperl_kappe.stl` | 44,00 × 44,00 × 7,80 | 3,70 | 19 742 | ja |
+| `tapperl_logoscheibe.stl` | 23,80 × 23,80 × 2,40 | 0,96 | 1 766 | ja |
+| `tapperl_logoscheibe_blank.stl` | 23,80 × 23,80 × 2,40 | 1,02 | 838 | ja |
 
 Prüfkriterien je Datei: trimesh `is_watertight`, `is_winding_consistent`, `is_volume` nach erneutem
 Laden der STL; manifold3d-Status `NoError`; genau ein Körper; Durchdringung der Teile in Einbaulage
@@ -132,7 +132,7 @@ unteren Ende. Größere Antenne = mehr Reserve:
 |---|---|
 | Ø 22 mm | funktioniert, wenig Reserve bei dicken Hüllen |
 | **Ø 25 mm** | Standard, guter Kompromiss |
-| Ø 30 mm | beste Reichweite; passt mit `tably_fuss_tag30.stl` |
+| Ø 30 mm | beste Reichweite; passt mit `tapperl_fuss_tag30.stl` |
 
 Das sind Erfahrungswerte, keine Messwerte an diesem Gehäuse – vor der Serie mit 5–10 gängigen
 Telefonen (mit/ohne Hülle) testen.
@@ -293,7 +293,7 @@ Einordnung:
 
 ## 9. Individualisierung mit Firmenlogo
 
-1. **Logo-Scheibe (Standardweg).** In `tably_stamp.scad` `logo_mode = "svg"` und `logo_svg` setzen
+1. **Logo-Scheibe (Standardweg).** In `tapperl_stamp.scad` `logo_mode = "svg"` und `logo_svg` setzen
    (einfarbiges Vektorlogo, Strichstärke ≥ 0,8 mm, Innenräume ≥ 0,6 mm) oder `logo_mode = "text"`
    für Initialen. Die Gravur ist 0,6 mm tief. `generate_stl.py` erzeugt nur das Platzhalter-„T" und
    eine Blanko-Scheibe; kundenspezifische Scheiben werden aus der `.scad` gerendert oder im Slicer
@@ -413,7 +413,7 @@ enthält dagegen keinen eigenen Sender und keinen Akku; welche Pflichten dort ge
 
 ## 11. Offene Punkte / nicht verifiziert
 
-- `tably_stamp.scad` wurde nicht in OpenSCAD kompiliert (siehe oben).
+- `tapperl_stamp.scad` wurde nicht in OpenSCAD kompiliert (siehe oben).
 - Kein Probedruck: Gewindespiel (`thr_clear`), Passung der Logo-Scheibe und die Bettauflage des
   Griffs (schmaler Ring, Brim nötig) sind am realen Drucker abzustimmen.
 - Lesereichweite durch 1,0 mm Kappenboden wurde nicht gemessen; Test mit mehreren Telefonen und

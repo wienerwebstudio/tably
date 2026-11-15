@@ -11,7 +11,7 @@ export default defineConfig({
     hookTimeout: 60_000,
     env: {
       NODE_ENV: 'test',
-      DATABASE_URL: process.env.TEST_DATABASE_URL ?? 'postgresql://tably:tably@localhost:5432/tably_test',
+      DATABASE_URL: process.env.TEST_DATABASE_URL ?? 'postgresql://tapperl:tapperl@localhost:5432/tapperl_test',
       QUEUE_DRIVER: 'inline',
       APP_ENCRYPTION_KEY: 'a1'.repeat(32),
       NFC_SIMULATOR_ENABLED: 'true',

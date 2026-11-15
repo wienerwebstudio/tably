@@ -1,0 +1,69 @@
+name: Deploy
+
+# Bringt den Stand von main auf den Server und startet ihn neu.
+# Benötigte Repository-Secrets: DEPLOY_HOST (IP oder Name), DEPLOY_SSH_KEY (privater Schlüssel des Nutzers "deploy").
+# Benötigte Repository-Variablen: WEB_HOST, DASHBOARD_HOST, API_HOST, ACME_EMAIL.
+# Optionale Secrets (landen in /opt/tapperl/runtime.env): SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS,
+# MAIL_FROM, SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    if: ${{ vars.WEB_HOST != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: SSH vorbereiten
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+      - name: Code übertragen
+        run: |
+          rsync -az --delete \
+            --exclude .git --exclude node_modules --exclude '.next' --exclude dist --exclude generated \
+            --exclude 'hardware/stl' --exclude test-results --exclude playwright-report \
+            ./ "deploy@${{ secrets.DEPLOY_HOST }}:/opt/tapperl/app/"
+      - name: Laufzeit-Geheimnisse übertragen
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          SUPERADMIN_EMAIL: ${{ secrets.SUPERADMIN_EMAIL }}
+          SUPERADMIN_PASSWORD: ${{ secrets.SUPERADMIN_PASSWORD }}
+        run: |
+          # Nur gesetzte Werte schreiben; Übertragung über stdin, damit nichts in Prozesslisten auftaucht
+          for k in SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS MAIL_FROM SUPERADMIN_EMAIL SUPERADMIN_PASSWORD; do
+            v="${!k}"
+            if [ -n "$v" ]; then printf '%s=%s\n' "$k" "$v"; fi
+          done | ssh "deploy@${{ secrets.DEPLOY_HOST }}" 'umask 077; cat > /opt/tapperl/runtime.env'
+      - name: Bauen und starten
+        env:
+          WEB_HOST: ${{ vars.WEB_HOST }}
+          DASHBOARD_HOST: ${{ vars.DASHBOARD_HOST }}
+          API_HOST: ${{ vars.API_HOST }}
+          ACME_EMAIL: ${{ vars.ACME_EMAIL }}
+        run: |
+          ssh "deploy@${{ secrets.DEPLOY_HOST }}" \
+            "set -e; cd /opt/tapperl/app/deploy; set -a; . /opt/tapperl/.env; set +a; \
+             export WEB_HOST='$WEB_HOST' DASHBOARD_HOST='$DASHBOARD_HOST' API_HOST='$API_HOST' ACME_EMAIL='$ACME_EMAIL'; \
+             docker compose -f docker-compose.prod.yml up -d --build --remove-orphans; \
+             docker image prune -f >/dev/null"
+      - name: Gesundheit prüfen
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS "https://${{ vars.API_HOST }}/health"; then exit 0; fi
+            sleep 10
+          done
+          echo "API nicht erreichbar"; exit 1

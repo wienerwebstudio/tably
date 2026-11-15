@@ -1,13 +1,13 @@
 /**
  * Hilfen für die Personalisierung eines NTAG 424 DNA.
  *
- * Tably schreibt keine Chips selbst (dafür ist ein NFC-Schreibgerät nötig),
+ * Tapperl schreibt keine Chips selbst (dafür ist ein NFC-Schreibgerät nötig),
  * liefert aber exakt die Werte, die in ein Personalisierungswerkzeug
  * (z. B. NXP TagXplorer oder eine eigene Fertigungsstation) eingetragen werden.
  */
 
 export interface PersonalizationInput {
-  /** Basis-URL der Kunden-Website, z. B. https://tably.example */
+  /** Basis-URL der Kunden-Website, z. B. https://tapperl.example */
   webUrl: string;
   /** Öffentliche Gerätekennung */
   publicId: string;

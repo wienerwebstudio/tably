@@ -75,7 +75,7 @@ export interface VerifySunInput extends SunKeys {
   macHex: string;
   /**
    * Zusätzlich MAC-geschützte Daten (zwischen SDMMACInputOffset und SDMMACOffset).
-   * Tably-Stempel werden mit SDMMACInputOffset = SDMMACOffset personalisiert,
+   * Tapperl-Stempel werden mit SDMMACInputOffset = SDMMACOffset personalisiert,
    * der MAC-Eingang ist damit leer.
    */
   macInput?: Buffer;

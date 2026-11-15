@@ -1,0 +1,47 @@
+#cloud-config
+# Grundeinrichtung eines frischen Hetzner-Servers (Ubuntu 24.04) für Tapperl.
+# Platzhalter __DEPLOY_PUBLIC_KEY__ wird beim Anlegen des Servers ersetzt.
+# Geheimnisse (Datenbankpasswort, APP_ENCRYPTION_KEY) entstehen hier auf dem Server
+# und verlassen ihn nie.
+package_update: true
+package_upgrade: true
+packages: [ca-certificates, curl, rsync, ufw, fail2ban, unattended-upgrades]
+
+users:
+  - name: deploy
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock_passwd: true
+    ssh_authorized_keys:
+      - "__DEPLOY_PUBLIC_KEY__"
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/10-tapperl.conf
+    content: |
+      PasswordAuthentication no
+      PermitRootLogin prohibit-password
+      KbdInteractiveAuthentication no
+
+runcmd:
+  - curl -fsSL https://get.docker.com | sh
+  - usermod -aG docker deploy
+  - ufw default deny incoming
+  - ufw allow 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443
+  - ufw --force enable
+  - systemctl enable --now fail2ban unattended-upgrades
+  - systemctl restart ssh
+  - mkdir -p /opt/tapperl/app
+  - |
+    if [ ! -f /opt/tapperl/.env ]; then
+      umask 077
+      {
+        echo "POSTGRES_PASSWORD=$(openssl rand -hex 24)"
+        echo "APP_ENCRYPTION_KEY=$(openssl rand -hex 32)"
+        echo "NFC_SIMULATOR_ENABLED=false"
+        echo "MAIL_FROM=Tapperl <no-reply@__WEB_HOST__>"
+      } > /opt/tapperl/.env
+    fi
+  - chown -R deploy:deploy /opt/tapperl

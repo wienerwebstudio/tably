@@ -1,5 +1,5 @@
 {
-  "name": "@tably/database",
+  "name": "@tapperl/database",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
@@ -9,15 +9,14 @@
     "build": "prisma generate && tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch --preserveWatchOutput",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
-    "seed": "node dist/seed.js",
-    "test": "echo \"keine Paket-Tests (Abdeckung über API-Integrationstests)\""
+    "migrate:dev": "node --env-file-if-exists=../../.env ./node_modules/prisma/build/index.js migrate dev",
+    "migrate:deploy": "node --env-file-if-exists=../../.env ./node_modules/prisma/build/index.js migrate deploy",
+    "test": "echo \"keine Paket-Tests (Abdeckung über API-Integrationstests)\"",
+    "studio": "node --env-file-if-exists=../../.env ./node_modules/prisma/build/index.js studio"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
-    "@tably/config": "workspace:*",
-    "@node-rs/argon2": "^2.0.2"
+    "@tapperl/config": "workspace:*"
   },
   "devDependencies": {
     "prisma": "^6.19.0",

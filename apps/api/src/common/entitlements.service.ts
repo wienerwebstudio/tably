@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PAST_DUE_GRACE_DAYS, UNLIMITED, type PlanFeatures, type PlanLimits } from '@tably/config';
-import type { Plan, Subscription } from '@tably/database';
+import { PAST_DUE_GRACE_DAYS, UNLIMITED, type PlanFeatures, type PlanLimits } from '@tapperl/config';
+import type { Plan, Subscription } from '@tapperl/database';
 import { PrismaService } from './prisma.service';
 import { AppError } from './errors';
 
