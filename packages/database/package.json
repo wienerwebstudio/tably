@@ -1,0 +1,27 @@
+{
+  "name": "@tably/database",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "prisma generate && tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch --preserveWatchOutput",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "seed": "node dist/seed.js",
+    "test": "echo \"keine Paket-Tests (Abdeckung über API-Integrationstests)\""
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "@tably/config": "workspace:*",
+    "@node-rs/argon2": "^2.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.0",
+    "typescript": "~5.9.2",
+    "@types/node": "^22.10.0"
+  }
+}

@@ -1,0 +1,936 @@
+// Tably – relationales Datenmodell
+// Grundsatz: Jede mandantenbezogene Tabelle trägt `organizationId`. Alle Zugriffe
+// der API filtern serverseitig auf die Organisation der Sitzung.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────────── Identität & Zugriff ─────────────────────────────
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String
+  name            String
+  locale          String    @default("de")
+  emailVerifiedAt DateTime?
+  isSuperAdmin    Boolean   @default(false)
+  totpSecretEnc   String?
+  totpEnabledAt   DateTime?
+  failedLogins    Int       @default(0)
+  lockedUntil     DateTime?
+  lastLoginAt     DateTime?
+  disabledAt      DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  sessions    Session[]
+  authTokens  AuthToken[]
+  memberships OrganizationMember[]
+}
+
+model Session {
+  id             String    @id @default(cuid())
+  tokenHash      String    @unique
+  userId         String
+  organizationId String?
+  /// true, solange der zweite Faktor noch aussteht
+  mfaPending     Boolean   @default(false)
+  ip             String?
+  userAgent      String?
+  createdAt      DateTime  @default(now())
+  lastSeenAt     DateTime  @default(now())
+  expiresAt      DateTime
+  revokedAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum AuthTokenType {
+  EMAIL_VERIFY
+  PASSWORD_RESET
+}
+
+model AuthToken {
+  id        String        @id @default(cuid())
+  userId    String
+  type      AuthTokenType
+  tokenHash String        @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+}
+
+enum OrganizationStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+model Organization {
+  id                    String             @id @default(cuid())
+  name                  String
+  slug                  String             @unique
+  industry              String             @default("other")
+  email                 String?
+  phone                 String?
+  website               String?
+  addressLine           String?
+  postalCode            String?
+  city                  String?
+  country               String             @default("DE")
+  timezone              String             @default("Europe/Berlin")
+  currency              String             @default("EUR")
+  locale                String             @default("de")
+  brandColor            String             @default("#1F3A2E")
+  logoAssetId           String?
+  status                OrganizationStatus @default(ACTIVE)
+  suspendedReason       String?
+  onboardingCompletedAt DateTime?
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+
+  members      OrganizationMember[]
+  invitations  Invitation[]
+  locations    Location[]
+  assets       Asset[]
+  customers    Customer[]
+  programs     LoyaltyProgram[]
+  cards        LoyaltyCard[]
+  devices      NfcDevice[]
+  campaigns    Campaign[]
+  subscription Subscription?
+  apiKeys      ApiKey[]
+}
+
+model OrganizationMember {
+  id             String     @id @default(cuid())
+  organizationId String
+  userId         String
+  role           MemberRole
+  createdAt      DateTime   @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+}
+
+model Invitation {
+  id             String     @id @default(cuid())
+  organizationId String
+  email          String
+  role           MemberRole
+  tokenHash      String     @unique
+  invitedById    String
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+  revokedAt      DateTime?
+  createdAt      DateTime   @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
+
+model Location {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  addressLine    String?
+  postalCode     String?
+  city           String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  devices      NfcDevice[]
+
+  @@index([organizationId])
+}
+
+model Asset {
+  id             String   @id @default(cuid())
+  organizationId String
+  kind           String
+  mimeType       String
+  sizeBytes      Int
+  sha256         String
+  data           Bytes
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
+
+model ApiKey {
+  id             String    @id @default(cuid())
+  organizationId String
+  name           String
+  prefix         String
+  keyHash        String    @unique
+  scopes         String[]
+  lastUsedAt     DateTime?
+  revokedAt      DateTime?
+  createdById    String
+  createdAt      DateTime  @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
+
+// ───────────────────────────── Kunden & Einwilligungen ─────────────────────────────
+
+enum CustomerStatus {
+  ACTIVE
+  BLOCKED
+  ANONYMIZED
+}
+
+model Customer {
+  id             String         @id @default(cuid())
+  organizationId String
+  firstName      String
+  lastName       String?
+  email          String?
+  phone          String?
+  birthday       DateTime?      @db.Date
+  locale         String         @default("de")
+  status         CustomerStatus @default(ACTIVE)
+  source         String         @default("signup_link")
+  note           String?
+  lastActivityAt DateTime?
+  anonymizedAt   DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization  Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  cards         LoyaltyCard[]
+  sessions      CustomerSession[]
+  consents      ConsentRecord[]
+  notifications Notification[]
+  loginTokens   CustomerLoginToken[]
+
+  @@unique([organizationId, email])
+  @@index([organizationId, createdAt])
+  @@index([organizationId, lastActivityAt])
+}
+
+/// Ein Browser-Token kann Kundenkonten bei mehreren Händlern tragen.
+model CustomerSession {
+  id             String   @id @default(cuid())
+  tokenHash      String
+  organizationId String
+  customerId     String
+  userAgent      String?
+  createdAt      DateTime @default(now())
+  lastSeenAt     DateTime @default(now())
+  expiresAt      DateTime
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@unique([tokenHash, organizationId])
+  @@index([customerId])
+}
+
+model CustomerLoginToken {
+  id             String    @id @default(cuid())
+  organizationId String
+  customerId     String
+  tokenHash      String    @unique
+  expiresAt      DateTime
+  usedAt         DateTime?
+  createdAt      DateTime  @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+enum ConsentType {
+  TERMS
+  PRIVACY
+  MARKETING_EMAIL
+  MARKETING_WALLET
+}
+
+/// Append-only: der jeweils jüngste Eintrag je Typ ist der gültige Stand.
+model ConsentRecord {
+  id             String      @id @default(cuid())
+  organizationId String
+  customerId     String
+  type           ConsentType
+  granted        Boolean
+  policyVersion  String
+  source         String
+  ip             String?
+  userAgent      String?
+  createdAt      DateTime    @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, customerId, type, createdAt])
+}
+
+// ───────────────────────────── Treueprogramme ─────────────────────────────
+
+enum ProgramType {
+  STAMP
+  POINTS
+  CASHBACK
+  MEMBERSHIP
+  DISCOUNT
+  COUPON
+  VIP
+  PREPAID
+}
+
+enum ProgramStatus {
+  DRAFT
+  PUBLISHED
+  PAUSED
+  ARCHIVED
+}
+
+enum BookingPolicy {
+  /// Stempel direkt nach gültigem Tap (abgesichert durch Limits und Anomalieerkennung)
+  AUTO
+  /// Mitarbeitende geben jeden Tap frei
+  STAFF_CONFIRM
+  /// Ein passendes Kassen-Ereignis muss vorliegen
+  POS_EVENT
+}
+
+model LoyaltyProgram {
+  id                 String        @id @default(cuid())
+  organizationId     String
+  type               ProgramType   @default(STAMP)
+  status             ProgramStatus @default(DRAFT)
+  name               String
+  slug               String
+  cardTitle          String
+  description        String        @default("")
+  /// Stempel bis zur Hauptprämie (STAMP) bzw. Referenzwert für die Fortschrittsanzeige
+  stampsRequired     Int           @default(10)
+  stampsPerTap       Int           @default(1)
+  stampIcon          String        @default("coffee")
+  /// Farben, Texte, Logo – validiert über das Zod-Schema `cardDesignSchema`
+  design             Json
+  bookingPolicy      BookingPolicy @default(AUTO)
+  minIntervalMinutes Int           @default(30)
+  maxStampsPerDay    Int           @default(2)
+  /// Willkommensstempel bei Registrierung
+  signupBonus        Int           @default(0)
+  validFrom          DateTime?
+  validUntil         DateTime?
+  /// Karten verfallen nach n Tagen ohne Aktivität (null = nie)
+  cardValidityDays   Int?
+  terms              String        @default("")
+  publishedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  rewards      Reward[]
+  cards        LoyaltyCard[]
+  devices      NfcDevice[]
+
+  @@unique([organizationId, slug])
+  @@index([organizationId, status])
+}
+
+enum RewardType {
+  FREE_ITEM
+  DISCOUNT_PERCENT
+  DISCOUNT_AMOUNT
+  CUSTOM
+}
+
+model Reward {
+  id             String     @id @default(cuid())
+  organizationId String
+  programId      String
+  name           String
+  description    String     @default("")
+  type           RewardType @default(FREE_ITEM)
+  /// Prozent bzw. Betrag in Cent, je nach Typ
+  value          Int?
+  /// Kosten in Stempeln/Punkten
+  cost           Int
+  isActive       Boolean    @default(true)
+  sortOrder      Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  program     LoyaltyProgram     @relation(fields: [programId], references: [id], onDelete: Cascade)
+  redemptions RewardRedemption[]
+
+  @@index([organizationId, programId])
+}
+
+enum CardStatus {
+  ACTIVE
+  BLOCKED
+  EXPIRED
+}
+
+model LoyaltyCard {
+  id               String     @id @default(cuid())
+  organizationId   String
+  programId        String
+  customerId       String
+  /// Öffentliche, nicht erratbare Seriennummer (Wallet)
+  serial           String     @unique
+  /// Hash des Zugriffstokens im Wallet-/Wiederherstellungslink
+  accessTokenHash  String     @unique
+  /// Kurzcode für die manuelle Suche an der Theke
+  shortCode        String     @unique
+  /// Aktueller Stand – wird ausschließlich serverseitig in derselben Transaktion wie das Ledger fortgeschrieben
+  balance          Int        @default(0)
+  lifetimeEarned   Int        @default(0)
+  lifetimeRedeemed Int        @default(0)
+  visits           Int        @default(0)
+  status           CardStatus @default(ACTIVE)
+  /// Erhöht sich bei jeder Änderung; dient als Update-Tag für Wallet-Pässe
+  version          Int        @default(1)
+  lastStampAt      DateTime?
+  expiresAt        DateTime?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  program      LoyaltyProgram     @relation(fields: [programId], references: [id], onDelete: Cascade)
+  customer     Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  transactions StampTransaction[]
+  ledger       PointLedger[]
+  redemptions  RewardRedemption[]
+  walletPasses WalletPass[]
+
+  @@unique([programId, customerId])
+  @@index([organizationId, programId])
+  @@index([customerId])
+}
+
+enum TransactionType {
+  EARN
+  REDEEM
+  ADJUST
+  REVERSAL
+}
+
+enum TransactionSource {
+  NFC_TAP
+  SIMULATED_TAP
+  ACTIVE_READER
+  MANUAL
+  POS
+  CAMPAIGN
+  SIGNUP_BONUS
+  API
+}
+
+/// Geschäftsvorfall. Unveränderlich; Korrekturen erfolgen über REVERSAL.
+model StampTransaction {
+  id             String            @id @default(cuid())
+  organizationId String
+  programId      String
+  cardId         String
+  customerId     String
+  locationId     String?
+  deviceId       String?
+  staffUserId    String?
+  type           TransactionType
+  source         TransactionSource
+  /// Vorzeichenbehaftete Veränderung des Kartenstands
+  amount         Int
+  idempotencyKey String
+  note           String?
+  flagged        Boolean           @default(false)
+  flagReason     String?
+  reversesId     String?           @unique
+  createdAt      DateTime          @default(now())
+
+  card   LoyaltyCard   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  ledger PointLedger[]
+
+  @@unique([organizationId, idempotencyKey])
+  @@index([organizationId, createdAt])
+  @@index([cardId, createdAt])
+  @@index([organizationId, deviceId, createdAt])
+  @@index([organizationId, flagged])
+}
+
+model PointLedger {
+  id             String   @id @default(cuid())
+  organizationId String
+  cardId         String
+  transactionId  String
+  delta          Int
+  balanceAfter   Int
+  createdAt      DateTime @default(now())
+
+  card        LoyaltyCard      @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  transaction StampTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  @@index([cardId, createdAt])
+  @@index([organizationId, createdAt])
+}
+
+enum RedemptionStatus {
+  PENDING
+  COMPLETED
+  EXPIRED
+  CANCELED
+}
+
+model RewardRedemption {
+  id             String           @id @default(cuid())
+  organizationId String
+  programId      String
+  cardId         String
+  customerId     String
+  rewardId       String
+  rewardName     String
+  cost           Int
+  status         RedemptionStatus @default(PENDING)
+  /// Hash des 6-stelligen Einlöse-Codes (nur bei kundenseitig gestarteter Einlösung)
+  codeHash       String?
+  codeExpiresAt  DateTime?
+  staffUserId    String?
+  locationId     String?
+  transactionId  String?          @unique
+  createdAt      DateTime         @default(now())
+  completedAt    DateTime?
+
+  card   LoyaltyCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  reward Reward      @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, status, createdAt])
+  @@index([cardId])
+  @@index([organizationId, codeHash])
+}
+
+// ───────────────────────────── Wallet ─────────────────────────────
+
+enum WalletPlatform {
+  APPLE
+  GOOGLE
+}
+
+model WalletPass {
+  id             String         @id @default(cuid())
+  organizationId String
+  cardId         String
+  platform       WalletPlatform
+  /// Apple: Authentifizierungstoken des Passes (verschlüsselt). Google: Objekt-ID.
+  authTokenEnc   String?
+  externalId     String?
+  lastVersion    Int            @default(0)
+  lastPushedAt   DateTime?
+  lastError      String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  card          LoyaltyCard               @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  registrations AppleDeviceRegistration[]
+
+  @@unique([cardId, platform])
+  @@index([organizationId])
+}
+
+model AppleDeviceRegistration {
+  id                      String   @id @default(cuid())
+  walletPassId            String
+  deviceLibraryIdentifier String
+  pushToken               String
+  createdAt               DateTime @default(now())
+
+  walletPass WalletPass @relation(fields: [walletPassId], references: [id], onDelete: Cascade)
+
+  @@unique([walletPassId, deviceLibraryIdentifier])
+  @@index([deviceLibraryIdentifier])
+}
+
+// ───────────────────────────── NFC ─────────────────────────────
+
+enum NfcDeviceKind {
+  /// Passiver Stempel mit NXP NTAG 424 DNA (SUN/SDM)
+  PASSIVE_NTAG424
+  /// Simulierter Stempel – gleiche Kryptografie, Schlüssel liegen serverseitig
+  SIMULATED
+  /// Aktiver Stempel mit Reader und signierten Geräteanfragen (Ausbaustufe B)
+  ACTIVE_READER
+}
+
+enum NfcDeviceStatus {
+  PENDING
+  ACTIVE
+  DISABLED
+  LOST
+  RETIRED
+}
+
+enum DeviceSecurityStatus {
+  OK
+  WARNING
+  COMPROMISED
+}
+
+model NfcDevice {
+  id             String               @id @default(cuid())
+  organizationId String
+  locationId     String?
+  programId      String?
+  /// Kennung in der NFC-URL
+  publicId       String               @unique
+  name           String
+  kind           NfcDeviceKind
+  status         NfcDeviceStatus      @default(PENDING)
+  securityStatus DeviceSecurityStatus @default(OK)
+  /// 7-Byte-UID des Chips (hex), wird beim ersten gültigen Tap gebunden
+  uidHex         String?
+  keyVersion     Int                  @default(1)
+  /// AES-128-Schlüssel, mit APP_ENCRYPTION_KEY verschlüsselt
+  metaKeyEnc     String?
+  fileKeyEnc     String?
+  /// Höchster bisher akzeptierter SDM-Lesezähler (Replay-Schutz)
+  lastCounter    Int                  @default(-1)
+  /// Nur Simulator: nächster zu erzeugender Zählerstand
+  simCounter     Int                  @default(0)
+  /// Aktive Geräte: Ed25519-Public-Key (base64) für signierte Anfragen
+  publicKey      String?
+  firmware       String?
+  policyOverride BookingPolicy?
+  rejectedTaps   Int                  @default(0)
+  lastUsedAt     DateTime?
+  activatedAt    DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  location     Location?        @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  program      LoyaltyProgram?  @relation(fields: [programId], references: [id], onDelete: SetNull)
+  events       NfcDeviceEvent[]
+  taps         TapEvent[]
+
+  @@index([organizationId])
+}
+
+model NfcDeviceEvent {
+  id             String   @id @default(cuid())
+  organizationId String
+  deviceId       String
+  type           String
+  detail         Json?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  device NfcDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@index([deviceId, createdAt])
+  @@index([organizationId, createdAt])
+}
+
+enum TapStatus {
+  /// Tap kryptografisch geprüft, Kunde noch nicht zugeordnet
+  VERIFIED
+  /// Wartet auf Freigabe durch Mitarbeitende
+  PENDING_APPROVAL
+  /// Wartet auf ein Kassen-Ereignis
+  PENDING_POS
+  COMPLETED
+  REJECTED
+  EXPIRED
+}
+
+/// Ein verifizierter Tap. (deviceId, counter) ist eindeutig – jeder Zählerstand
+/// des Chips kann genau einmal verwendet werden.
+model TapEvent {
+  id             String    @id @default(cuid())
+  organizationId String
+  deviceId       String
+  programId      String
+  counter        Int
+  status         TapStatus @default(VERIFIED)
+  tokenHash      String    @unique
+  simulated      Boolean   @default(false)
+  customerId     String?
+  cardId         String?
+  transactionId  String?
+  rejectReason   String?
+  decidedById    String?
+  ip             String?
+  expiresAt      DateTime
+  createdAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  device NfcDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@unique([deviceId, counter])
+  @@index([organizationId, status, createdAt])
+}
+
+/// Kassen-Ereignis einer angebundenen POS-Integration
+model PosEvent {
+  id             String    @id @default(cuid())
+  organizationId String
+  locationId     String?
+  externalId     String
+  amountCents    Int?
+  currency       String?
+  occurredAt     DateTime
+  consumedAt     DateTime?
+  consumedByTap  String?
+  createdAt      DateTime  @default(now())
+
+  @@unique([organizationId, externalId])
+  @@index([organizationId, locationId, consumedAt, occurredAt])
+}
+
+// ───────────────────────────── Marketing ─────────────────────────────
+
+enum CampaignType {
+  ANNOUNCEMENT
+  OFFER
+  BIRTHDAY
+  INACTIVITY
+  BONUS_STAMPS
+}
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  ACTIVE
+  PAUSED
+  ENDED
+  FAILED
+}
+
+model Campaign {
+  id             String         @id @default(cuid())
+  organizationId String
+  programId      String?
+  name           String
+  type           CampaignType
+  status         CampaignStatus @default(DRAFT)
+  /// EMAIL | WALLET | CARD
+  channels       String[]
+  subject        String         @default("")
+  body           String         @default("")
+  /// Zielgruppe – validiert über `segmentSchema`
+  segment        Json
+  /// Typabhängige Einstellungen – validiert über `campaignConfigSchema`
+  config         Json
+  scheduledAt    DateTime?
+  startsAt       DateTime?
+  endsAt         DateTime?
+  sentAt         DateTime?
+  createdById    String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  organization  Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  notifications Notification[]
+
+  @@index([organizationId, status])
+  @@index([status, scheduledAt])
+}
+
+enum NotificationStatus {
+  QUEUED
+  SENT
+  /// Lokaler Testmodus: nicht real versendet, nur protokolliert
+  SENT_TEST
+  FAILED
+  SKIPPED
+}
+
+model Notification {
+  id             String             @id @default(cuid())
+  organizationId String?
+  campaignId     String?
+  customerId     String?
+  channel        String
+  recipient      String?
+  subject        String             @default("")
+  body           String             @default("")
+  status         NotificationStatus @default(QUEUED)
+  provider       String?
+  error          String?
+  /// Verhindert Mehrfachversand (z. B. Geburtstag pro Jahr)
+  dedupeKey      String?            @unique
+  createdAt      DateTime           @default(now())
+  sentAt         DateTime?
+
+  campaign Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@index([campaignId])
+}
+
+// ───────────────────────────── Abrechnung ─────────────────────────────
+
+model Plan {
+  id                   String   @id
+  name                 String
+  description          String   @default("")
+  priceMonthlyCents    Int
+  priceYearlyCents     Int
+  currency             String   @default("EUR")
+  limits               Json
+  features             Json
+  stripePriceMonthlyId String?
+  stripePriceYearlyId  String?
+  isActive             Boolean  @default(true)
+  sortOrder            Int      @default(0)
+  updatedAt            DateTime @updatedAt
+
+  subscriptions Subscription[]
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  /// Testphase abgelaufen oder Zahlung dauerhaft fehlgeschlagen – nur Lesezugriff
+  RESTRICTED
+  CANCELED
+}
+
+enum BillingInterval {
+  MONTH
+  YEAR
+}
+
+enum BillingProvider {
+  LOCAL
+  STRIPE
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  organizationId       String             @unique
+  planId               String
+  status               SubscriptionStatus @default(TRIALING)
+  interval             BillingInterval    @default(MONTH)
+  provider             BillingProvider    @default(LOCAL)
+  trialEndsAt          DateTime?
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  canceledAt           DateTime?
+  pastDueSince         DateTime?
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  /// Individuelle Limit-Überschreibungen durch den Plattformbetreiber
+  limitOverrides       Json?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plan         Plan         @relation(fields: [planId], references: [id])
+}
+
+model Invoice {
+  id             String          @id @default(cuid())
+  organizationId String
+  provider       BillingProvider
+  externalId     String?
+  number         String
+  description    String
+  amountCents    Int
+  currency       String
+  status         String
+  periodStart    DateTime?
+  periodEnd      DateTime?
+  hostedUrl      String?
+  pdfUrl         String?
+  /// true = lokaler Testmodus, keine echte Zahlung
+  isTest         Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+
+  @@unique([provider, externalId])
+  @@index([organizationId, createdAt])
+}
+
+/// Eingehende Webhook-Ereignisse; (provider, eventId) garantiert Idempotenz.
+model BillingEvent {
+  id             String          @id @default(cuid())
+  provider       BillingProvider
+  eventId        String
+  type           String
+  organizationId String?
+  payload        Json
+  processedAt    DateTime?
+  error          String?
+  createdAt      DateTime        @default(now())
+
+  @@unique([provider, eventId])
+  @@index([organizationId, createdAt])
+}
+
+// ───────────────────────────── Betrieb ─────────────────────────────
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String?
+  actorType      String
+  actorId        String?
+  action         String
+  targetType     String?
+  targetId       String?
+  metadata       Json?
+  ip             String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+
+  @@index([organizationId, createdAt])
+  @@index([action, createdAt])
+}
+
+model SystemError {
+  id        String   @id @default(cuid())
+  source    String
+  message   String
+  stack     String?
+  context   Json?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model ContactRequest {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  topic     String?
+  message   String
+  ip        String?
+  handledAt DateTime?
+  createdAt DateTime  @default(now())
+}
