@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@source "../../../../packages/ui/src";
+@import "@tably/ui/styles.css";
+@custom-variant dark (&:where(.dark, .dark *));

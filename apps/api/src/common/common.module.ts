@@ -6,6 +6,7 @@ import { SessionService } from './session.service';
 import { EntitlementsService } from './entitlements.service';
 import { MailService } from './mail.service';
 import { QueueService } from './queue.service';
+import { MaintenanceService } from './maintenance.service';
 import { ApiKeyGuard, PermissionGuard, SessionGuard, SuperAdminGuard } from './guards';
 
 const providers = [
@@ -16,6 +17,7 @@ const providers = [
   EntitlementsService,
   MailService,
   QueueService,
+  MaintenanceService,
   SessionGuard,
   PermissionGuard,
   SuperAdminGuard,

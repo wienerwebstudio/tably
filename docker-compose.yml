@@ -1,0 +1,72 @@
+# Lokaler Komplettbetrieb:  cp .env.example .env  →  APP_ENCRYPTION_KEY setzen  →  docker compose up --build
+# Nur Datenbank + Redis für die Entwicklung:  docker compose up -d postgres redis
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tably
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tably}
+      POSTGRES_DB: tably
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tably -d tably"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports: ["127.0.0.1:6379:6379"]
+    volumes: [redisdata:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: { context: ., target: api }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://tably:${POSTGRES_PASSWORD:-tably}@postgres:5432/tably
+      REDIS_URL: redis://redis:6379
+      QUEUE_DRIVER: bullmq
+      TRUST_PROXY: "true"
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    ports: ["4000:4000"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_WEB_URL: ${WEB_URL:-http://localhost:3000}
+        NEXT_PUBLIC_DASHBOARD_URL: ${DASHBOARD_URL:-http://localhost:3001}
+        API_INTERNAL_URL: http://api:4000
+    depends_on: [api]
+    ports: ["3000:3000"]
+
+  dashboard:
+    build:
+      context: .
+      target: dashboard
+      args:
+        NEXT_PUBLIC_WEB_URL: ${WEB_URL:-http://localhost:3000}
+        NEXT_PUBLIC_DASHBOARD_URL: ${DASHBOARD_URL:-http://localhost:3001}
+        NEXT_PUBLIC_API_DOCS_URL: ${API_PUBLIC_URL:-http://localhost:4000}/docs
+        API_INTERNAL_URL: http://api:4000
+    depends_on: [api]
+    ports: ["3001:3001"]
+
+volumes:
+  pgdata:
+  redisdata:

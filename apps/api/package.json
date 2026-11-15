@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "build": "nest build",
-    "dev": "nest start --watch",
-    "start": "node dist/main.js",
+    "dev": "nest start --watch --exec \"node --env-file-if-exists=../../.env\"",
+    "start": "node --env-file-if-exists=../../.env dist/main.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "seed": "node dist/seed.js",
-    "seed:demo": "node dist/seed.js --demo"
+    "seed": "node --env-file-if-exists=../../.env dist/seed.js",
+    "seed:demo": "node --env-file-if-exists=../../.env dist/seed.js --demo"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.0",

@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DATABASE_URL: postgresql://tably:tably@localhost:5432/tably
+  TEST_DATABASE_URL: postgresql://tably:tably@localhost:5432/tably_test
+  REDIS_URL: redis://localhost:6379
+  APP_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+  NFC_SIMULATOR_ENABLED: "true"
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: tably, POSTGRES_PASSWORD: tably, POSTGRES_DB: tably }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U tably" --health-interval 5s --health-timeout 3s --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Test-Datenbank anlegen
+        run: PGPASSWORD=tably psql -h localhost -U tably -d tably -c 'CREATE DATABASE tably_test;'
+      - name: Pakete bauen
+        run: pnpm build:packages
+      - name: Typprüfung
+        run: pnpm typecheck
+      - name: Unit- und Integrationstests
+        run: pnpm test
+      - name: Apps bauen
+        run: pnpm -r --filter './apps/*' run build
+      - name: Migrationen (E2E-Datenbank)
+        run: pnpm db:migrate
+      - name: Playwright-Browser
+        run: pnpm exec playwright install --with-deps chromium
+      - name: End-to-End-Tests
+        run: pnpm test:e2e
+        env: { QUEUE_DRIVER: bullmq, COOKIE_SECURE: "false" }
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: { name: playwright-report, path: playwright-report, retention-days: 7 }

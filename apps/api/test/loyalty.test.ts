@@ -169,6 +169,39 @@ describe('Buchungen: Idempotenz, Nebenläufigkeit, Nachvollziehbarkeit', () => {
   });
 });
 
+describe('Kartenverfall und Aufräumen', () => {
+  it('abgelaufene Karten erhalten keine Stempel; aktive Karten verlängern sich mit jedem Besuch', async () => {
+    const m = await registerMerchant(t);
+    const p = await createProgram(m, { cardValidityDays: 90 });
+    const c = await enrollCustomer(t, m, p);
+    const before = await t.prisma.loyaltyCard.findUniqueOrThrow({ where: { id: c.cardId } });
+    expect(before.expiresAt).not.toBeNull();
+    await t.prisma.loyaltyCard.update({ where: { id: c.cardId }, data: { expiresAt: new Date(Date.now() + 86_400_000) } });
+    await stamp(m.client, c.cardId);
+    const extended = await t.prisma.loyaltyCard.findUniqueOrThrow({ where: { id: c.cardId } });
+    expect(extended.expiresAt!.getTime()).toBeGreaterThan(Date.now() + 80 * 86_400_000);
+
+    await t.prisma.loyaltyCard.update({ where: { id: c.cardId }, data: { expiresAt: new Date(Date.now() - 1000) } });
+    const res = await stamp(m.client, c.cardId);
+    expect(res.body.error).toMatchObject({ code: 'card_blocked', message: 'Diese Karte ist abgelaufen.' });
+  });
+
+  it('der tägliche Lauf entfernt abgelaufene Sitzungen und verfallene Codes', async () => {
+    const { MaintenanceService } = await import('../src/common/maintenance.service');
+    const m = await registerMerchant(t);
+    const p = await createProgram(m);
+    const c = await enrollCustomer(t, m, p);
+    await stamp(m.client, c.cardId, key(), 5);
+    await c.client.post(`/public/cards/${c.cardId}/redemptions`, { rewardId: p.rewardId });
+    await t.prisma.rewardRedemption.updateMany({ where: { cardId: c.cardId }, data: { codeExpiresAt: new Date(Date.now() - 1000) } });
+    await t.prisma.session.create({ data: { tokenHash: uniq('old'), userId: m.userId, expiresAt: new Date(Date.now() - 30 * 86_400_000) } });
+    const result = await t.app.get(MaintenanceService).run();
+    expect(result.sessions).toBeGreaterThanOrEqual(1);
+    expect(result.redemptions).toBe(1);
+    expect((await m.client.get('/auth/me')).status).toBe(200);
+  });
+});
+
 describe('Prämien', () => {
   it('Einlösung über Code: abgebucht wird erst bei Bestätigung, und nur einmal', async () => {
     const m = await registerMerchant(t);
