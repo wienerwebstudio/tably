@@ -203,7 +203,7 @@ export function DesignerMock({ className }: { className?: string }) {
   const swatches = ['#F6F1E7', '#1F3A2E', '#7A2E22', '#16223B', '#FBEAF0'];
   return (
     <MockFrame title="Karten-Designer" note={null} className={className}>
-      <div className="grid gap-4 p-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center">
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center">
         <div className="space-y-3.5 text-xs">
           <div>
             <p className="font-medium text-muted">Hintergrund</p>

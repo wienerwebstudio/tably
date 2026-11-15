@@ -39,7 +39,7 @@ export interface ActionCard {
  * und im Kundenprofil. Jede Buchung trägt einen Idempotency-Key, der bei einem
  * erneuten Versuch nach Verbindungsfehlern wiederverwendet wird.
  */
-export function CardActions({ card, locationId, onChanged, size = 'lg', disabled }: { card: ActionCard; locationId: string | null; onChanged: (balance: number) => void; size?: 'md' | 'lg'; disabled?: boolean }) {
+export function CardActions({ card, locationId, onChanged, onFailed, size = 'lg', disabled }: { card: ActionCard; locationId: string | null; onChanged: (balance: number) => void; /** Nach einer abgelehnten Buchung: Kartenstand neu laden */ onFailed?: () => void; size?: 'md' | 'lg'; disabled?: boolean }) {
   const t = useCopy(copy);
   const toast = useToast();
   const { can } = useSession();
@@ -51,6 +51,15 @@ export function CardActions({ card, locationId, onChanged, size = 'lg', disabled
   const [failed, setFailed] = React.useState(false);
   const [flagged, setFlagged] = React.useState(false);
   const big = size === 'lg';
+  // Stand, zu dem die aktuelle Erfolgsmeldung gehört – ändert er sich von außen, verschwindet die Meldung.
+  const reported = React.useRef<number | null>(null);
+  React.useEffect(() => {
+    if (reported.current !== null && reported.current !== card.balance) {
+      reported.current = null;
+      setStatus('');
+      setFlagged(false);
+    }
+  }, [card.balance]);
 
   // Beim Wechsel der Karte alte Hinweise entfernen.
   React.useEffect(() => {
@@ -64,6 +73,7 @@ export function CardActions({ card, locationId, onChanged, size = 'lg', disabled
     setStatus(message);
     setFailed(true);
     toast.error(message);
+    onFailed?.();
   };
 
   const giveStamp = async () => {
@@ -77,6 +87,7 @@ export function CardActions({ card, locationId, onChanged, size = 'lg', disabled
       const message = res.duplicate ? t.stampDuplicate : t.stampDone(card.customerName, res.balance);
       setStatus(message);
       setFlagged(res.flagged);
+      reported.current = res.balance;
       if (res.duplicate) toast.info(message);
       else toast.success(message);
       onChanged(res.balance);
@@ -99,6 +110,7 @@ export function CardActions({ card, locationId, onChanged, size = 'lg', disabled
       );
       const message = t.redeemDone(reward.name, res.balance);
       setStatus(message);
+      reported.current = res.balance;
       toast.success(message);
       setConfirm(null);
       onChanged(res.balance);

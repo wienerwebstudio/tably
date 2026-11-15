@@ -22,7 +22,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
   return (
     <Container className="py-14 sm:py-24">
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
         <div>
           <Eyebrow>Kontakt</Eyebrow>
           <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl">Schreib uns.</h1>

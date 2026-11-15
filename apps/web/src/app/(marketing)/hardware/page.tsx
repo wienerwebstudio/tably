@@ -37,7 +37,7 @@ export default function HardwarePage() {
   return (
     <>
       <div className="relative overflow-hidden border-b border-line">
-        <Container className="grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        <Container className="grid grid-cols-1 items-center gap-12 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div className="max-w-2xl">
             <Eyebrow>Hardware</Eyebrow>
             <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl">Ein Stempel, wie man ihn kennt. Nur ohne Stempelkissen.</h1>
@@ -66,7 +66,7 @@ export default function HardwarePage() {
       <Section>
         <Container>
           <SectionHeading eyebrow="Aufbau" title="Vier Teile und ein Chip." lead="Alles ist verschraubt, nichts verklebt oder vergossen. Was verschleißt oder sich ändert, lässt sich einzeln tauschen." />
-          <div className="mt-14 grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+          <div className="mt-14 grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal>
               <div className="rounded-[2rem] border border-line bg-surface p-6 sm:p-10">
                 <StampExploded className="mx-auto max-w-[300px]" />
@@ -92,12 +92,12 @@ export default function HardwarePage() {
       {/* Maße & Material */}
       <Section tone="surface">
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
             <div>
               <SectionHeading eyebrow="Maße & Material" title="Klein genug für jede Theke, groß genug für jede Hand." />
               <dl className="mt-10 divide-y divide-line border-y border-line text-[15px]">
                 {SPECS.map(([k, v]) => (
-                  <div key={k} className="grid gap-1 py-3.5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6">
+                  <div key={k} className="grid grid-cols-1 gap-1 py-3.5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6">
                     <dt className="text-muted">{k}</dt>
                     <dd className="tabular font-medium text-ink">{v}</dd>
                   </div>
@@ -118,7 +118,7 @@ export default function HardwarePage() {
       <Section>
         <Container>
           <SectionHeading eyebrow="In der Hand" title="Wie er sich anfühlt. Wie er funktioniert." />
-          <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
+          <div className="mt-14 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-3">
             {[
               { t: 'Die vertraute Geste', d: 'Greifen, aufsetzen, fertig. Die taillierte Form führt die Finger von selbst; die flache Stempelfläche zeigt, welche Seite ans Handy gehört. Niemand im Team braucht dafür eine Einweisung in eine App.' },
               { t: 'Flach aufsetzen, kurz halten', d: 'Beim iPhone an den oberen Rand der Rückseite, bei Android meist in die Mitte. Unser Merksatz für die Theke: iPhone oben, Android Mitte. Dicke Hüllen verkürzen die Reichweite.' },
@@ -130,7 +130,7 @@ export default function HardwarePage() {
               </div>
             ))}
           </div>
-          <div className="mt-14 grid gap-6 rounded-3xl border border-line bg-surface p-6 sm:p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
+          <div className="mt-14 grid grid-cols-1 gap-6 rounded-3xl border border-line bg-surface p-6 sm:p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
             <div>
               <h3 className="font-display text-2xl text-ink">Dein Zeichen im Griff</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted">Die Logo-Scheibe wird für deinen Betrieb gefertigt. Weil der Stempel aus getrennten Teilen besteht, sind Griff, Fuß und Kappe grundsätzlich in unterschiedlichen Farben möglich. Welche Varianten es zum Serienstart gibt, klären wir bei der Vorbestellung.</p>
@@ -154,7 +154,7 @@ export default function HardwarePage() {
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
             Im Fuß arbeitet ein NXP NTAG 424 DNA. Der Chip hängt bei jedem Lesen einen fortlaufenden Zähler und eine mit AES-128 berechnete Signatur an den Link. Unser Server prüft die Signatur mit dem Schlüssel dieses einen Stempels und nimmt jeden Zählerstand nur ein einziges Mal an.
           </p>
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="rounded-3xl border border-white/15 bg-white/[0.06] p-6 sm:p-8">
               <h3 className="font-display text-2xl">Was ein Tap beweist</h3>
               <ul className="mt-5 space-y-3.5 text-[15px] leading-relaxed text-white/85">
@@ -191,7 +191,7 @@ export default function HardwarePage() {
       {/* Ausblick */}
       <Section id="ausblick">
         <Container>
-          <div className="grid gap-10 rounded-[2rem] border border-dashed border-line-strong p-6 sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+          <div className="grid grid-cols-1 gap-10 rounded-[2rem] border border-dashed border-line-strong p-6 sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <div>
               <Badge tone="warn" dot>
                 In Entwicklung · kein Liefertermin

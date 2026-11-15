@@ -94,7 +94,7 @@ export function ContactForm({ initialTopic = '' }: { initialTopic?: string }) {
         </Alert>
       ) : null}
 
-      <div className="mt-7 grid gap-5 sm:grid-cols-2">
+      <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field label="Name" error={errors.name}>
           <Input name="name" autoComplete="name" value={values.name} onChange={set('name')} maxLength={80} required />
         </Field>

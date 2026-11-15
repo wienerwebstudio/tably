@@ -35,7 +35,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1.3fr)_minmax(0,2fr)]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,1.3fr)_minmax(0,2fr)]">
           <div>
             <Link href="/" aria-label="Tably – zur Startseite" className="inline-block rounded-lg">
               <Logo className="text-[17px]" />

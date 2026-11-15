@@ -33,7 +33,7 @@ export default function IndustriesPage() {
       <div>
         {INDUSTRIES.map((ind, i) => (
           <section key={ind.id} id={ind.id} className={cn('scroll-mt-20 border-b border-line py-16 sm:py-20', i % 2 === 1 && 'bg-surface')}>
-            <Container className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-20">
+            <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-20">
               <div className={cn(i % 2 === 1 && 'lg:order-2')}>
                 <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-brand">{ind.label}</p>
                 <h2 className="mt-3 font-display text-[1.9rem] leading-[1.14] tracking-[-0.015em] text-ink text-balance sm:text-4xl">{ind.headline}</h2>

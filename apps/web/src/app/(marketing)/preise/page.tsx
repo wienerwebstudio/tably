@@ -29,7 +29,7 @@ export default async function PricingPage() {
       <Container className="pb-20 pt-8 sm:pb-24">
         <PricingTable plans={plans} trialDays={trialDays} trialPlanId={TRIAL_PLAN_ID} />
 
-        <ul className="mx-auto mt-12 grid max-w-4xl gap-x-10 gap-y-3 text-sm leading-relaxed text-muted sm:grid-cols-2">
+        <ul className="mx-auto mt-12 grid grid-cols-1 max-w-4xl gap-x-10 gap-y-3 text-sm leading-relaxed text-muted sm:grid-cols-2">
           <li>Alle Preise in Euro zzgl. der gesetzlichen MwSt. Das Angebot richtet sich an Unternehmen.</li>
           <li>Bei jährlicher Zahlung wird der Jahrespreis im Voraus berechnet.</li>
           <li>Kündigung im Dashboard zum Ende des laufenden Abrechnungszeitraums.</li>
@@ -39,7 +39,7 @@ export default async function PricingPage() {
 
       <Section tone="surface">
         <Container>
-          <div className="grid items-center gap-10 rounded-[2rem] border border-line bg-paper p-6 sm:p-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-14">
+          <div className="grid grid-cols-1 items-center gap-10 rounded-[2rem] border border-line bg-paper p-6 sm:p-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-14">
             <div className="mx-auto w-28 sm:w-36">
               <StampSide title="Der Tably-Stempel in der Seitenansicht" />
             </div>
@@ -63,7 +63,7 @@ export default async function PricingPage() {
 
       <Section>
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
             <div>
               <SectionHeading eyebrow="Fragen zum Tarif" title="Was du vor dem Start wissen solltest." />
               <TextLink href="/faq" className="mt-7">

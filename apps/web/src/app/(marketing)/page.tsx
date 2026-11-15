@@ -58,7 +58,7 @@ export default async function HomePage() {
     <>
       {/* Hero */}
       <div className="relative overflow-hidden">
-        <Container className="grid items-center gap-x-12 gap-y-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:pb-28 lg:pt-20">
+        <Container className="grid grid-cols-1 items-center gap-x-12 gap-y-14 pb-20 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:pb-28 lg:pt-20">
           <div>
             <Eyebrow>Digitale Treuekarten mit NFC-Stempel</Eyebrow>
             <h1 className="mt-6 font-display text-[2.7rem] leading-[1.03] tracking-[-0.025em] text-ink text-balance sm:text-6xl lg:text-[4.4rem]">
@@ -73,7 +73,7 @@ export default async function HomePage() {
             </div>
             <p className="mt-4 text-sm text-muted">{trialDays} Tage kostenlos testen. Der Stempel ist separat erhältlich – Preis auf Anfrage.</p>
 
-            <ul className="mt-10 grid max-w-xl gap-x-8 gap-y-3 border-t border-line pt-8 text-[15px] text-ink sm:grid-cols-2">
+            <ul className="mt-10 grid grid-cols-1 max-w-xl gap-x-8 gap-y-3 border-t border-line pt-8 text-[15px] text-ink sm:grid-cols-2">
               {['Keine App für deine Gäste', 'Kein Scanner und kein Tablet an der Theke', 'Jeder Tap wird einzeln geprüft', 'Karte im Browser, optional in der Wallet'].map((t) => (
                 <li key={t} className="flex items-start gap-2.5">
                   <Check className="mt-1 size-4 shrink-0 text-honey" strokeWidth={3} aria-hidden />
@@ -90,7 +90,7 @@ export default async function HomePage() {
       <Section id="so-funktionierts" tone="surface">
         <Container>
           <SectionHeading eyebrow="So funktioniert's" title="Vier Schritte – einer davon gehört deinem Gast." lead="Wir versprechen kein Stempeln ohne jede Berührung. Dafür eines, das an der Theke nicht aufhält und das jede:r sofort versteht." />
-          <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
               <li key={s.title} className="relative">
                 <div className="flex items-center gap-4">
@@ -103,9 +103,9 @@ export default async function HomePage() {
             ))}
           </ol>
           <Reveal>
-            <div className="mt-14 grid gap-6 rounded-3xl border border-line bg-paper p-6 sm:p-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-10">
+            <div className="mt-14 grid grid-cols-1 gap-6 rounded-3xl border border-line bg-paper p-6 sm:p-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-10">
               <p className="font-display text-2xl leading-snug text-ink md:max-w-[15rem]">Was dein Gast wirklich tun muss</p>
-              <dl className="grid gap-6 text-[15px] leading-relaxed sm:grid-cols-3">
+              <dl className="grid grid-cols-1 gap-6 text-[15px] leading-relaxed sm:grid-cols-3">
                 <div>
                   <dt className="font-semibold text-ink">iPhone (ab iPhone XS)</dt>
                   <dd className="mt-1.5 text-muted">Display an, Stempel an den oberen Rand der Rückseite. Die erscheinende Mitteilung einmal antippen.</dd>
@@ -127,7 +127,7 @@ export default async function HomePage() {
       {/* Warum ein Stempel */}
       <Section>
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
             <div>
               <SectionHeading eyebrow="Warum ein Stempel" title="Eine Geste, die jede Theke schon kennt." />
               <p className="mt-5 text-lg leading-relaxed text-muted">Die meisten digitalen Stempelkarten verlangen ein Gerät mit Kamera, an dem dein Team scannt. Das funktioniert – kostet im Stoßgeschäft aber Aufmerksamkeit. Tably nimmt die Technik aus dem Blickfeld.</p>
@@ -146,7 +146,7 @@ export default async function HomePage() {
                   <span className="bg-brand-soft/60 px-6 py-4 text-brand">Tably-Stempel</span>
                 </div>
                 {COMPARE.map((row) => (
-                  <div key={row.topic} className="grid border-b border-line last:border-b-0 md:grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)]">
+                  <div key={row.topic} className="grid grid-cols-1 border-b border-line last:border-b-0 md:grid-cols-[9.5rem_minmax(0,1fr)_minmax(0,1fr)]">
                     <h3 className="px-5 pt-5 text-[15px] font-semibold text-ink md:px-6 md:py-5">{row.topic}</h3>
                     <p className="px-5 pt-2 text-[15px] leading-relaxed text-muted md:px-6 md:py-5">
                       <span className="mb-0.5 block text-[11px] font-semibold uppercase tracking-[0.1em] text-subtle md:sr-only">QR-Scan durch das Team</span>
@@ -244,7 +244,7 @@ export default async function HomePage() {
               Alle Branchen
             </TextLink>
           </div>
-          <ul className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {examples.map((ex, i) => (
               <li key={ex.id}>
                 <Reveal delay={(i % 3) * 80}>
@@ -263,14 +263,14 @@ export default async function HomePage() {
       {/* Sicherheit */}
       <section className="scroll-mt-20 bg-[#1f3a2e] py-20 text-white sm:py-28" id="sicherheit">
         <Container>
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-20">
+          <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-20">
             <div>
               <p className="flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-white/75">
                 <span className="h-px w-6 bg-[#e8b86d]" aria-hidden />
                 Sicherheit &amp; Datenschutz
               </p>
               <h2 className="mt-4 max-w-xl font-display text-[2rem] leading-[1.12] tracking-[-0.015em] text-balance sm:text-[2.75rem]">Ein Foto vom Stempel bringt keinen Stempel.</h2>
-              <dl className="mt-12 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+              <dl className="mt-12 grid grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-2">
                 {SECURITY.map((s) => (
                   <div key={s.title}>
                     <dt className="flex items-center gap-3 font-semibold">
@@ -301,7 +301,7 @@ export default async function HomePage() {
               Tarife vergleichen
             </TextLink>
           </div>
-          <ul className="mt-12 grid overflow-hidden rounded-3xl border border-line bg-surface shadow-card md:grid-cols-3 md:divide-x md:divide-line">
+          <ul className="mt-12 grid grid-cols-1 overflow-hidden rounded-3xl border border-line bg-surface shadow-card md:grid-cols-3 md:divide-x md:divide-line">
             {plans.map((plan) => (
               <li key={plan.id} className="border-b border-line p-6 last:border-b-0 sm:p-8 md:border-b-0">
                 <h3 className="font-display text-2xl text-ink">{plan.name}</h3>
@@ -319,7 +319,7 @@ export default async function HomePage() {
       {/* FAQ */}
       <Section tone="surface">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
             <div>
               <SectionHeading eyebrow="Häufige Fragen" title="Kurz gefragt, ehrlich beantwortet." />
               <TextLink href="/faq" className="mt-7">

@@ -42,7 +42,7 @@ export function SectionHeading({ eyebrow, title, lead, className, as: Tag = 'h2'
 export function PageHero({ eyebrow, title, lead, children, aside }: { eyebrow: string; title: React.ReactNode; lead: React.ReactNode; children?: React.ReactNode; aside?: React.ReactNode }) {
   return (
     <div className="border-b border-line">
-      <Container className={cn('py-16 sm:py-24', aside && 'grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]')}>
+      <Container className={cn('py-16 sm:py-24', aside && 'grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]')}>
         <div className="max-w-2xl">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl">{title}</h1>

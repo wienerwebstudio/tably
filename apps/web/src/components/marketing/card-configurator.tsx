@@ -60,7 +60,7 @@ export function CardConfigurator() {
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
       <div className="order-2 space-y-8 lg:order-1">
         <Group label="Branche">
           <div className="flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ export function CardConfigurator() {
           </div>
         </Group>
 
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor={rangeId} className="flex items-baseline justify-between text-sm font-semibold text-ink">
               Gesammelt

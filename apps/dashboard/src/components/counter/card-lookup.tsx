@@ -147,6 +147,10 @@ export function CardLookup({ locationId }: { locationId: string | null }) {
                 card={{ cardId: card.cardId, balance: card.balance, customerName: name, rewards: card.rewards }}
                 locationId={locationId}
                 disabled={blockedReason !== null}
+                onFailed={() => {
+                  // Stand kann sich inzwischen geändert haben – still neu laden.
+                  api<CardLookupDto>('/stamps/lookup', { body: { code: card.shortCode } }).then(setCard).catch(() => undefined);
+                }}
                 onChanged={(balance) => setCard((c) => (c ? { ...c, balance, lastStampAt: balance > c.balance ? new Date().toISOString() : c.lastStampAt, rewards: c.rewards.map((r) => ({ ...r, available: balance >= r.cost })) } : c))}
               />
             </div>

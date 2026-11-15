@@ -30,7 +30,7 @@ export default function FaqPage() {
       <PageHero eyebrow="Häufige Fragen" title="Fragen, die an der Theke wirklich gestellt werden." lead="Ehrliche Antworten – auch dort, wo die Antwort „noch nicht“ oder „das hängt von Apple und Google ab“ lautet." />
 
       <Container className="py-16 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-20">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-20">
           <nav aria-label="Themen" className="hidden lg:block">
             <ul className="sticky top-28 space-y-1 border-l border-line">
               {FAQ_GROUPS.map((g) => (

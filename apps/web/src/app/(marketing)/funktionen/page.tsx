@@ -147,7 +147,7 @@ export default function FeaturesPage() {
       <div className="divide-y divide-line">
         {FEATURES.map((f, i) => (
           <section key={f.id} id={f.id} className={cn('scroll-mt-32 py-16 sm:py-24', i % 2 === 1 && 'bg-surface')}>
-            <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+            <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
               <div className={cn(i % 2 === 1 && 'lg:order-2')}>
                 <p className="tabular font-display text-xl text-honey">{String(i + 1).padStart(2, '0')}</p>
                 <h2 className="mt-3 font-display text-[1.9rem] leading-[1.14] tracking-[-0.015em] text-ink text-balance sm:text-4xl">{f.title}</h2>

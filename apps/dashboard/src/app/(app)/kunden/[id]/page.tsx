@@ -157,7 +157,7 @@ function CustomerCard({ card, detail, locationId, onChanged, onAdjust }: { card:
           {blockedReason && detail.customer.status !== 'BLOCKED' ? <Alert tone="warn" className="mt-4">{blockedReason}</Alert> : null}
           {can('stamps.grant') ? (
             <div className="mt-5 border-t border-line pt-5">
-              <CardActions size="md" card={{ cardId: card.id, balance: card.balance, customerName: fullName(detail.customer), rewards: card.rewards }} locationId={locationId} disabled={blockedReason !== null} onChanged={onChanged} />
+              <CardActions size="md" card={{ cardId: card.id, balance: card.balance, customerName: fullName(detail.customer), rewards: card.rewards }} locationId={locationId} disabled={blockedReason !== null} onChanged={onChanged} onFailed={onChanged} />
             </div>
           ) : null}
           {can('stamps.adjust') ? (
