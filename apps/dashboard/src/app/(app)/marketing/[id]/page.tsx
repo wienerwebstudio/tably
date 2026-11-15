@@ -315,7 +315,28 @@ export default function CampaignDetailPage() {
             {c.notifications.length === 0 ? (
               <EmptyState title={t.logEmpty} description={c.type === 'BONUS_STAMPS' ? t.statsBonus : t.logEmptyText} className="py-10" />
             ) : (
-              <div className="mt-3">
+              <>
+              <ul className="mt-3 divide-y divide-line border-t border-line md:hidden">
+                {c.notifications.map((n) => {
+                  const status = notificationStatus[n.status];
+                  const note = n.status === 'SKIPPED' ? (skipReason[n.error ?? ''] ?? n.error) : n.status === 'SENT_TEST' ? t.testNote : n.error;
+                  return (
+                    <li key={n.id} className="px-5 py-3 text-sm">
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="min-w-0 truncate font-medium text-ink">{n.customer ? fullName(n.customer) : t.unknownCustomer}</span>
+                        <Badge tone={status?.tone ?? 'neutral'}>{status?.label ?? n.status}</Badge>
+                      </div>
+                      {n.recipient ? <p className="truncate text-xs text-muted">{n.recipient}</p> : null}
+                      <p className="mt-1 text-muted">
+                        {channelLabel[n.channel] ?? n.channel}
+                        {note ? ` · ${note}` : ''}
+                      </p>
+                      <p className="mt-0.5 text-xs text-subtle">{formatDateTime(n.sentAt ?? n.createdAt)}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="mt-3 hidden md:block">
                 <Table>
                   <thead>
                     <tr>
@@ -358,11 +379,12 @@ export default function CampaignDetailPage() {
                   </tbody>
                 </Table>
               </div>
+              </>
             )}
           </Card>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-6">
+        <div className="order-first flex min-w-0 flex-col gap-6 lg:order-last">
           <Card>
             <CardHeader title={t.summaryTitle} />
             <CardBody className="pt-3">

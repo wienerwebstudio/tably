@@ -402,7 +402,7 @@ export default function DeviceDetailPage() {
           </Card>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-6">
+        <div className="order-first flex min-w-0 flex-col gap-6 lg:order-last">
           <Card>
             <CardHeader title={t.statusTitle} description={t.statusText[device.status]} />
             <CardBody>
