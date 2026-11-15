@@ -32,7 +32,7 @@ export function SectionHeading({ eyebrow, title, lead, className, as: Tag = 'h2'
   return (
     <div className={cn('max-w-2xl', center && 'mx-auto text-center', className)}>
       {eyebrow ? <Eyebrow className={center ? 'justify-center' : undefined}>{eyebrow}</Eyebrow> : null}
-      <Tag className={cn('font-display text-[2rem] leading-[1.12] tracking-[-0.015em] text-ink text-balance sm:text-[2.75rem]', eyebrow && 'mt-4')}>{title}</Tag>
+      <Tag className={cn('font-display text-[2rem] leading-[1.12] tracking-[-0.015em] text-ink text-balance sm:text-[2.75rem] max-sm:hyphens-auto [hyphenate-limit-chars:12_5_5]', eyebrow && 'mt-4')}>{title}</Tag>
       {lead ? <p className="mt-5 text-lg leading-relaxed text-muted text-pretty">{lead}</p> : null}
     </div>
   );
@@ -45,7 +45,7 @@ export function PageHero({ eyebrow, title, lead, children, aside }: { eyebrow: s
       <Container className={cn('py-16 sm:py-24', aside && 'grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]')}>
         <div className="max-w-2xl">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl">{title}</h1>
+          <h1 className="mt-5 font-display text-[2.5rem] leading-[1.06] tracking-[-0.02em] text-ink text-balance sm:text-6xl max-sm:hyphens-auto [hyphenate-limit-chars:12_5_5]">{title}</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted text-pretty sm:text-xl">{lead}</p>
           {children ? <div className="mt-8">{children}</div> : null}
         </div>

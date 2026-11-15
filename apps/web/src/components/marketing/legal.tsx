@@ -11,7 +11,7 @@ export function LegalPage({ title, intro, updated, children }: { title: string; 
   return (
     <Container className="py-14 sm:py-20">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-display text-[2.5rem] leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl">{title}</h1>
+        <h1 className="font-display text-[2.1rem] leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl max-sm:hyphens-auto [hyphenate-limit-chars:12_5_5]">{title}</h1>
         {intro ? <p className="mt-5 text-lg leading-relaxed text-muted">{intro}</p> : null}
         <Alert tone="warn" title="Entwurf – vor Veröffentlichung rechtlich prüfen und vervollständigen" className="mt-8">
           Dieser Text ist ein Gerüst und keine Rechtsberatung. Alle gelb markierten Stellen sind Platzhalter und müssen vom Betreiber ergänzt werden. {updated}
