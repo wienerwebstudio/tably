@@ -1,3 +1,4 @@
+import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { generateKeyPairSync, randomBytes } from 'node:crypto';
 import { generateSun, signDeviceRequest } from '@tapperl/nfc';
@@ -385,5 +386,92 @@ describe('Aktiver Stempel (Ausbaustufe B, Backend-Schnittstelle)', () => {
     expect((await send(2, { tamper: true })).status).toBe(401);
     expect((await send(3, { key: generateKeyPairSync('ed25519').privateKey })).status).toBe(401);
     expect((await send(4)).body.balance).toBe(2);
+  });
+});
+
+describe('Einrichtung per Android-App', () => {
+  // Chips brauchen https-URLs → eigene App-Instanz mit https-WEB_URL.
+  const originalWebUrl = process.env.WEB_URL;
+  let outer: TestApp;
+  beforeAll(async () => {
+    outer = t;
+    t = await createApp({ WEB_URL: 'https://karte.example.at' });
+  });
+  afterAll(async () => {
+    await t.close();
+    t = outer;
+    if (originalWebUrl === undefined) delete process.env.WEB_URL;
+    else process.env.WEB_URL = originalWebUrl;
+  });
+
+  it('lehnt Codes ab, solange die Kunden-Website kein https verwendet', async () => {
+    const m = await registerMerchant(outer);
+    const p = await createProgram(m);
+    const created = await m.client.post('/devices', { name: 'Theke', kind: 'PASSIVE_NTAG424', programId: p.id });
+    const res = await m.client.post(`/devices/${created.body.device.id}/provisioning`);
+    expect(res.status).toBe(409);
+  });
+
+  async function setup() {
+    const m = await registerMerchant(t);
+    const p = await createProgram(m);
+    const created = await m.client.post('/devices', { name: 'Theke', kind: 'PASSIVE_NTAG424', programId: p.id });
+    return { m, id: created.body.device.id as string };
+  }
+  // Die App sendet weder Cookie noch CSRF-Header.
+  const anon = () => ({ post: (path: string, body: object) => request(t.app.getHttpServer()).post(path).send(body) });
+
+  it('Code erzeugen → Schlüssel abholen → Chip-Signatur melden → Stempel aktiv', async () => {
+    const { m, id } = await setup();
+    const res = await m.client.post(`/devices/${id}/provisioning`);
+    expect(res.status).toBe(201);
+    expect(res.body.code).toMatch(/^[A-Z2-9]{5}-[A-Z2-9]{5}$/);
+    expect(res.body.appUrl).toContain('tapperl://einrichten?code=');
+    expect(res.body.webUrl).toContain('/einrichten?code=');
+
+    const fetched = await anon().post('/devices/v1/provisioning/fetch', { code: res.body.code.toLowerCase() });
+    expect(fetched.status).toBe(200);
+    expect(fetched.body.keys.master).toMatch(/^[0-9A-F]{32}$/);
+    expect(fetched.body.profile.ndefUriPayload).toContain(`/t/${fetched.body.device.publicId}?e=`);
+    expect(fetched.body.previousKeys).toEqual({ sdmMetaRead: [], sdmFileRead: [] });
+    // Zweiter Abruf (z. B. nach Abbruch) liefert denselben Masterschlüssel.
+    const again = await anon().post('/devices/v1/provisioning/fetch', { code: res.body.code });
+    expect(again.body.keys.master).toBe(fetched.body.keys.master);
+
+    const keys = { metaKey: Buffer.from(fetched.body.keys.sdmMetaRead, 'hex'), fileKey: Buffer.from(fetched.body.keys.sdmFileRead, 'hex') };
+    const bad = generateSun({ metaKey: randomBytes(16), fileKey: keys.fileKey, uidHex: '04AABBCCDDEEFF', counter: 1 });
+    const rejected = await anon().post('/devices/v1/provisioning/complete', { code: res.body.code, e: bad.piccDataHex, c: bad.macHex });
+    expect(rejected.status).toBe(400);
+
+    const sun = generateSun({ ...keys, uidHex: '04AABBCCDDEEFF', counter: 1 });
+    const done = await anon().post('/devices/v1/provisioning/complete', { code: res.body.code, e: sun.piccDataHex, c: sun.macHex });
+    expect(done.status).toBe(200);
+    expect(done.body.device).toMatchObject({ status: 'ACTIVE', uidHex: '04AABBCCDDEEFF' });
+
+    const device = await m.client.get(`/devices/${id}`);
+    expect(device.body.device).toMatchObject({ status: 'ACTIVE', uidHex: '04AABBCCDDEEFF', lastCounter: 1 });
+    // Code ist danach verbraucht.
+    expect((await anon().post('/devices/v1/provisioning/fetch', { code: res.body.code })).status).toBe(404);
+
+    // Nach einer Schlüsselrotation liefert der nächste Code die alten Chip-Schlüssel als Kandidaten.
+    await m.client.post(`/devices/${id}/rotate-keys`);
+    const res2 = await m.client.post(`/devices/${id}/provisioning`);
+    const fetched2 = await anon().post('/devices/v1/provisioning/fetch', { code: res2.body.code });
+    expect(fetched2.body.previousKeys.sdmMetaRead).toEqual([fetched.body.keys.sdmMetaRead]);
+    expect(fetched2.body.keys.sdmMetaRead).not.toBe(fetched.body.keys.sdmMetaRead);
+    expect(fetched2.body.keys.master).toBe(fetched.body.keys.master);
+  });
+
+  it('ungültige, fremde und ersetzte Codes werden abgelehnt', async () => {
+    const { m, id } = await setup();
+    expect((await anon().post('/devices/v1/provisioning/fetch', { code: 'AAAAA-BBBBB' })).status).toBe(404);
+    const first = await m.client.post(`/devices/${id}/provisioning`);
+    await m.client.post(`/devices/${id}/provisioning`);
+    expect((await anon().post('/devices/v1/provisioning/fetch', { code: first.body.code })).status).toBe(404);
+
+    const other = await registerMerchant(t);
+    expect((await other.client.post(`/devices/${id}/provisioning`)).status).toBe(404);
+    const sim = await other.client.post('/devices', { name: 'Sim', kind: 'SIMULATED' });
+    if (sim.status === 201) expect((await other.client.post(`/devices/${sim.body.device.id}/provisioning`)).status).toBe(409);
   });
 });

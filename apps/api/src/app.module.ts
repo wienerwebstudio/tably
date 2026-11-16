@@ -19,6 +19,8 @@ import { StampsController } from './modules/stamps/stamps.controller';
 import { DevicesController, PosController, TapsController } from './modules/nfc/nfc.controller';
 import { ActiveReaderController } from './modules/nfc/active-reader.controller';
 import { DevicesService } from './modules/nfc/devices.service';
+import { ProvisioningController } from './modules/nfc/provisioning.controller';
+import { ProvisioningService } from './modules/nfc/provisioning.service';
 import { TapsService } from './modules/nfc/taps.service';
 import { PublicController } from './modules/public/public.controller';
 import { PublicService } from './modules/public/public.service';
@@ -72,6 +74,7 @@ const skipThrottle = () => getEnv().RATE_LIMIT_DISABLED || (getEnv().NODE_ENV ==
     TapsController,
     PosController,
     ActiveReaderController,
+    ProvisioningController,
     PublicController,
     DevController,
     WalletController,
@@ -89,6 +92,7 @@ const skipThrottle = () => getEnv().RATE_LIMIT_DISABLED || (getEnv().NODE_ENV ==
     CustomersService,
     LedgerService,
     DevicesService,
+    ProvisioningService,
     TapsService,
     PublicService,
     WalletService,

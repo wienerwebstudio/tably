@@ -6,12 +6,16 @@ import { ApiZodBody, ZBody } from '../../common/zod';
 import { ApiKeyAuth, ApiKeyCtx, Can, Tenant } from '../../common/guards';
 import type { ApiKeyContext, TenantContext } from '../../common/auth.types';
 import { DevicesService } from './devices.service';
+import { ProvisioningService } from './provisioning.service';
 import { TapsService } from './taps.service';
 
 @ApiTags('NFC-Stempel')
 @Controller('devices')
 export class DevicesController {
-  constructor(private readonly devices: DevicesService) {}
+  constructor(
+    private readonly devices: DevicesService,
+    private readonly provisioning: ProvisioningService,
+  ) {}
 
   @Get()
   @Can('customers.read')
@@ -59,6 +63,14 @@ export class DevicesController {
   @ApiOperation({ summary: 'Schlüssel und NDEF-Profil für die Chip-Personalisierung abrufen (wird protokolliert)' })
   personalization(@Tenant() ctx: TenantContext, @Param('id') id: string) {
     return this.devices.personalization(ctx, id);
+  }
+
+  @Post(':id/provisioning')
+  @HttpCode(201)
+  @Can('org.manage')
+  @ApiOperation({ summary: 'Einmal-Code für die Tapperl-Einrichtungs-App erzeugen (30 Minuten gültig)' })
+  createProvisioning(@Tenant() ctx: TenantContext, @Param('id') id: string) {
+    return this.provisioning.create(ctx, id);
   }
 
   @Post(':id/simulate-tap')

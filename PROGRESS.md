@@ -1,6 +1,6 @@
 # Arbeitsstand
 
-Stand: 15.11.2026 · Branch `claude/zealous-ride-l07329`
+Stand: 16.11.2026 · Branch `claude/zealous-ride-l07329`
 
 ## Kurzfassung
 
@@ -12,7 +12,8 @@ Die Plattform läuft durchgängig: Händler registrieren sich, gestalten eine Ka
 |---|---|---|
 | `packages/nfc` | 18 / 18 | AES-CMAC (RFC 4493), SUN gegen NXP-Testvektor (AN12196), Ablehnungen, Personalisierungsprofil, Gerätesignaturen |
 | `packages/wallet` | 11 / 11 | `.pkpass`-Aufbau, Manifest, PKCS#7-Signatur (mit OpenSSL verifiziert), PNG-Erzeugung, Google-JWT, REST-Client (gemockt) |
-| `apps/api` | 74 / 74 | Auth, 2FA, CSRF, Rollen, Mandantentrennung, Idempotenz und Nebenläufigkeit, NFC-Taps und Richtlinien, DSGVO, Abrechnung, Stripe-Webhooks, Wallet-Webservice, Marketing, Analysen, Super-Admin, Rate Limiting |
+| `apps/api` | 77 / 77 | Auth, 2FA, CSRF, Rollen, Mandantentrennung, Idempotenz und Nebenläufigkeit, NFC-Taps und Richtlinien, DSGVO, Abrechnung, Stripe-Webhooks, Wallet-Webservice, Marketing, Analysen, Super-Admin, Rate Limiting, Stempel-Einrichtung per App |
+| `apps/einrichtung/core` (Kotlin) | 8 / 8 | NTAG-424-DNA-Protokoll gegen Software-Nachbau: Werkszustand, Wiederaufnahme, Rotation, Fremdchip, Schreibschutz; erzeugte SUN mit `verifySun` gegengeprüft |
 | `e2e` (Playwright, Produktions-Builds) | 11 / 11 | Einrichtung bis zum ersten Stempel, Kundenkarte mit Einlösung, Freigabe durch das Team, Zugriffsschutz, Rundgang durch alle Seiten von Website, Dashboard und Super-Admin |
 | Typprüfung, Builds | grün | alle Pakete und Apps |
 
@@ -39,6 +40,7 @@ Messwerte dieser Umgebung: Tap-Verarbeitung im Backend Median ca. 35 ms (p95 ca.
 - Super-Admin: Übersicht, Betriebe, Benutzer, Hardware, Missbrauch, Tarife, Fehler, Anfragen, Protokoll
 
 **Sonstiges**
+- Einrichtungs-App für Android (`apps/einrichtung`): beschreibt NTAG-424-DNA-Chips per Handy-NFC mit Einmal-Code aus dem Dashboard; **mit echtem Chip noch ungetestet**
 - Hardware: parametrisches Modell, STL-Dateien, Maßskizze, Stückliste, Montage, Kostenschätzung
 - Recherche: Wettbewerb, NFC und Wallet mit Quellen
 - Dockerfile, docker-compose, CI-Workflow, Dokumentation

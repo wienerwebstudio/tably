@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import useSWR, { useSWRConfig } from 'swr';
-import { ArrowLeft, KeyRound, RefreshCw, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, KeyRound, RefreshCw, Smartphone, ShieldAlert, ShieldCheck } from 'lucide-react';
 import type { BookingPolicy, DeviceDetailDto, DeviceStatus, LocationDto, ProgramDto } from '@tapperl/types';
 import { Alert, api, ApiError, Badge, Button, Card, CardBody, CardHeader, ConfirmDialog, defineCopy, DefinitionList, Dialog, EmptyState, ErrorState, Field, formatDateTime, formatRelative, Input, PageHeader, Select, Skeleton, Textarea, useCopy, useToast } from '@tapperl/ui';
 import { useSession } from '@/lib/session';
@@ -11,6 +11,7 @@ import { useSubmit } from '@/lib/use-submit';
 import { deviceKind, deviceSecurity, deviceStatus, policyLabel } from '@/lib/labels';
 import { describeEvent, deviceEvent, isPhysical, securityHelp } from '@/components/devices/labels';
 import { PersonalizationDialog } from '@/components/devices/personalization';
+import { AppSetupDialog } from '@/components/devices/app-setup';
 import { SimulateTapCard } from '@/components/devices/simulate-tap';
 
 const copy = defineCopy({
@@ -25,10 +26,11 @@ const copy = defineCopy({
     activateTitle: 'So aktivierst du den Stempel',
     activateLead: 'Der Stempel ist registriert, aber noch nicht in Betrieb.',
     step1Title: 'Chip personalisieren',
-    step1Text: 'Ein NTAG-424-DNA-Chip muss einmalig mit einem NFC-Schreibgerät beschrieben werden – das geht nicht mit dem Dashboard allein. Tapperl liefert dir dafür alle Werte: URL-Vorlage, Offsets und die beiden Schlüssel.',
+    step1Text: 'Ein NTAG-424-DNA-Chip wird einmalig beschrieben. Am einfachsten mit einem Android-Handy und der Tapperl-Einrichtungs-App. Alternativ trägst du die Werte (URL-Vorlage, Offsets, Schlüssel) in die Software eines NFC-Schreibgeräts ein.',
+    setupWithApp: 'Mit Android-Handy einrichten',
     step1Owner: 'Die Personalisierungsdaten darf nur die Inhaberin oder der Inhaber bzw. eine Administratorin oder ein Administrator abrufen.',
     step2Title: 'Stempel einmal an ein Smartphone halten',
-    step2Text: 'Der erste gültige Tap aktiviert den Stempel und verbindet ihn fest mit diesem Chip. Ab dann können Kunden Stempel sammeln.',
+    step2Text: 'Der erste gültige Tap aktiviert den Stempel und verbindet ihn fest mit diesem Chip. Ab dann können Kunden Stempel sammeln. Mit der Einrichtungs-App passiert das automatisch.',
     showPersonalization: 'Personalisierungsdaten anzeigen',
     // Stammdaten
     baseTitle: 'Stammdaten',
@@ -124,7 +126,7 @@ const copy = defineCopy({
 type T = (typeof copy)['de'];
 type Pending = null | 'disable' | 'enable' | 'lost' | 'retire' | 'rotate';
 
-function ActivationCard({ t, canReveal, onReveal }: { t: T; canReveal: boolean; onReveal: () => void }) {
+function ActivationCard({ t, canReveal, onReveal, onApp }: { t: T; canReveal: boolean; onReveal: () => void; onApp: () => void }) {
   return (
     <Card className="mb-6 border-warn/40">
       <CardHeader title={t.activateTitle} description={t.activateLead} />
@@ -138,10 +140,16 @@ function ActivationCard({ t, canReveal, onReveal }: { t: T; canReveal: boolean; 
               <h3 className="text-sm font-semibold text-ink">{t.step1Title}</h3>
               <p className="mt-1 max-w-2xl text-sm text-muted">{t.step1Text}</p>
               {canReveal ? (
-                <Button variant="outline" size="sm" className="mt-3" onClick={onReveal}>
-                  <KeyRound className="size-3.5" aria-hidden />
-                  {t.showPersonalization}
-                </Button>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button size="sm" onClick={onApp}>
+                    <Smartphone className="size-3.5" aria-hidden />
+                    {t.setupWithApp}
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={onReveal}>
+                    <KeyRound className="size-3.5" aria-hidden />
+                    {t.showPersonalization}
+                  </Button>
+                </div>
               ) : (
                 <p className="mt-2 text-sm text-muted">{t.step1Owner}</p>
               )}
@@ -269,6 +277,7 @@ export default function DeviceDetailPage() {
   const [reason, setReason] = React.useState('');
   const [reasonError, setReasonError] = React.useState<string | null>(null);
   const [personalizationOpen, setPersonalizationOpen] = React.useState(false);
+  const [appSetupOpen, setAppSetupOpen] = React.useState(false);
 
   const back = (
     <Link href="/stempel" className="inline-flex items-center gap-1.5 text-muted hover:text-ink">
@@ -359,7 +368,7 @@ export default function DeviceDetailPage() {
         </Alert>
       ) : null}
 
-      {physical && device.status === 'PENDING' ? <ActivationCard t={t} canReveal={manageKeys} onReveal={() => setPersonalizationOpen(true)} /> : null}
+      {physical && device.status === 'PENDING' ? <ActivationCard t={t} canReveal={manageKeys} onReveal={() => setPersonalizationOpen(true)} onApp={() => setAppSetupOpen(true)} /> : null}
 
       {simulated && !retired ? (
         <div className="mb-6">
@@ -455,6 +464,12 @@ export default function DeviceDetailPage() {
               <p className="mt-1 text-sm text-muted">{physical ? t.keysTextPhysical : t.keysTextSimulated}</p>
               {retired ? null : manageKeys ? (
                 <div className="mt-4 flex flex-col items-stretch gap-2">
+                  {physical ? (
+                    <Button variant="outline" onClick={() => setAppSetupOpen(true)}>
+                      <Smartphone className="size-4" aria-hidden />
+                      {t.setupWithApp}
+                    </Button>
+                  ) : null}
                   {physical ? (
                     <Button variant="outline" onClick={() => setPersonalizationOpen(true)}>
                       <KeyRound className="size-4" aria-hidden />
@@ -558,6 +573,7 @@ export default function DeviceDetailPage() {
         </form>
       </Dialog>
 
+      {physical && manageKeys ? <AppSetupDialog deviceId={device.id} open={appSetupOpen} onOpenChange={setAppSetupOpen} onCreated={() => void detail.mutate()} /> : null}
       {physical && manageKeys ? <PersonalizationDialog deviceId={device.id} open={personalizationOpen} onOpenChange={setPersonalizationOpen} onRevealed={() => void detail.mutate()} /> : null}
     </>
   );
