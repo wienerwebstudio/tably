@@ -5,7 +5,7 @@ const base = process.env.NEXT_PUBLIC_WEB_URL ?? 'http://localhost:3000';
 export default function robots(): MetadataRoute.Robots {
   return {
     // Kundenkarten, Tap-Links und die API gehören nicht in Suchmaschinen.
-    rules: [{ userAgent: '*', allow: '/', disallow: ['/t/', '/c/', '/j/', '/karte/', '/karten', '/api/'] }],
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/t/', '/c/', '/j/', '/karte/', '/karten', '/einrichten', '/api/'] }],
     sitemap: `${base}/sitemap.xml`,
   };
 }

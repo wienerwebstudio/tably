@@ -614,6 +614,12 @@ model NfcDevice {
   /// AES-128-Schlüssel, mit APP_ENCRYPTION_KEY verschlüsselt
   metaKeyEnc     String?
   fileKeyEnc     String?
+  /// Schlüssel 0 (Masterschlüssel) des Chips – wird bei der Einrichtung per App gesetzt
+  masterKeyEnc   String?
+  /// Schlüssel 1/2, die zuletzt nachweislich auf den Chip geschrieben wurden
+  /// (nötig, um nach einer Schlüsselrotation neu einzurichten)
+  chipMetaKeyEnc String?
+  chipFileKeyEnc String?
   /// Höchster bisher akzeptierter SDM-Lesezähler (Replay-Schutz)
   lastCounter    Int                  @default(-1)
   /// Nur Simulator: nächster zu erzeugender Zählerstand
@@ -633,8 +639,27 @@ model NfcDevice {
   program      LoyaltyProgram?  @relation(fields: [programId], references: [id], onDelete: SetNull)
   events       NfcDeviceEvent[]
   taps         TapEvent[]
+  provisioning DeviceProvisioning[]
 
   @@index([organizationId])
+}
+
+/// Einmal-Code, mit dem die Tapperl-Einrichtungs-App die Schlüssel eines
+/// Stempels abholt. Gespeichert wird nur der SHA-256-Hash des Codes.
+model DeviceProvisioning {
+  id             String    @id @default(cuid())
+  organizationId String
+  deviceId       String
+  codeHash       String    @unique
+  createdById    String?
+  expiresAt      DateTime
+  fetchedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  device NfcDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@index([deviceId])
 }
 
 model NfcDeviceEvent {

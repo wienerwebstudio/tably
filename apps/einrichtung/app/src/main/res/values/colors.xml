@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Entspricht den Design-Tokens in packages/ui/src/styles.css -->
+<resources>
+    <color name="brand">#1F3A2E</color>
+    <color name="ink">#15181B</color>
+    <color name="muted">#59616B</color>
+    <color name="paper">#F8F7F3</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="line">#E6E3DB</color>
+    <color name="success">#17703F</color>
+    <color name="danger">#B42318</color>
+</resources>
